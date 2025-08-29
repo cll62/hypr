@@ -110,6 +110,7 @@ impala
 imv
 kitty
 libappindicator-gtk3
+localsend
 materia-gtk-theme
 meld
 mpv
