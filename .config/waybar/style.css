@@ -64,7 +64,7 @@ tooltip {
     padding: 0.15rem 0.35rem; /* 2.5px vertical, 5px horizontal */
     color: @color15; /* #c3c3c4 */
     transition: color 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
-    font-size: 1rem; /* 16px */
+    font-size: 0.9375rem; /* 16px */
 }
 
 #clock:hover, #custom-pacman:hover, #custom-notification:hover, #idle_inhibitor:hover, #wlr-taskbar:hover, #bluetooth:hover, #network:hover, #battery:hover, #cpu:hover, #memory:hover, #temperature:hover {
