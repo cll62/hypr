@@ -1,0 +1,59 @@
+# File system
+alias ls='eza -lh --group-directories-first --icons=auto'
+alias lsa='ls -a'
+alias lt='eza --tree --level=2 --long --icons --git'
+alias lta='lt -a'
+alias ff="fzf --preview 'bat --style=numbers --color=always {}'"
+zd() {
+  if [ $# -eq 0 ]; then
+    builtin cd ~ && return
+  elif [ -d "$1" ]; then
+    builtin cd "$1"
+  else
+    z "$@" && printf "\U000F17A9 " && pwd || echo "Error: Directory not found"
+  fi
+}
+open() {
+  xdg-open "$@" >/dev/null 2>&1 &
+}
+if [[ $(tty) == *"pts"* ]]; then
+    fastfetch
+fi
+# Directories
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+# Araçlar
+alias n="nvim"
+alias vim="nvim"
+alias fonts='fc-list -f "%{family}\n"'
+alias c="clock-rs"
+alias exe='chmod +x'
+alias yta-aac="yt-dlp --extract-audio --audio-format aac "
+alias yta-best="yt-dlp --extract-audio --audio-format best "
+alias yta-flac="yt-dlp --extract-audio --audio-format flac "
+alias yta-mp3="yt-dlp --extract-audio --audio-format mp3 "
+alias ytv-best="yt-dlp -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio' --merge-output-format mp4 "
+alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
+alias list="sudo pacman -Qqe"
+alias listt="sudo pacman -Qqet"
+alias listaur="sudo pacman -Qqem"
+# git alias
+alias add='git add .'
+alias clone='git clone'
+alias cloned='git clone --depth=1'
+alias branch='git branch -M main'
+alias commit='git commit -m'
+alias push='git push'
+alias pushm='git push -u origin main'
+alias pusho='git push origin' # and add your branch name 
+alias pull='git pull'
+alias info='git_info'
+alias status='git status'
+# Sistem ile ilgili komutlar
+alias bye='sudo shutdown -h now'
+alias loop='sudo reboot'
+alias cleanup='sudo pacman -Rns $(pacman -Qdtq)'
+
+# Dosya yönetimi
+alias f='file=$(fd --type f --hidden --exclude '*.mp3'| fzf --preview="bat --color=always {}") && nvim "$file"'

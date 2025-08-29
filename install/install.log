@@ -1,0 +1,43 @@
+Otomatik (varsayılan) veya manuel kurulum mu? (a/m):  (varsayılan: a): Mevcut .config dizinini yedeklemek ister misiniz? (y/n, varsayılan: y):  (varsayılan: y): Zaten yüklü paketler (atlanacak): 7zip bash-completion bat blueman bluez bottom brightnessctl brave-bin btop cava chafa cliphist clock-rs-git cantarell-fonts eza expac fastfetch fd file-roller fzf gnome-disk-utility gst-plugin-pipewire gst-plugins-bad gvfs hypridle hyprland hyprlock hyprpicker hyprshot hyprsunset impala imv kitty libappindicator-gtk3 materia-gtk-theme meld mpv mpv-mpris neovim noto-fonts nwg-look onlyoffice-bin otf-codenewroman-nerd pacman-contrib pavucontrol pipewire pipewire-alsa pipewire-jack pipewire-pulse playerctl polkit-gnome pulsemixer python-pywal16 qogir-icon-theme reflector-simple ripgrep rsync sddm spotdl spotify spotify-adblock-git starship sublime-text-4 swaync swayosd swww thunar thunar-archive-plugin thunar-volman tumbler ttf-jetbrains-mono-nerd udiskie visual-studio-code-bin waybar wget wireplumber wlogout wofi xdg-desktop-portal-gtk xdg-desktop-portal-hyprland xdg-user-dirs yazi yt-dlp zathura zathura-pdf-poppler zathura-pywal-git zoxide
+Tüm paketler zaten yüklü, kurulum atlanıyor.
+Otomatik kurulum başlatılıyor...
+Paket kurulumu gerekmiyor.
+sending incremental file list
+
+sent 3.816 bytes  received 43 bytes  7.718,00 bytes/sec
+total size is 61.303.175  speedup is 15.885,77
+✅ Tüm dosyalar başarıyla kopyalandı (var olan dosyaların üzerine yazıldı).
+[[1;32mI[0m] [1;31mimage[0m: Using image [1;37mmy_fav.jpg[0m.
+[[1;32mI[0m] [1;31mtheme[0m: Set theme to [1;37m_home_cll_hypr_wallpapers_walls_my_fav_jpg_dark_None_None_273448_2.0.0.json[0m.
+[[1;32mI[0m] [1;31mcolors[0m: Found cached colorscheme.
+[[1;32mI[0m] [1;31msequences[0m: Set terminal colors.
+[[1;32mI[0m] [1;31mexport[0m: Reading system templates from: /usr/lib/python3.13/site-packages/pywal/templates
+[[1;32mI[0m] [1;31mexport[0m: Reading user templates from: /home/cll/.config/wal/templates
+[[1;32mI[0m] [1;31mexport[0m: Exported all files.
+[[1;32mI[0m] [1;31mexport[0m: Exported all user files to /home/cll/.cache/wal
+Error: Remote control is disabled
+[[1;32mI[0m] [1;31mreload[0m: Reloaded environment.
+[[1;32mI[0m] [1;31mdonation[0m: if you enjoy pywal16 consider donating at: https://github.com/eylles/pywal16
+Tam kurulum tamamlandı! Yeniden başlat ve duvar kağıdını değiştir.
+Otomatik (varsayılan) veya manuel kurulum mu? (a/m):  (varsayılan: a): Otomatik (varsayılan) veya manuel kurulum mu? (a/m):  (varsayılan: a): Mevcut .config dizinini yedeklemek ister misiniz? (y/n, varsayılan: y):  (varsayılan: y): Zaten yüklü paketler (atlanacak): 7zip bash-completion bat blueman bluez bottom brightnessctl brave-bin btop cava chafa cliphist clock-rs-git cantarell-fonts eza expac fastfetch fd file-roller fzf gnome-disk-utility gst-plugin-pipewire gst-plugins-bad gvfs hypridle hyprland hyprlock hyprpicker hyprshot hyprsunset impala imv kitty libappindicator-gtk3 materia-gtk-theme meld mpv mpv-mpris neovim noto-fonts nwg-look onlyoffice-bin otf-codenewroman-nerd pacman-contrib pavucontrol pipewire pipewire-alsa pipewire-jack pipewire-pulse playerctl polkit-gnome pulsemixer python-pywal16 qogir-icon-theme reflector-simple ripgrep rsync sddm spotdl spotify spotify-adblock-git starship sublime-text-4 swaync swayosd swww thunar thunar-archive-plugin thunar-volman tumbler ttf-jetbrains-mono-nerd udiskie visual-studio-code-bin waybar wget wireplumber wlogout wofi xdg-desktop-portal-gtk xdg-desktop-portal-hyprland xdg-user-dirs yazi yt-dlp zathura zathura-pdf-poppler zathura-pywal-git zoxide
+Tüm paketler zaten yüklü, kurulum atlanıyor.
+Otomatik kurulum başlatılıyor...
+Paket kurulumu gerekmiyor.
+sending incremental file list
+
+sent 3.816 bytes  received 43 bytes  7.718,00 bytes/sec
+total size is 61.303.175  speedup is 15.885,77
+✅ Tüm dosyalar başarıyla kopyalandı (var olan dosyaların üzerine yazıldı).
+[[1;32mI[0m] [1;31mimage[0m: Using image [1;37mmy_fav.jpg[0m.
+[[1;32mI[0m] [1;31mcolors[0m: Generating a colorscheme.
+[[1;32mI[0m] [1;31mcolors[0m: Using wal backend.
+[[1;33mW[0m] [1;31mwal[0m: magick convert failed, using only magick
+[[1;32mI[0m] [1;31mcolors[0m: Generation complete.
+[[1;32mI[0m] [1;31msequences[0m: Set terminal colors.
+[[1;32mI[0m] [1;31mexport[0m: Reading system templates from: /usr/lib/python3.13/site-packages/pywal/templates
+[[1;32mI[0m] [1;31mexport[0m: Reading user templates from: /home/cll/.config/wal/templates
+[[1;32mI[0m] [1;31mexport[0m: Exported all files.
+[[1;32mI[0m] [1;31mexport[0m: Exported all user files to /home/cll/.cache/wal
+Error: Remote control is disabled
+[[1;32mI[0m] [1;31mreload[0m: Reloaded environment.
+Tam kurulum tamamlandı! Yeniden başlat ve duvar kağıdını değiştir.

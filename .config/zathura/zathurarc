@@ -1,0 +1,10 @@
+map i recolor
+map [fullscreen] i recolor
+
+unmap f
+map f toggle_fullscreen
+map [fullscreen] f toggle_fullscreen
+
+unmap h
+map h toggle_statusbar
+map [fullscreen] h toggle_statusbar
