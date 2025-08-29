@@ -135,7 +135,6 @@ reflector-simple
 ripgrep
 rsync
 sddm
-spotdl
 spotify
 spotify-adblock-git
 starship
