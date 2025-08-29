@@ -279,7 +279,7 @@ if [[ "$install_choice" == "m" ]]; then
   fi
 
   pipewire_pkgs="pipewire pipewire-alsa pipewire-jack pipewire-pulse wireplumber"
-  pipewire_choice=$(validate_input "Pipewire ve ağ ekranları yapılandırılsın mı? (y/n, varsayılan: y): " "y" "y n")
+  pipewire_choice=$(validate_input "Pipewire yapılandırılsın mı? (y/n, varsayılan: y): " "y" "y n")
   if [[ "$pipewire_choice" == "y" ]]; then
     for pkg in $pipewire_pkgs; do
       if pacman -Q "$pkg" >/dev/null 2>&1; then
@@ -316,4 +316,4 @@ if [[ "$install_choice" == "m" ]]; then
   copy_config_files
 fi
 
-echo "Tam kurulum tamamlandı! Yeniden başlat ve duvar kağıdını değiştir."
+echo "Tam kurulum tamamlandı! Yeniden başlat ve duvar kağıdını değiştir(SUPER+W).Kısayollar(SUPER+K) $HOME/hypr/.config/hypr/keybindings.conf dosyasını düzenleyin."
