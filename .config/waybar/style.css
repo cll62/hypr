@@ -64,14 +64,14 @@ tooltip {
 }
 
 /* Common module styles */
-#clock, #custom-pacman, #custom-notification, #idle_inhibitor, #wlr-taskbar, #bluetooth, #network, #battery, #cpu, #memory, #temperature {
+#clock, #tray, #custom-colorpicker, #custom-pacman, #custom-notification, #idle_inhibitor, #wlr-taskbar, #bluetooth, #network, #battery, #cpu, #memory, #temperature {
     padding: 0.15rem 0.35rem; /* 2.5px vertical, 5px horizontal */
     color: @color15; /* #c3c3c4 */
     transition: color 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
     font-size: 1rem; /* 16px */
 }
 
-#clock:hover, #custom-pacman:hover, #custom-notification:hover, #idle_inhibitor:hover, #wlr-taskbar:hover, #bluetooth:hover, #network:hover, #battery:hover, #cpu:hover, #memory:hover, #temperature:hover {
+#clock:hover, #tray:hover, #custom-colorpicker:hover, #custom-pacman:hover, #custom-notification:hover, #idle_inhibitor:hover, #wlr-taskbar:hover, #bluetooth:hover, #network:hover, #battery:hover, #cpu:hover, #memory:hover, #temperature:hover {
     color: @color14; /* #AA8875 */
     box-shadow: inset 0 -2px 0 @color14;
     opacity: 0.9;
@@ -130,7 +130,7 @@ tooltip {
 }
 
 #workspaces button.empty:hover {
-    background: @color7; /* #998e8e */
+    background: @color4; /* #998e8e */
     color: @color15;
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.6);
     font-size: 1rem; /* 16px */
