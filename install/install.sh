@@ -117,6 +117,7 @@ mpv
 mpv-mpris
 neovim
 noto-fonts
+nwg-displays
 nwg-look
 onlyoffice-bin
 otf-codenewroman-nerd
