@@ -25,9 +25,9 @@
                 "activated": "",
                 "deactivated": "󰛊"
             },
-        "tooltip-format-activated":"Caffeine Mode: Active \nNothing will be happen.",
-        "tooltip-format-deactivated":"Caffeine Mode: Inactive\n\nIf there is no interaction with your\nsystem (mouse/keyboard), then \nScreen Lock: after 5 min \nScreen Off: after 10 min \nSleep: after 30 min"
-    },
+        "tooltip-format-activated": "Aktif",
+        "tooltip-format-deactivated": "Pasif"
+        },
 
 
     "wlr/taskbar": {
@@ -111,7 +111,7 @@
         "interval": 30,
         "exec": "checkupdates | wc -l",
         "exec-if": "exit 0",
-        "on-click": "kitty sh -c 'yay -Syu; echo Done - Press enter to exit; read'; pkill -SIGRTMIN+8 waybar",
+        "on-click": "kitty sh -c 'yay -Syu; echo Tamam - Çıkış için enter tuşuna basın; read'; pkill -SIGRTMIN+8 waybar",
         "signal": 8,
         "tooltip": false
     },
@@ -130,7 +130,7 @@
         "transition-left": true,
         "click-to-reveal": true
     },
-               "modules": ["custom/expand", "custom/colorpicker","cpu","memory","temperature","custom/endpoint"],
+               "modules": ["custom/expand", "custom/colorpicker","cpu","memory","temperature","custom/endpoint"]
 },
  "custom/colorpicker": {
     "format": "{}",
@@ -162,7 +162,6 @@
     "format-alt": "\udb83\udf86 {percentage}%",
     "max-length": 10,
     "tooltip": true,
-    //"tooltip-format": "\udb83\udf86 {percentage}%\n\ue266 {used:0.1f}GB/{total:0.1f}GB",
     "tooltip-format": "\udb83\udf86 Memory usage: {percentage}%\n\ue266 Used: {used:0.2f}GB / {total:0.2f}GB\n\uf85a Available: {avail:0.2f}GB\n\uf233 Swap used: {swapUsed:0.2f}GB / {swapTotal:0.2f}GB ({swapPercentage}%)"
   },
  "tray": {
