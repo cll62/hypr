@@ -57,7 +57,7 @@ fi
 # Pacman'e renk ve eğlence ekle
 if ! grep -q "ILoveCandy" /etc/pacman.conf; then
   echo "Pacman yapılandırmasına renk ekleniyor..."
-  sudo sed -i '/^\[options\]/a Color\nILoveCandy' /etc/pacman.conf || { echo "Hata: pacman.conf güncellenemedi"; exit 1; }
+sudo sed -i '/^\[options\]/a Color\nILoveCandy\nVerbosePkgLists' /etc/pacman.conf || { echo "Hata: pacman.conf güncellenemedi"; exit 1; }
 fi
 
 echo "AUR kurulumu tamamlandı!"
