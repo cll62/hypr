@@ -1,0 +1,11 @@
+[Default Applications]
+application/pdf=org.pwmt.zathura-pdf-poppler.desktop
+image/jpeg=imv.desktop
+image/png=imv.desktop
+
+[Added Associations]
+application/pdf=org.pwmt.zathura-pdf-poppler.desktop;
+text/plain=sublime_text.desktop;
+image/jpeg=imv.desktop;
+image/png=imv.desktop;
+application/x-shellscript=sublime_text.desktop;
