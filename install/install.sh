@@ -34,7 +34,7 @@ validate_input() {
 
 copy_config_files() {
   if [ -d "$HOME/hypr" ]; then
-    rsync -av --exclude='.git' --exclude='install' --exclude='install/' --exclude='README.md' --exlude='.config/sddm/' "$HOME/hypr/" "$HOME/" || {
+    rsync -av --exclude='.git' --exclude='install' --exclude='install/' --exclude='README.md' "$HOME/hypr/" "$HOME/" || {
       echo "Kopyalama başarısız"
       exit 1
     }
@@ -317,3 +317,4 @@ if [[ "$install_choice" == "m" ]]; then
 fi
 
 echo "Tam kurulum tamamlandı! Yeniden başlat ve duvar kağıdını değiştir(SUPER+W).Kısayollar(SUPER+K) $HOME/hypr/.config/hypr/keybindings.conf dosyasını düzenleyin."
+
