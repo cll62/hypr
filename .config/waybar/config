@@ -4,7 +4,7 @@
     "reload_style_on_change": true,
     "modules-left": [ "clock", "custom/pacman","tray", "wlr/taskbar"],
     "modules-center": ["hyprland/workspaces"],
-    "modules-right": ["custom/colorpicker","cpu","memory", "bluetooth", "network", "idle_inhibitor", "battery","custom/notification"],
+    "modules-right": ["custom/colorpicker","cpu","memory", "network", "idle_inhibitor", "battery","custom/notification"],
     
     "hyprland/workspaces": {
         "format": "{icon}",
