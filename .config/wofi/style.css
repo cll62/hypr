@@ -1,0 +1,88 @@
+@import '.cache/wal/colors-waybar.css';
+
+@define-color mauve @color9;
+@define-color red @color9;
+@define-color lavender @color7;
+@define-color text @color7;
+
+@keyframes fadeIn {
+    0% {}
+    100% {}
+}
+
+/* Global reset */
+* {
+    all: unset;
+    font-family: "CodeNewRoman Nerd Font Propo", sans-serif;
+    font-size: 1rem; /* 16px */
+    outline: none;
+    border: none;
+    text-shadow: none;
+    background-color: transparent;
+}
+
+window {
+    padding: 1rem;
+    border-radius: 1rem;
+    background-color: alpha(@background, 0.3); /* Hyprland blur uyumlu */
+    font-family: inherit;
+    font-size: inherit;
+}
+
+/* Input (arama kutusu) */
+#input {
+    margin: 0.75rem;
+    padding: 0.65rem 1rem;
+    color: @text;
+    border-radius: 999px; /* pill style */
+    background-color: alpha(@background, 0.25);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+#input image {
+    color: @red;
+    padding-right: 0.5rem;
+}
+
+#input:focus {
+    background-color: alpha(@background, 0.4);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.45);
+}
+
+/* Entries */
+#entry {
+    margin: 0.2rem 0;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.6rem;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+#entry:hover {
+    background-color: alpha(@background, 0.35);
+}
+
+#entry arrow {
+    color: @lavender;
+}
+
+/* Selected entry */
+#entry:selected {
+    border-radius: 0.75rem;
+    background: linear-gradient(135deg, alpha(@color9, 0.35), alpha(@color7, 0.25));
+    box-shadow: 0 0 8px rgba(0,0,0,0.45);
+}
+
+#entry:selected #text {
+    color: @color15;
+}
+
+#entry:drop(active) {
+    background-color: @color7 !important;
+}
+
+/* Text */
+#text {
+    margin: 0.25rem;
+    color: @text;
+}

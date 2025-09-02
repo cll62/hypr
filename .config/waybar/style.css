@@ -1,0 +1,195 @@
+@import url('../../.cache/wal/colors-waybar.css');
+
+/* Genel bar */
+window#waybar {
+    background: none;
+    border-radius: 10px;
+    padding: 4px 8px;
+    margin: 6px;
+    color: @foreground;
+    font-family: "CodeNewRoman Nerd Font Propo";
+    font-size: 1rem; /* 16px */
+}
+
+/* Module containers */
+.modules-left,
+.modules-center,
+.modules-right {
+    padding: 0.25rem; /* 4px */
+    margin: 0.25rem; /* 4px */
+    border-radius: 1rem; /* 8px */
+    background: alpha(@background, 0.6);
+    transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+
+
+.modules-center {
+    min-width: 9.5rem; /* ~152px */
+}
+
+.modules-right {
+    margin-right: 0.25rem; /* 4px */
+}
+
+/* Tooltip */
+tooltip {
+    background: alpha(@background, 0.8);
+    color: @color15; /* #c3c3c4 */
+    padding: 0.25rem; /* 4px */
+    border-radius: 1rem;
+    transition: opacity 0.2s ease;
+    font-size: 0.9375rem; /* 15px */
+}
+
+/* Common module styles */
+#clock, #tray, #custom-colorpicker, #custom-pacman, #custom-notification, #idle_inhibitor, #wlr-taskbar, #bluetooth, #network, #battery, #cpu, #memory, #temperature {
+    padding: 0.15rem 0.35rem; /* 2.5px vertical, 5px horizontal */
+    color: @color15; /* #c3c3c4 */
+    transition: color 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+    font-size: 1rem; /* 16px */
+}
+
+#clock:hover, #tray:hover, #custom-colorpicker:hover, #custom-pacman:hover, #custom-notification:hover, #idle_inhibitor:hover, #wlr-taskbar:hover, #bluetooth:hover, #network:hover, #battery:hover, #cpu:hover, #memory:hover, #temperature:hover {
+    color: @color14; /* #AA8875 */
+    box-shadow: inset 0 -2px 0 @color14;
+    opacity: 0.9;
+}
+
+/* Workspaces */
+#workspaces {
+    padding: 0 0.25rem; /* 4px */
+}
+
+#workspaces button {
+    margin: 0 0.15rem; /* 2.5px */
+    padding: 0.15rem 0.35rem; /* 2.5px vertical, 5px horizontal */
+    color: @color15; /* #c3c3c4 */
+    background: @color4; /* #7a5c4f */
+    border-radius: 1rem;
+    min-width: 1.5rem; /* 24px */
+    border: 1px solid transparent;
+    transition: background 0.2s ease, box-shadow 0.2s ease, border 0.2s ease, opacity 0.2s ease;
+    font-size: 1rem; /* 16px */
+}
+
+#workspaces button:hover {
+    background: @color12; /* #A37B6A */
+    font-size: 1rem; /* 16px */
+    border: 2px solid @color15;
+    opacity: 0.95;
+}
+
+#workspaces button.active {
+    background: @color9; /* #8A5C53 */
+    border-radius: 1rem;
+    min-width: 1.5rem; /* 24px */
+    border-bottom: 2px solid @color15;
+    font-size: 1rem; /* 16px */
+}
+
+#workspaces button.active:hover {
+    background: @color10; /* #8D655A */
+    font-size: 1rem; /* 16px */
+    border: 2px solid @color15;
+    opacity: 0.95;
+}
+
+#workspaces button.empty {
+    background: alpha(@color7, 0.4); /* #998e8e */
+    color: @color15; /* #c3c3c4 */
+    font-size: 1rem; /* 16px */
+    opacity: 0.9;
+    min-width: 1.5rem; /* 24px */
+    transition: background 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+}
+
+#workspaces button.empty:hover {
+    background: @color4; /* #998e8e */
+    color: @color15;
+    font-size: 1rem; /* 16px */
+    opacity: 1.0;
+    border: 2px solid @color15;
+}
+
+/* Battery states */
+#battery.charging {
+    color: @color10; /* #8D655A */
+}
+
+#battery.warning:not(.charging) {
+    color: @color12; /* #A37B6A */
+}
+
+#battery.critical:not(.charging) {
+    color: @color9; /* #8A5C53 */
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+/* Expand group and button */
+#group-expand {
+    padding: 0 0.25rem; /* 4px */
+    transition: background 0.2s ease;
+}
+
+#group-expand:hover {
+    background: alpha(@background, 0.7);
+}
+
+#custom-expand {
+    padding: 0 0.25rem; /* 4px */
+    color: alpha(@color15, 0.2);
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.7);
+    transition: color 0.2s ease, text-shadow 0.2s ease;
+}
+
+/* Saat özel stil */
+#clock {
+    padding: 0.35rem 1rem;
+    margin: 0 0.2rem;
+    background: linear-gradient(135deg, alpha(@color7, 0.2), alpha(@color10, 0.25));
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: background 0.3s ease;
+}
+
+#clock:hover {
+    background: linear-gradient(135deg, alpha(@color10, 0.3), alpha(@color12, 0.35));
+}
+
+
+#custom-endpoint {
+    color: @color8; /* #5a5a6e */
+    font-size: 0.9375rem; /* 15px */
+}
+
+/* Tray */
+#tray {
+    padding: 0 0.25rem; /* 4px */
+    transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+
+
+#tray menu * {
+    padding: 0.25rem; /* 4px */
+    transition: background 0.2s ease;
+}
+
+#tray menu *:hover {
+    background: alpha(@background, 0.6);
+    border-radius: 1rem;
+}
+
+#tray menu separator {
+    padding: 0.25rem; /* 4px */
+}
+
+@keyframes blink {
+    from { opacity: 1; }
+    to { opacity: 0.3; }
+}
