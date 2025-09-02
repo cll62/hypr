@@ -2,7 +2,10 @@
 set -e
 
 echo "Hyprland otomatik kurulum betiği başlatıldı."
-exec > >(tee -i install.log) 2>&1
+timestamp=$(date +"%Y-%m-%d_%H-%M-%S")
+LOG_DIR="$HOME/.cache/hypr_install"
+mkdir -p "$LOG_DIR"
+exec > >(tee -i "$LOG_DIR/install_$timestamp.log") 2>&1
 
 copy_config_files() {
   if [ -d "$HOME/hypr" ]; then
@@ -66,21 +69,17 @@ fi
 
 echo "yay hazır."
 
-# 2. Mevcut .config dizinini yedekleme
-backup_choice=""
-read -t 10 -p "Mevcut .config dizinini yedeklemek ister misiniz? (y/n, varsayılan: y, 10 saniye): " backup_choice
-backup_choice=${backup_choice:-y}
+# 2. Mevcut .config dizinini yedekleme (otomatik, tarihli)
+if [ -d "$HOME/.config" ]; then
+  timestamp=$(date +"%Y-%m-%d_%H-%M-%S")
+  backup_dir="$HOME/.config_backup_$timestamp"
 
-if [[ "$backup_choice" == "y" ]] && [ -d "$HOME/.config" ]; then
-  if [ -d "$HOME/.config_backup" ]; then
-    echo "Uyarı: $HOME/.config_backup zaten var. Üzerine yazılsın mı? (y/n, varsayılan: n)"
-    read overwrite
-    overwrite=${overwrite:-n}
-    [[ "$overwrite" != "y" ]] && echo "Yedekleme iptal edildi." && exit 1
-  fi
-  rsync -a --exclude='.config_backup' "$HOME/.config/" "$HOME/.config_backup/"
-  echo "Yedekleme oluşturuldu: $HOME/.config_backup"
+  echo "Önceki .config yedekleniyor → $backup_dir"
+  mkdir -p "$backup_dir"
+  rsync -a --exclude='.config_backup*' "$HOME/.config/" "$backup_dir/"
+  echo "✅ Yedekleme tamamlandı: $backup_dir"
 fi
+
 
 # 3. Paket listesi
 packages="
@@ -218,12 +217,4 @@ if ! grep -q "ILoveCandy" /etc/pacman.conf; then
 sudo sed -i '/^\[options\]/a Color\nILoveCandy\nVerbosePkgLists' /etc/pacman.conf || { echo "Hata: pacman.conf güncellenemedi"; exit 1; }
 fi
 
-# 10. Yeniden başlatma
-read -t 10 -p "Sistemi şimdi yeniden başlatmak ister misiniz? (y/n, varsayılan: y, 10 saniye): " restart_choice
-restart_choice=${restart_choice:-y}
-if [[ "$restart_choice" == "y" ]]; then
-  echo "Sistem yeniden başlatılıyor..."
-  sudo reboot
-else
-  echo "Kurulum tamamlandı. Lütfen manuel olarak sistemi yeniden başlatın."
-fi
+echo "Kurulum tamamlandı. Yaptığınız değişikliklerin (paket kurulumları, servis etkinleştirmeleri ve yapılandırma dosyaları) etkinleşmesi için sistemi yeniden başlatmanız gerekmektedir. Lütfen manuel olarak sistemi yeniden başlatın."
