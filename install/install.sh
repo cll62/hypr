@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -euo pipefail
 
 install_all(){ 
   command -v yay &>/dev/null || { sudo pacman-key --recv-key 3056513887B78AEB || sudo pacman-key --recv-key 3056513887B78AEB --keyserver hkp://keys.gnupg.net; sudo pacman-key --lsign-key 3056513887B78AEB; sudo pacman -U --noconfirm https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst; grep -q "chaotic-aur" /etc/pacman.conf || echo -e '\n[chaotic-aur]\nInclude = /etc/pacman.d/chaotic-mirrorlist' | sudo tee -a /etc/pacman.conf; sudo pacman -Sy --needed --noconfirm yay || { sudo pacman -Sy --needed --noconfirm base-devel; pushd /tmp; git clone https://aur.archlinux.org/yay-bin.git; cd yay-bin; makepkg -si --noconfirm; popd; rm -rf /tmp/yay-bin; }; }
