@@ -43,14 +43,14 @@ enable_services() {
   for svc in sddm avahi-daemon; do
     if ! systemctl is-enabled "$svc" &>/dev/null; then
       echo "[+] $svc etkinleştiriliyor..."
-      sudo systemctl enable --now "$svc"
+      sudo systemctl enable  "$svc"
     fi
   done
 
   for usvc in pipewire.service pipewire-pulse.service; do
     if ! systemctl --user is-enabled "$usvc" &>/dev/null; then
       echo "[+] Kullanıcı servisi $usvc etkinleştiriliyor..."
-      systemctl --user enable --now "$usvc"
+      systemctl --user enable  "$usvc"
     fi
   done
 }
