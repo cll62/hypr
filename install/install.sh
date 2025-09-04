@@ -13,13 +13,13 @@ install_all(){
 
   [ -d "$HOME/hypr" ] || { echo "Hata: \$HOME/hypr bulunamadı"; exit 1; }
   rsync -av --exclude='.git' --exclude='install' --exclude='README.md' "$HOME/hypr/" "$HOME/"
-  [ -f "$HOME/hypr/install/sddm.conf" ] && sudo cp -arf "$HOME/hypr/install/sddm.conf" /etc/sddm.conf
+  
   sudo ln -sf /usr/bin/kitty /usr/bin/gnome-terminal
-
+  echo -e "[Autologin]\nRelogin=false\nUser=$(whoami)\nSession=hyprland" | sudo tee /etc/sddm.conf >/dev/null
   [ -f "$HOME/wallpapers/pywallpaper.jpg" ] && wal -i "$HOME/wallpapers/pywallpaper.jpg" -n
 
   grep -q "ILoveCandy" /etc/pacman.conf || sudo sed -i '/^\[options\]/a Color\nILoveCandy\nVerbosePkgLists' /etc/pacman.conf
 }
 
 install_all
-echo "Kurulum tamamlandı. Lütfen sistemi yeniden başlatın ve SUPER+W duvar kağıdını değiştirin. "
+echo "Kurulum tamamlandı. Lütfen sistemi yeniden başlatın. "
