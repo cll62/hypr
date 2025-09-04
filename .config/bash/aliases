@@ -54,3 +54,5 @@ alias cleanup='sudo pacman -Rns $(pacman -Qdtq)'
 
 # Dosya yönetimi
 alias f='file=$(fd --type f --hidden --exclude '*.mp3'| fzf --preview="bat --color=always {}") && nvim "$file"'
+#Restore Dotfiles
+alias restore='rsync -av --exclude='.git' --exclude='install.sh' --exclude='README.md' "$HOME/hypr/" "$HOME/"'
