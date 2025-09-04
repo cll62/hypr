@@ -15,7 +15,7 @@ install_all(){
   rsync -av --exclude='.git' --exclude='install' --exclude='README.md' "$HOME/hypr/" "$HOME/"
   
   sudo ln -sf /usr/bin/kitty /usr/bin/gnome-terminal
-  echo -e "[Autologin]\nRelogin=false\nUser=$(whoami)\nSession=hyprland" | sudo tee /etc/sddm.conf >/dev/null
+  echo -e "[Autologin]\nRelogin=false\nUser=$(whoami)\nSession=hyprland\n\n[Theme]\nCurrent=sugar-candy" | sudo tee /etc/sddm.conf >/dev/null
   [ -f "$HOME/wallpapers/pywallpaper.jpg" ] && wal -i "$HOME/wallpapers/pywallpaper.jpg" -n
 
   grep -q "ILoveCandy" /etc/pacman.conf || sudo sed -i '/^\[options\]/a Color\nILoveCandy\nVerbosePkgLists' /etc/pacman.conf
