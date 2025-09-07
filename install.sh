@@ -9,28 +9,10 @@ success() { echo -e "\e[1;32m[SUCCESS]\e[0m $*"; }
 error()   { echo -e "\e[1;31m[ERROR]\e[0m $*"; }
 
 #---------------------------#
-#     YAY ve Chaotic AUR    #
+#     YAY     #
 #---------------------------#
 install_yay_and_chaotic() {
   if ! command -v yay &>/dev/null; then
-    info "Yay bulunamadı. Chaotic AUR deposu ekleniyor..."
-
-    # Chaotic AUR anahtarını ekle
-    sudo pacman-key --recv-key 3056513887B78AEB --keyserver keyserver.ubuntu.com
-    sudo pacman-key --lsign-key 3056513887B78AEB
-
-
-    # Keyring ve mirrorlist paketlerini kur
-    sudo pacman -U --noconfirm \
-      https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst \
-      https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst
-
-    # pacman.conf'a depo ekle
-    if ! grep -q "chaotic-aur" /etc/pacman.conf; then
-      echo -e '\n[chaotic-aur]\nInclude = /etc/pacman.d/chaotic-mirrorlist' | sudo tee -a /etc/pacman.conf
-    fi
-
-    # Yay kur
     info "Yay kuruluyor..."
     sudo pacman -Sy --needed --noconfirm yay || {
       sudo pacman -Sy --needed --noconfirm base-devel git
@@ -115,8 +97,14 @@ copy_configs() {
   fi
 
   info "$src dizininden konfigürasyonlar kopyalanıyor..."
-  rsync -a --exclude='.git' --exclude='install.sh' --exclude='source/' --exclude='README.md' "$src/" "$HOME/"
+  rsync -av --exclude='.git' --exclude='install.sh' --exclude='source/' --exclude='README.md' "$src/" "$HOME/"
   success "Konfigürasyonlar kopyalandı."
+  chmod +x $HOME/.config/hypr/script/gtk.sh
+  chmod +x $HOME/.config/hypr/script/keybinding.sh
+  chmod +x $HOME/.config/hypr/script/logout.sh
+  chmod +x $HOME/.config/hypr/script/night.sh
+  chmod +x $HOME/.config/hypr/script/wallpaper.sh
+
 }
 
 #---------------------------#
@@ -155,7 +143,7 @@ customize_pacman() {
 #           MAIN            #
 #---------------------------#
 main() {
-  install_yay_and_chaotic
+  install_yay
   install_packages
   enable_services
   copy_configs
