@@ -11,7 +11,7 @@ error()   { echo -e "\e[1;31m[ERROR]\e[0m $*"; }
 #---------------------------#
 #     YAY     #
 #---------------------------#
-install_yay_and_chaotic() {
+install_yay() {
   if ! command -v yay &>/dev/null; then
     info "Yay kuruluyor..."
     sudo pacman -Sy --needed --noconfirm yay || {
