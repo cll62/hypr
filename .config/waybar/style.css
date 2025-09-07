@@ -1,4 +1,24 @@
-@import url('../../.cache/wal/colors-waybar.css');
+@define-color foreground #c2c0c2;
+@define-color background #0e060b;
+@define-color cursor #c2c0c2;
+
+@define-color color0 #0e060b;
+@define-color color1 #2a364c;
+@define-color color2 #394153;
+@define-color color3 #7d341b;
+@define-color color4 #b47d3f;
+@define-color color5 #42536b;
+@define-color color6 #765a67;
+@define-color color7 #958a92;
+@define-color color8 #695561;
+@define-color color9 #384966;
+@define-color color10 #4D576F;
+@define-color color11 #A74625;
+@define-color color12 #F0A755;
+@define-color color13 #586F8F;
+@define-color color14 #9E798A;
+@define-color color15 #c2c0c2;
+
 
 /* Genel bar */
 window#waybar {

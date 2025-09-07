@@ -52,19 +52,19 @@ install_yay_and_chaotic() {
 #---------------------------#
 install_packages() {
   local pkgs=(
-    7zip bash-completion bat brightnessctl brave-bin btop cava chafa cliphist
+    7zip bash-completion bat brightnessctl brave-bin btop chafa cliphist
     cantarell-fonts eza expac fastfetch fd file-roller fzf gnome-disk-utility
     gnome-keyring gst-plugin-pipewire gst-plugins-bad gvfs hypridle hyprland
     hyprlock hyprpicker hyprshot hyprsunset impala imv kitty libappindicator-gtk3
     materia-gtk-theme meld mpv mpv-mpris nano ncdu neovim nwg-displays
     nwg-look onlyoffice-bin otf-codenewroman-nerd pacman-contrib pavucontrol
     pipewire pipewire-alsa pipewire-jack pipewire-pulse playerctl polkit-gnome
-    pulsemixer python-pywal16 qogir-icon-theme qt5ct qt6ct reflector-simple
+    pulsemixer qogir-icon-theme qt5ct qt6ct reflector-simple
     ripgrep rsync sddm starship sublime-text-4
     swaync swayosd swww tealdeer thunar thunar-archive-plugin thunar-volman
     tumbler ttf-jetbrains-mono-nerd udiskie waybar wget wireplumber wofi
     xdg-desktop-portal-gtk xdg-desktop-portal-hyprland xdg-user-dirs yazi yt-dlp
-    zathura zathura-pdf-poppler zathura-pywal-git zoxide
+    zathura zathura-pdf-poppler zoxide
   )
 
   local missing=()
@@ -135,17 +135,6 @@ configure_sddm() {
   echo -e "[Autologin]\nRelogin=false\nUser=$user\nSession=hyprland" | sudo tee /etc/sddm.conf >/dev/null
 }
 
-#---------------------------#
-#         WAL UYGULA        #
-#---------------------------#
-apply_pywal() {
-  local wallpaper="$HOME/wallpapers/pywallpaper.jpg"
-
-  if [[ -f "$wallpaper" ]]; then
-    info "Pywal teması uygulanıyor..."
-    wal -i "$wallpaper" -n
-  fi
-}
 
 #---------------------------#
 #    PACMAN GÖRSEL AYARI    #
@@ -167,7 +156,6 @@ main() {
   copy_configs
   symlink_terminal
   configure_sddm
-  apply_pywal
   customize_pacman
 
   success "Kurulum tamamlandı. Lütfen sistemi yeniden başlatın."
