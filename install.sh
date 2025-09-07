@@ -9,28 +9,10 @@ success() { echo -e "\e[1;32m[SUCCESS]\e[0m $*"; }
 error()   { echo -e "\e[1;31m[ERROR]\e[0m $*"; }
 
 #---------------------------#
-#     YAY ve Chaotic AUR    #
+#     YAY     #
 #---------------------------#
-install_yay_and_chaotic() {
+install_yay() {
   if ! command -v yay &>/dev/null; then
-    info "Yay bulunamadı. Chaotic AUR deposu ekleniyor..."
-
-    # Chaotic AUR anahtarını ekle
-    sudo pacman-key --recv-key 3056513887B78AEB --keyserver keyserver.ubuntu.com
-    sudo pacman-key --lsign-key 3056513887B78AEB
-
-
-    # Keyring ve mirrorlist paketlerini kur
-    sudo pacman -U --noconfirm \
-      https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst \
-      https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst
-
-    # pacman.conf'a depo ekle
-    if ! grep -q "chaotic-aur" /etc/pacman.conf; then
-      echo -e '\n[chaotic-aur]\nInclude = /etc/pacman.d/chaotic-mirrorlist' | sudo tee -a /etc/pacman.conf
-    fi
-
-    # Yay kur
     info "Yay kuruluyor..."
     sudo pacman -Sy --needed --noconfirm yay || {
       sudo pacman -Sy --needed --noconfirm base-devel git
@@ -57,10 +39,9 @@ install_packages() {
     gnome-keyring gst-plugin-pipewire gst-plugins-bad gvfs hypridle hyprland
     hyprlock hyprpicker hyprshot hyprsunset impala imv kitty libappindicator-gtk3
     materia-gtk-theme meld mpv mpv-mpris nano ncdu neovim nwg-displays
-    nwg-look onlyoffice-bin otf-codenewroman-nerd pacman-contrib pavucontrol
-    pipewire pipewire-alsa pipewire-jack pipewire-pulse playerctl polkit-gnome
-    pulsemixer qogir-icon-theme qt5ct qt6ct reflector-simple
-    ripgrep rsync sddm starship sublime-text-4
+    nwg-look otf-codenewroman-nerd pacman-contrib 
+    pavucontrol pipewire pipewire-alsa pipewire-jack pipewire-pulse playerctl polkit-gnome
+    pulsemixer qogir-icon-theme qt5ct qt6ct reflector ripgrep rsync sddm starship 
     swaync swayosd swww tealdeer thunar thunar-archive-plugin thunar-volman
     tumbler ttf-jetbrains-mono-nerd udiskie waybar wget wireplumber wofi
     xdg-desktop-portal-gtk xdg-desktop-portal-hyprland xdg-user-dirs yazi yt-dlp
@@ -150,7 +131,7 @@ customize_pacman() {
 #           MAIN            #
 #---------------------------#
 main() {
-  install_yay_and_chaotic
+  install_yay
   install_packages
   enable_services
   copy_configs
