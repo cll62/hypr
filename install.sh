@@ -38,13 +38,13 @@ install_packages() {
     cantarell-fonts eza expac fastfetch fd file-roller fzf gnome-disk-utility
     gnome-keyring gst-plugin-pipewire gst-plugins-bad gvfs hypridle hyprland
     hyprlock hyprpicker hyprshot hyprsunset impala imv kitty libappindicator-gtk3
-    materia-gtk-theme meld mpv mpv-mpris nano ncdu neovim nwg-displays
+    materia-gtk-theme mpv mpv-mpris nano ncdu neovim nwg-displays
     nwg-look onlyoffice-bin otf-codenewroman-nerd pacman-contrib pavucontrol
     pipewire pipewire-alsa pipewire-jack pipewire-pulse playerctl polkit-gnome
-    pulsemixer qogir-icon-theme qt5ct qt6ct reflector-simple ripgrep rsync 
+    pulsemixer qt5ct qt6ct reflector ripgrep rsync 
     sddm starship swaync swayosd swww tealdeer thunar thunar-archive-plugin thunar-volman
     tumbler ttf-jetbrains-mono-nerd udiskie waybar wget wireplumber wofi
-    xdg-desktop-portal-gtk xdg-desktop-portal-hyprland xdg-user-dirs yazi yt-dlp
+    xdg-desktop-portal-gtk xdg-desktop-portal-hyprland xdg-user-dirs yazi
     zathura zathura-pdf-poppler zoxide
   )
 
