@@ -59,9 +59,8 @@ install_packages() {
     materia-gtk-theme meld mpv mpv-mpris nano ncdu neovim nwg-displays
     nwg-look onlyoffice-bin otf-codenewroman-nerd pacman-contrib pavucontrol
     pipewire pipewire-alsa pipewire-jack pipewire-pulse playerctl polkit-gnome
-    pulsemixer qogir-icon-theme qt5ct qt6ct reflector-simple
-    ripgrep rsync sddm starship sublime-text-4
-    swaync swayosd swww tealdeer thunar thunar-archive-plugin thunar-volman
+    pulsemixer qogir-icon-theme qt5ct qt6ct reflector-simple ripgrep rsync 
+    sddm starship swaync swayosd swww tealdeer thunar thunar-archive-plugin thunar-volman
     tumbler ttf-jetbrains-mono-nerd udiskie waybar wget wireplumber wofi
     xdg-desktop-portal-gtk xdg-desktop-portal-hyprland xdg-user-dirs yazi yt-dlp
     zathura zathura-pdf-poppler zoxide
@@ -79,6 +78,11 @@ install_packages() {
     success "Tüm paketler zaten kurulu."
   fi
   sudo pacman -U --needed --noconfirm $HOME/hypr/source/qogir-icon-theme-2023.06.05-1-any.pkg.tar.zst
+  sudo pacman -U --needed --noconfirm $HOME/hypr/source/localsend-1.17.0-2-x86_64.pkg.tar.zst
+  sudo pacman -U --needed --noconfirm $HOME/hypr/source/sublime-text-4-4.4200-1-x86_64.pkg.tar.zst
+
+
+  
 }
 
 #---------------------------#
@@ -111,7 +115,7 @@ copy_configs() {
   fi
 
   info "$src dizininden konfigürasyonlar kopyalanıyor..."
-  rsync -av --exclude='.git' --exclude='install.sh' --exclude='source/' --exclude='README.md' "$src/" "$HOME/"
+  rsync -a --exclude='.git' --exclude='install.sh' --exclude='source/' --exclude='README.md' "$src/" "$HOME/"
   success "Konfigürasyonlar kopyalandı."
 }
 
