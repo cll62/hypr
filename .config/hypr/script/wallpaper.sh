@@ -19,7 +19,7 @@ main() {
 
   selected_wallpaper=$(echo "$choice" | sed 's/^img://')
   swww img "$selected_wallpaper" --transition-type any --transition-fps 60 --transition-duration .5
-
+ cp "$selected_wallpaper" "$HOME/wallpapers/wall"
 }
 
 main
