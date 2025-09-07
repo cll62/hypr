@@ -1,6 +1,6 @@
 #!/bin/bash
 
-WALLPAPER_DIR="$HOME/wallpapers/walls"
+WALLPAPER_DIR="$HOME/wallpapers"
 
 dmenu() {
   if [ ! -d "$WALLPAPER_DIR" ]; then
