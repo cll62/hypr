@@ -8,21 +8,24 @@ info()    { echo -e "\e[1;34m[INFO]\e[0m $*"; }
 success() { echo -e "\e[1;32m[SUCCESS]\e[0m $*"; }
 error()   { echo -e "\e[1;31m[ERROR]\e[0m $*"; }
 
+# Hata olursa cleanup
+cleanup() {
+  [[ -n "${TMPDIR:-}" && -d "$TMPDIR" ]] && rm -rf "$TMPDIR"
+}
+trap cleanup EXIT
+
 #---------------------------#
-#     YAY     #
+#     YAY KURULUMU          #
 #---------------------------#
 install_yay() {
   if ! command -v yay &>/dev/null; then
     info "Yay kuruluyor..."
-    sudo pacman -Sy --needed --noconfirm yay || {
-      sudo pacman -Sy --needed --noconfirm base-devel git
-      pushd /tmp
-      git clone https://aur.archlinux.org/yay-bin.git
-      cd yay-bin
-      makepkg -si --noconfirm --needed
-      popd
-      rm -rf /tmp/yay-bin
-    }
+    sudo pacman -Sy --needed --noconfirm base-devel git
+    TMPDIR=$(mktemp -d)
+    git clone https://aur.archlinux.org/yay-bin.git "$TMPDIR/yay-bin"
+    pushd "$TMPDIR/yay-bin" >/dev/null
+    makepkg -si --noconfirm --needed
+    popd >/dev/null
     success "Yay başarıyla kuruldu."
   else
     success "Yay zaten kurulu."
@@ -59,12 +62,13 @@ install_packages() {
   else
     success "Tüm paketler zaten kurulu."
   fi
-  sudo pacman -U --needed --noconfirm $HOME/hypr/source/qogir-icon-theme-2023.06.05-1-any.pkg.tar.zst
-  sudo pacman -U --needed --noconfirm $HOME/hypr/source/localsend-1.17.0-2-x86_64.pkg.tar.zst
-  sudo pacman -U --needed --noconfirm $HOME/hypr/source/sublime-text-4-4.4200-1-x86_64.pkg.tar.zst
 
-
-  
+  # Manuel paketler
+  if [[ -d "$HOME/hypr/source" ]]; then
+    for pkgfile in "$HOME/hypr/source/"*.pkg.tar.zst; do
+      [[ -f "$pkgfile" ]] && sudo pacman -U --needed --noconfirm "$pkgfile"
+    done
+  fi
 }
 
 #---------------------------#
@@ -73,7 +77,6 @@ install_packages() {
 enable_services() {
   local system_svcs=(sddm avahi-daemon)
   local user_svcs=(pipewire.service pipewire-pulse.service)
-
   for svc in "${system_svcs[@]}"; do
     systemctl is-enabled "$svc" &>/dev/null || sudo systemctl enable "$svc"
   done
@@ -97,14 +100,17 @@ copy_configs() {
   fi
 
   info "$src dizininden konfigürasyonlar kopyalanıyor..."
-  rsync -av --exclude='.git' --exclude='install.sh' --exclude='source/' --exclude='README.md' "$src/" "$HOME/"
+  rsync -av \
+    --exclude='.git' \
+    --exclude='install.sh' \
+    --exclude='/source' \
+    --exclude='README.md' \
+    "$src/" "$HOME/"
   success "Konfigürasyonlar kopyalandı."
-  chmod +x $HOME/.config/hypr/script/gtk.sh
-  chmod +x $HOME/.config/hypr/script/keybinding.sh
-  chmod +x $HOME/.config/hypr/script/logout.sh
-  chmod +x $HOME/.config/hypr/script/night.sh
-  chmod +x $HOME/.config/hypr/script/wallpaper.sh
 
+  for script in "$HOME/.config/hypr/script/"*.sh; do
+    [[ -f "$script" ]] && chmod +x "$script"
+  done
 }
 
 #---------------------------#
@@ -125,9 +131,15 @@ configure_sddm() {
   user=$(whoami)
 
   info "SDDM autologin ayarlanıyor..."
-  echo -e "[Autologin]\nRelogin=false\nUser=$user\nSession=hyprland" | sudo tee /etc/sddm.conf >/dev/null
+  sudo mkdir -p /etc/sddm.conf.d
+  sudo tee /etc/sddm.conf.d/autologin.conf >/dev/null <<EOF
+[Autologin]
+Relogin=false
+User=$user
+Session=hyprland
+EOF
+  success "SDDM autologin ayarlandı."
 }
-
 
 #---------------------------#
 #    PACMAN GÖRSEL AYARI    #
@@ -136,6 +148,8 @@ customize_pacman() {
   if ! grep -q "ILoveCandy" /etc/pacman.conf; then
     sudo sed -i '/^\[options\]/a Color\nILoveCandy\nVerbosePkgLists' /etc/pacman.conf
     success "Pacman görsel ayarları eklendi."
+  else
+    success "Pacman görsel ayarları zaten mevcut."
   fi
 }
 
