@@ -131,8 +131,7 @@ configure_sddm() {
   user=$(whoami)
 
   info "SDDM autologin ayarlanıyor..."
-  sudo mkdir -p /etc/sddm.conf.d
-  sudo tee /etc/sddm.conf.d/autologin.conf >/dev/null <<EOF
+  sudo tee /etc/sddm.conf >/dev/null <<EOF
 [Autologin]
 Relogin=false
 User=$user
