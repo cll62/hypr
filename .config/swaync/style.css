@@ -18,6 +18,13 @@
 @define-color color13 #586F8F;
 @define-color color14 #9E798A;
 @define-color color15 #c2c0c2;
+@define-color mpris-album-art-overlay alpha(@background, 0.55);
+@define-color mpris-button-hover alpha(@background, 0.50);
+@define-color text @color15;
+@define-color bg alpha(@background,.5);
+@define-color bg-hover alpha(@background,.8);
+@define-color mycolor @color9;
+@define-color border-color alpha(@mycolor, 0.15);
 
 @keyframes fadeIn {
   0% {
