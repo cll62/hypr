@@ -41,7 +41,7 @@ install_packages() {
     materia-gtk-theme meld mpv mpv-mpris nano ncdu neovim nwg-displays
     nwg-look otf-codenewroman-nerd pacman-contrib 
     pavucontrol pipewire pipewire-alsa pipewire-jack pipewire-pulse playerctl polkit-gnome
-    pulsemixer qogir-icon-theme qt5ct qt6ct reflector ripgrep rsync sddm starship 
+    pulsemixer qt5ct qt6ct reflector ripgrep rsync sddm starship 
     swaync swayosd swww tealdeer thunar thunar-archive-plugin thunar-volman
     tumbler ttf-jetbrains-mono-nerd udiskie waybar wget wireplumber wofi
     xdg-desktop-portal-gtk xdg-desktop-portal-hyprland xdg-user-dirs yazi yt-dlp
