@@ -31,24 +31,29 @@ sleep 0.5
 swayosd-client &
 """
 
-
 [templates.hyprlock]
 input_path = "~/.config/matugen/templates/hyprland-colors.conf"
 output_path = "~/.config/hypr/colors.conf"
 post_hook = "pkill -USR1 hyprlock"
 
-[templates.gtk3]
-input_path = "~/.config/matugen/templates/gtk-colors.css"
-output_path = "~/.config/gtk-3.0/colors.css"
-post_hook = "echo '@import \"colors.css\";' > ~/.config/gtk-3.0/gtk.css"
 
-[templates.gtk4]
-input_path = "~/.config/matugen/templates/gtk-colors.css"
-output_path = "~/.config/gtk-4.0/colors.css"
-post_hook = "echo '@import \"colors.css\";' > ~/.config/gtk-4.0/gtk.css"
+[templates.qt5ct]
+input_path = '~/.config/matugen/templates/qtct-colors.conf'
+output_path = '~/.config/qt5ct/colors/matugen.conf'
 
+[templates.qt6ct]
+input_path = '~/.config/matugen/templates/qtct-colors.conf'
+output_path = '~/.config/qt6ct/colors/matugen.conf'
 
 [templates.hyprland]
 input_path = "~/.config/matugen/templates/hyprland-colors.conf"
 output_path = "~/.config/hypr/colors.conf"
 post_hook = "hyprctl reload"
+
+[templates.zathura]
+input_path = "~/.config/matugen/templates/zathura-colors"
+output_path = '~/.config/zathura/zathurarc'
+
+[templates.yazi]
+input_path = "~/.config/matugen/templates/yazi-theme.toml"
+output_path = '~/.config/yazi/theme.toml'
