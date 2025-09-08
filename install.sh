@@ -63,15 +63,49 @@ install_packages() {
     success "Tüm paketler zaten kurulu."
   fi
 
-# Manuel paketler
-  if [[ -d "$HOME/hypr/source" ]]; then
+#---------------------------#
+#   MANUEL PAKETLERİ KUR    #
+#---------------------------#
+install_local_packages() {
+  local src="$HOME/hypr/source"
+
+  if [[ -d "$src" ]]; then
     shopt -s nullglob
-    for pkgfile in "$HOME/hypr/source/"*.pkg.tar.zst "$HOME/hypr/source/"*.tar.gz; do
+    for pkgfile in "$src"/*.pkg.tar.zst; do
       [[ -f "$pkgfile" ]] && sudo pacman -U --needed --noconfirm "$pkgfile"
     done
     shopt -u nullglob
+    success "Yerel .pkg.tar.zst paketleri kuruldu."
   fi
 }
+
+#---------------------------#
+#   ICON & CURSOR KUR       #
+#---------------------------#
+install_icons_and_cursors() {
+  local src="$HOME/hypr/source"
+  local dest="$HOME/.local/share/icons"
+
+  mkdir -p "$dest"
+  info "Icon ve cursor temaları yükleniyor..."
+
+  # BeautyLine
+  if [[ -f "$src/BeautyLine-20240419145957.tar.gz" ]]; then
+    tar -xf "$src/BeautyLine-20240419145957.tar.gz" -C "$dest"
+    success "BeautyLine icon teması kuruldu."
+  else
+    info "BeautyLine icon teması bulunamadı."
+  fi
+
+  # Bibata
+  if [[ -f "$src/Bibata-Modern-Ice.tar.xz" ]]; then
+    tar -xf "$src/Bibata-Modern-Ice.tar.xz" -C "$dest"
+    success "Bibata cursor teması kuruldu."
+  else
+    info "Bibata cursor teması bulunamadı."
+  fi
+}
+
 
 #---------------------------#
 #       SERVİSLERİ AYARLA   #
@@ -160,8 +194,10 @@ customize_pacman() {
 main() {
   install_yay
   install_packages
+  install_local_packages
   enable_services
   copy_configs
+  install_icons_and_cursors
   symlink_terminal
   configure_sddm
   customize_pacman
