@@ -105,6 +105,52 @@ install_icons_and_cursors() {
     info "Bibata cursor teması bulunamadı."
   fi
 }
+#---------------------------#
+#   VARSAYILAN THEME AYAR   #
+#---------------------------#
+set_default_themes() {
+  local icon="BeautyLine"
+  local cursor="Bibata-Modern-Ice"
+
+  info "Varsayılan icon ve cursor temaları ayarlanıyor..."
+
+  # GTK 3
+  mkdir -p "$HOME/.config/gtk-3.0"
+  cat > "$HOME/.config/gtk-3.0/settings.ini" <<EOF
+[Settings]
+gtk-theme-name=Materia-dark-compact
+gtk-icon-theme-name=$icon
+gtk-cursor-theme-name=$cursor
+gtk-font-name=Cantarell 10
+gtk-cursor-theme-size=12
+gtk-application-prefer-dark-theme=1
+EOF
+
+  # GTK 4
+  mkdir -p "$HOME/.config/gtk-4.0"
+  cat > "$HOME/.config/gtk-4.0/settings.ini" <<EOF
+[Settings]
+gtk-theme-name=Materia-dark-compact
+gtk-icon-theme-name=$icon
+gtk-cursor-theme-name=$cursor
+gtk-font-name=Cantarell 10
+gtk-cursor-theme-size=12
+gtk-application-prefer-dark-theme=1
+EOF
+
+  # XCURSOR (Hyprland & Wayland için)
+  mkdir -p "$HOME/.icons/default"
+  cat > "$HOME/.icons/default/index.theme" <<EOF
+[Icon Theme]
+Inherits=$cursor
+EOF
+
+  # Çevresel değişkenler (oturumda cursor için)
+  echo "export XCURSOR_THEME=$cursor" >> "$HOME/.profile"
+  echo "export XCURSOR_SIZE=12" >> "$HOME/.profile"
+
+  success "Varsayılan temalar: Icon=$icon, Cursor=$cursor"
+}
 
 
 #---------------------------#
@@ -198,6 +244,7 @@ main() {
   enable_services
   copy_configs
   install_icons_and_cursors
+  set_default_themes
   symlink_terminal
   configure_sddm
   customize_pacman
