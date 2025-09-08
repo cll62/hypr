@@ -63,26 +63,14 @@ install_packages() {
     success "Tüm paketler zaten kurulu."
   fi
 
- # Manuel paketler
-if [[ -d "$HOME/hypr/source" ]]; then
-  shopt -s nullglob
-  for pkgfile in "$HOME/hypr/source/"*.pkg.tar.zst "$HOME/hypr/source/"*.pkg.tar.gz; do
-    [[ -f "$pkgfile" ]] && sudo pacman -U --needed --noconfirm "$pkgfile"
-  done
-
-  # Eğer sadece kaynak kod arşivi varsa, makepkg ile derle
-  for srcfile in "$HOME/hypr/source/"*.tar.gz; do
-    if [[ -f "$srcfile" && "$srcfile" != *.pkg.tar.gz ]]; then
-      tmpdir=$(mktemp -d)
-      tar -xvf "$srcfile" -C "$tmpdir"
-      pushd "$tmpdir"/* >/dev/null
-      makepkg -si --noconfirm --needed
-      popd >/dev/null
-      rm -rf "$tmpdir"
-    fi
-  done
-  shopt -u nullglob
-fi
+# Manuel paketler
+  if [[ -d "$HOME/hypr/source" ]]; then
+    shopt -s nullglob
+    for pkgfile in "$HOME/hypr/source/"*.pkg.tar.zst "$HOME/hypr/source/"*.tar.gz; do
+      [[ -f "$pkgfile" ]] && sudo pacman -U --needed --noconfirm "$pkgfile"
+    done
+    shopt -u nullglob
+  fi
 }
 
 #---------------------------#
