@@ -62,7 +62,7 @@ install_packages() {
   else
     success "Tüm paketler zaten kurulu."
   fi
-
+}
 #---------------------------#
 #   MANUEL PAKETLERİ KUR    #
 #---------------------------#
