@@ -1,32 +1,14 @@
-@define-color background-color alpha(@background,.5);
-@define-color border-color alpha(@color9, 0.15);
-@define-color label @color15;
-@define-color image @color9;
-@define-color progress @color5;
-@define-color foreground #c2c0c2;
-@define-color background #0e060b;
-@define-color cursor #c2c0c2;
+@import url("colors.css");
 
-@define-color color0 #0e060b;
-@define-color color1 #2a364c;
-@define-color color2 #394153;
-@define-color color3 #7d341b;
-@define-color color4 #b47d3f;
-@define-color color5 #42536b;
-@define-color color6 #765a67;
-@define-color color7 #958a92;
-@define-color color8 #695561;
-@define-color color9 #384966;
-@define-color color10 #4D576F;
-@define-color color11 #A74625;
-@define-color color12 #F0A755;
-@define-color color13 #586F8F;
-@define-color color14 #9E798A;
-@define-color color15 #c2c0c2;
+/* swayosd renk eşleştirmeleri */
+@define-color background-color alpha(@background, 0.7);
+@define-color border-color alpha(@primary, 0.3);
+@define-color image @primary;
+@define-color progress @primary;
 
 window {
-  border-radius: 0.5rem; /* 8px for consistency */
-  opacity: 0.80;
+  border-radius: 0.5rem; /* 8px */
+  opacity: 0.85;
   border: 1px solid @border-color;
   background-color: @background-color;
   box-shadow: 0 0 0.5rem rgba(0,0,0,0.4);
@@ -35,7 +17,7 @@ window {
 label {
   font-family: 'CodeNewRoman Nerd Font Propo', sans-serif;
   font-size: 1rem; /* 16px */
-  color: @color15;
+  color: @on_surface;
 }
 
 image {
@@ -43,11 +25,11 @@ image {
 }
 
 progressbar {
-  border-radius: 0.5rem; /* rounded corners */
+  border-radius: 0.5rem;
   background-color: transparent;
 }
 
 progress {
   background-color: @progress;
-  border-radius: 0.5rem; /* matches bar shape */
+  border-radius: 0.5rem;
 }

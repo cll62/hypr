@@ -1,0 +1,54 @@
+[config]
+
+
+[templates.kitty]
+input_path = "~/.config/matugen/templates/kitty-colors.conf"
+output_path = "~/.config/kitty/colors-matugen.conf"
+post_hook = "pkill -SIGUSR1 kitty"
+
+[templates.waybar]
+input_path = "~/.config/matugen/templates/colors.css"
+output_path = "~/.config/waybar/colors.css"
+
+
+[templates.wofi]
+input_path = "~/.config/matugen/templates/colors.css"
+output_path = "~/.config/wofi/colors.css"
+
+[templates.swaync]
+input_path = "~/.config/matugen/templates/colors.css"
+output_path = "~/.config/swaync/colors.css"
+post_hook = "pkill swaync-client && swaync-client -t -sw &"
+
+
+[templates.swayosd]
+input_path = "~/.config/matugen/templates/colors.css"
+output_path = "~/.config/swayosd/colors.css"
+post_hook = """
+pkill swayosd-server
+swayosd-server &
+sleep 0.5
+swayosd-client &
+"""
+
+
+[templates.hyprlock]
+input_path = "~/.config/matugen/templates/hyprland-colors.conf"
+output_path = "~/.config/hypr/colors.conf"
+post_hook = "pkill -USR1 hyprlock"
+
+[templates.gtk3]
+input_path = "~/.config/matugen/templates/gtk-colors.css"
+output_path = "~/.config/gtk-3.0/colors.css"
+post_hook = "echo '@import \"colors.css\";' > ~/.config/gtk-3.0/gtk.css"
+
+[templates.gtk4]
+input_path = "~/.config/matugen/templates/gtk-colors.css"
+output_path = "~/.config/gtk-4.0/colors.css"
+post_hook = "echo '@import \"colors.css\";' > ~/.config/gtk-4.0/gtk.css"
+
+
+[templates.hyprland]
+input_path = "~/.config/matugen/templates/hyprland-colors.conf"
+output_path = "~/.config/hypr/colors.conf"
+post_hook = "hyprctl reload"

@@ -1,30 +1,14 @@
-@define-color foreground #c2c0c2;
-@define-color background #0e060b;
-@define-color cursor #c2c0c2;
+@import url("colors.css");
 
-@define-color color0 #0e060b;
-@define-color color1 #2a364c;
-@define-color color2 #394153;
-@define-color color3 #7d341b;
-@define-color color4 #b47d3f;
-@define-color color5 #42536b;
-@define-color color6 #765a67;
-@define-color color7 #958a92;
-@define-color color8 #695561;
-@define-color color9 #384966;
-@define-color color10 #4D576F;
-@define-color color11 #A74625;
-@define-color color12 #F0A755;
-@define-color color13 #586F8F;
-@define-color color14 #9E798A;
-@define-color color15 #c2c0c2;
+/* swaync özel renkler */
 @define-color mpris-album-art-overlay alpha(@background, 0.55);
 @define-color mpris-button-hover alpha(@background, 0.50);
-@define-color text @color15;
-@define-color bg alpha(@background,.5);
-@define-color bg-hover alpha(@background,.8);
-@define-color mycolor @color9;
+@define-color text @on_surface;
+@define-color bg alpha(@background, .5);
+@define-color bg-hover alpha(@background, .8);
+@define-color mycolor @primary;
 @define-color border-color alpha(@mycolor, 0.15);
+@define-color critical @error;
 
 @keyframes fadeIn {
   0% {
@@ -43,6 +27,7 @@
   font-family: "CodeNewRoman Nerd Font Propo", sans-serif;
 }
 
+/* Bildirimler */
 .control-center .notification-row {
   background-color: unset;
 }
@@ -92,9 +77,8 @@
 .floating-notifications.background .notification-background .notification.critical .notification-content {
   border-radius: 0.75rem;
 }
-
 .control-center .notification-row .notification-background .notification.critical .notification-content label {
-  color: #680003;
+  color: @critical;
 }
 
 /* Close Button */
@@ -124,7 +108,7 @@
 .widget-title > button {
   font-size: 0.9rem;
   color: @text;
-  background: rgba(255,85,85,.3);
+  background: alpha(@error, .3);
   border-radius: 0.75rem;
   padding: 0.25rem 0.75rem;
   margin-right: 1rem;
