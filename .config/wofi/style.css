@@ -1,4 +1,4 @@
-@import url("colors.css");
+@import url("/home/celal/.config/wofi/colors.css");
 
 /* Wofi özel renk adlandırmaları */
 @define-color mauve @tertiary;               /* daha soft, mavi-mor ton */
