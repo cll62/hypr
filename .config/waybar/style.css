@@ -3,183 +3,187 @@
 /* Genel bar */
 window#waybar {
     background: none;
-    border-radius: 10px;
-    padding: 4px 8px;
-    margin: 6px;
-    color: @foreground;
-    font-family: "CodeNewRoman Nerd Font Propo";
-    font-size: 1rem;
+    border-radius: 12px;
+    padding: 4px 6px;
+    margin: 3px;
+    color: @on_surface;
+    font-family: "CodeNewRoman Nerd Font Propo", sans-serif;
+    font-size: 1rem; /* Font büyütüldü */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15); /* Hafif gölge */
 }
 
-/* Module containers */
+/* Modül konteynerleri */
 .modules-left,
 .modules-center,
 .modules-right {
-    padding: 0.25rem;
-    margin: 0.25rem;
-    border-radius: 1rem;
-    background: alpha(@surface, 0.6);
-    transition: background 0.2s ease, box-shadow 0.2s ease;
+    padding: 0.25rem 0.5rem; /* Iconlarla uyumlu */
+    margin: 0.1rem;
+    border-radius: 0.8rem;
+    background: @surface_container_low;
+    transition: background 0.25s ease, color 0.25s ease;
+}
+
+.modules-left:hover,
+.modules-center:hover,
+.modules-right:hover,
+#network:hover {
+    background: @primary_container;
+    color: @on_primary_container;
 }
 
 .modules-center {
-    min-width: 9.5rem;
+    min-width: 8rem;
 }
 
 .modules-right {
-    margin-right: 0.25rem;
+    margin-right: 0.2rem;
 }
 
 /* Tooltip */
 tooltip {
-    background: alpha(@surface, 0.8);
-    color: @foreground;
-    padding: 0.25rem;
-    border-radius: 1rem;
-    transition: opacity 0.2s ease;
-    font-size: 0.9375rem;
+    background: @surface_container_highest;
+    color: @on_surface;
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.8rem;
+    font-size: 0.9rem;
+    transition: opacity 0.25s ease;
 }
 
-/* Common module styles */
+/* Ortak modül stilleri */
 #clock, #tray, #custom-colorpicker, #custom-pacman, #custom-notification,
 #idle_inhibitor, #wlr-taskbar, #bluetooth, #network, #battery, #cpu, #memory, #temperature {
-    padding: 0.15rem 0.35rem;
-    color: @foreground;
-    transition: color 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+    padding: 0.25rem 0.45rem;
+    color: @on_surface;
+    background: @surface_container_low;
+    border-radius: 0.8rem;
+    font-size: 1rem; /* Font büyütüldü */
+    transition: background 0.25s ease, color 0.25s ease;
 }
 
-#clock:hover, #tray:hover, #network:hover {
-    color: @primary;
-    box-shadow: inset 0 -2px 0 @primary;
-    opacity: 0.9;
-}
-
-/* Workspaces */
+/* Çalışma alanları */
 #workspaces {
-    padding: 0 0.25rem;
+    padding: 0 0.2rem;
 }
 
 #workspaces button {
-    margin: 0 0.15rem;
-    padding: 0.15rem 0.35rem;
-    color: @foreground;
-    background: @surface_container_low; /* normal */
-    border-radius: 1rem;
+    margin: 0 0.1rem;
+    padding: 0.2rem 0.45rem;
+    color: @on_surface;
+    background: @surface_container_low;
+    border-radius: 0.8rem;
     min-width: 1.5rem;
-    border: 1px solid transparent;
-    transition: background 0.2s ease, box-shadow 0.2s ease, border 0.2s ease, opacity 0.2s ease;
+    border: 1px solid @outline_variant;
+    transition: background 0.25s ease, color 0.25s ease, border 0.25s ease;
 }
 
 #workspaces button:hover {
-    background: @surface_container; /* hover */
-    border: 2px solid @foreground;
-    opacity: 0.95;
+    background: @secondary_container;
+    border: 2px solid @secondary;
+    color: @on_secondary_container;
 }
 
 #workspaces button.active {
-    background: @primary_container; /* aktif */
-    border-bottom: 2px solid @foreground;
+    background: @primary_container;
+    color: @on_primary_container;
+    border: 2px solid @primary;
 }
 
 #workspaces button.active:hover {
-    background: @primary; /* aktif hover */
-    border: 2px solid @foreground;
-    opacity: 0.95;
+    background: @primary;
+    color: @on_primary;
 }
 
 #workspaces button.empty {
-    background: alpha(@surface_container_low, 0.2); /* boş */
-    color: @foreground;
-    min-width: 1.5rem;
-    opacity: 0.8;
+    background: @surface_container_lowest;
+    color: @on_surface_variant;
+    opacity: 0.85;
 }
 
 #workspaces button.empty:hover {
-    background: @surface_container_low; /* boş hover */
-    color: @foreground;
-    opacity: 1.0;
-    border: 2px solid @foreground;
+    background: @surface_container_low;
+    color: @secondary_fixed;
+    opacity: 1;
 }
 
-
-/* Battery states */
+/* Pil durumları */
 #battery.charging {
-    color: @primary_container;
+    color: @tertiary_fixed;
+    background: @tertiary_container;
+    border: 1px solid @tertiary;
 }
 
 #battery.warning:not(.charging) {
-    color: @primary_fixed;
+    color: @tertiary;
+    background: @tertiary_container;
+    border: 1px solid @tertiary;
 }
 
 #battery.critical:not(.charging) {
     color: @error;
-    animation-name: blink;
-    animation-duration: 0.5s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
+    background: @error_container;
+    border: 1px solid @error;
+    opacity: 0.85;
 }
 
-/* Expand group and button */
-#group-expand {
-    padding: 0 0.25rem;
-    transition: background 0.2s ease;
+/* Genişletme grubu ve butonu */
+#group-expand,
+#custom-expand {
+    padding: 0 0.2rem;
+    transition: background 0.25s ease, color 0.25s ease;
 }
 
 #group-expand:hover {
-    background: alpha(@surface, 0.7);
+    background: @surface_container;
 }
 
-#custom-expand {
-    padding: 0 0.25rem;
-    color: alpha(@foreground, 0.2);
-    text-shadow: 0 0 2px rgba(0, 0, 0, 0.7);
-    transition: color 0.2s ease, text-shadow 0.2s ease;
+#custom-expand:hover {
+    color: @on_primary_container;
 }
 
 /* Saat özel stil */
 #clock {
-    padding: 0.35rem 1rem;
-    margin: 0 0.2rem;
-    background: linear-gradient(135deg, alpha(@surface_container_low, 0.2), alpha(@surface_container, 0.25));
-    border-radius: 10px;
-    font-size: 14px;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    transition: background 0.3s ease;
+    padding: 0.3rem 0.65rem;
+    margin: 0 0.1rem;
+    background: @primary_container;
+    border-radius: 0.8rem;
+    font-family: "CodeNewRoman Nerd Font Propo", sans-serif;
+    font-size: 1rem; /* Font büyütüldü */
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    border: 1px solid @primary;
+    transition: background 0.25s ease, color 0.25s ease;
 }
 
 #clock:hover {
-    background: linear-gradient(135deg, alpha(@primary_container, 0.3), alpha(@primary, 0.35));
+    background: @primary;
+    color: @on_primary;
 }
 
-/* Custom endpoint */
+/* Özel uç nokta */
 #custom-endpoint {
     color: @surface_bright;
-    font-size: 0.9375rem;
+    font-size: 0.9rem;
+    background: @surface_container_low;
+    border-radius: 0.8rem;
 }
 
 /* Tray */
 #tray {
     padding: 0 0.25rem;
-    transition: background 0.2s ease, box-shadow 0.2s ease;
+    transition: background 0.25s ease, color 0.25s ease;
 }
 
 #tray menu * {
-    padding: 0.25rem;
-    transition: background 0.2s ease;
+    padding: 0.2rem 0.45rem;
+    transition: background 0.25s ease, color 0.25s ease;
+    border-radius: 0.8rem;
 }
 
 #tray menu *:hover {
-    background: alpha(@surface, 0.6);
-    border-radius: 1rem;
+    background: @primary_container;
+    color: @on_primary_container;
 }
 
 #tray menu separator {
-    padding: 0.25rem;
-}
-
-@keyframes blink {
-    from { opacity: 1; }
-    to { opacity: 0.3; }
+    padding: 0.15rem;
 }
