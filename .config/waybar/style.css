@@ -83,7 +83,7 @@ tooltip {
 #workspaces button.active {
     background: none;
     color: @on_primary_container;
-    border: 2px solid @primary;
+    border: 1px solid @primary;
 }
 
 #workspaces button.active:hover {
