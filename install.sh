@@ -37,12 +37,11 @@ install_yay() {
 #---------------------------#
 install_packages() {
   local pkgs=(
-    7zip bash-completion bat brightnessctl brave-bin btop chafa cliphist
-    cantarell-fonts eza expac fastfetch fd file-roller fzf gnome-disk-utility
-    gnome-keyring gst-plugin-pipewire gst-plugins-bad gvfs hypridle hyprland
-    hyprlock hyprpicker hyprshot hyprsunset impala kitty libappindicator-gtk3
+    7zip bash-completion bat brightnessctl brave-bin btop chafa cliphist cantarell-fonts eza expac fastfetch fd file-roller fzf gnome-disk-utility
+    gnome-keyring gst-plugin-pipewire gst-plugins-bad gvfs hypridle hyprland hyprlock hyprpicker hyprshot hyprsunset impala kitty 
+    libappindicator-gtk3 libreoffice-fresh libreoffice-fresh-tr
     materia-gtk-theme mpv mpv-mpris nano ncdu neovim nwg-displays
-    nwg-look onlyoffice-bin otf-codenewroman-nerd pacman-contrib pavucontrol
+    nwg-look otf-codenewroman-nerd pacman-contrib pavucontrol
     pipewire pipewire-alsa pipewire-jack pipewire-pulse playerctl polkit-gnome
     pulsemixer qt5ct qt6ct reflector ripgrep rsync 
     sddm starship swayimg swaync swayosd swww tealdeer thunar thunar-archive-plugin thunar-volman
