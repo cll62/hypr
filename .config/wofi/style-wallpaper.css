@@ -75,7 +75,7 @@ window {
 /* Selected entry */
 #entry:selected {
     border-radius: 1rem;
-    background: linear-gradient(135deg, alpha(@color9, 0.35), alpha(@color7, 0.25));
+    background: @on_primary_fixed;
     box-shadow: 0 0 8px rgba(0,0,0,0.45);
 }
 
