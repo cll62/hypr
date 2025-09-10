@@ -53,7 +53,7 @@ reboot
 | Super + Alt + B    | Web tarayıcı (private)          |
 | Super + C          | Sublime Text                    |
 | Super + N          | Neovim (`kitty -e nvim`)        |
-| Alt + S            | Swaync                          |
+| Super + S          | Swaync                          |
 | Super + V          | Clipboard geçmişi (`cliphist`)  |
 
 ### 🌐 Web Uygulamaları
@@ -89,15 +89,6 @@ reboot
 | Super + 1..0          | Workspace 1..10               |
 | Super + Shift + 1..0  | Pencereyi workspace 1..10 taşır |
 
-### 🔊 Ses ve Parlaklık
-| Kısayol                  | İşlev                           |
-|---------------------------|--------------------------------|
-| XF86AudioRaiseVolume      | Ses yükselt                     |
-| XF86AudioLowerVolume      | Ses azalt                        |
-| XF86AudioMute             | Sessiz/aktif toggle             |
-| XF86AudioMicMute          | Mikrofon sessiz/aktif toggle   |
-| XF86MonBrightnessUp       | Parlaklık artır                  |
-| XF86MonBrightnessDown     | Parlaklık azalt                  |
 
 ### 📸 Ekran Görüntüsü
 | Kısayol            | İşlev                         |
@@ -127,15 +118,3 @@ reboot
 | Super + Ctrl + Mouse up   | Zoom in                         |
 | Super + Ctrl + Mouse down | Zoom out                        |
 
-### 🎶 OSD ve Multimedya
-| Kısayol                  | İşlev                           |
-|---------------------------|--------------------------------|
-| XF86AudioRaiseVolume      | Ses yükselt (OSD)              |
-| XF86AudioLowerVolume      | Ses azalt (OSD)                |
-| XF86AudioMute             | Sessiz toggle (OSD)            |
-| XF86AudioMicMute          | Mikrofon sessiz toggle (OSD)   |
-| XF86MonBrightnessUp       | Parlaklık artır (OSD)           |
-| XF86MonBrightnessDown     | Parlaklık azalt (OSD)           |
-| XF86AudioNext             | Sonraki parça                   |
-| XF86AudioPause            | Oynat/durdur                    |
-| XF86AudioPrev             | Önceki parça                     |
