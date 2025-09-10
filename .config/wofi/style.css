@@ -64,7 +64,7 @@ window {
 /* Selected entry */
 #entry:selected {
     border-radius: 0.75rem;
-    background: @surface_dim;
+    background: @on_primary_fixed;
     box-shadow: 0 0 8px rgba(0,0,0,0.45);
 }
 
