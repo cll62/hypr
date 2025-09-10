@@ -42,7 +42,7 @@ window#waybar {
 
 /* Tooltip */
 tooltip {
-    background: @surface_container_highest;
+    background: @on_primary_fixed;
     color: @on_surface;
     padding: 0.2rem 0.4rem;
     border-radius: 0.8rem;
