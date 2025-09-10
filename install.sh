@@ -232,6 +232,29 @@ customize_pacman() {
     success "Pacman görsel ayarları zaten mevcut."
   fi
 }
+#---------------------------#
+#   WOFI STYLE FIX          #
+#---------------------------#
+fix_wofi_style() {
+  local line="@import url(\"$HOME/.config/wofi/colors.css\");"
+  local files=(
+    "$HOME/.config/wofi/style.css"
+    "$HOME/.config/wofi/style-wallpaper.css"
+  )
+
+  for style in "${files[@]}"; do
+    mkdir -p "$(dirname "$style")"
+
+    if ! grep -qxF "$line" "$style" 2>/dev/null; then
+      sed -i "1i $line" "$style" 2>/dev/null || echo "$line" > "$style"
+      success "Wofi $(basename "$style") içine import satırı eklendi."
+    else
+      success "Wofi $(basename "$style") zaten doğru import satırına sahip."
+    fi
+  done
+}
+
+
 
 #---------------------------#
 #           MAIN            #
@@ -247,6 +270,7 @@ main() {
   symlink_terminal
   configure_sddm
   customize_pacman
+  fix_wofi_style
 
   success "Kurulum tamamlandı. Lütfen sistemi yeniden başlatın."
 }
