@@ -23,8 +23,8 @@
 
 window {
     padding: 1rem;
-    border-radius: 1rem; /* daha yuvarlatılmış */
-    background-color: alpha(@background, 0.3); /* Hyprland blur uyumlu */
+    border-radius: 1rem; 
+    background-color: alpha(@background, 0.3); 
     font-family: inherit;
     font-size: inherit;
 }
@@ -75,14 +75,14 @@ window {
 /* Selected entry */
 #entry:selected {
     border-radius: 1rem;
-    background: @on_primary_fixed;
+    background: @inverse_primary;
     box-shadow: 0 0 8px rgba(0,0,0,0.45);
 }
 
 #entry:selected #text {
-    color: @color15;
+    color: @on_surface;
 }
 
 #entry:drop(active) {
-    background-color: @color7 !important;
+    background-color: @on_surface;
 }
