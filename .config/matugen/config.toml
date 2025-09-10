@@ -34,8 +34,6 @@ swayosd-client &
 [templates.hyprlock]
 input_path = "~/.config/matugen/templates/hyprland-colors.conf"
 output_path = "~/.config/hypr/colors.conf"
-post_hook = "pkill -USR1 hyprlock"
-
 
 [templates.qt5ct]
 input_path = '~/.config/matugen/templates/qtct-colors.conf'
