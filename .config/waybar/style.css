@@ -18,15 +18,12 @@ window#waybar {
     padding: 0.25rem 0.5rem;
     margin: 0.1rem;
     border-radius: 0.8rem;
-    background: @surface_dim;
+    background: none;
     transition: background 0.25s ease, color 0.25s ease;
 }
 
-.modules-left:hover,
-.modules-center:hover,
-.modules-right:hover,
 
-#clock:hover, #tray:hover, #custom-colorpicker:hover, #custom-pacman:hover, #custom-notification:hover, #idle_inhibitor:hover, #wlr-taskbar:hover, #bluetooth:hover, #network:hover, #battery:hover, #cpu:hover, #memory:hover, #temperature:hover {
+#clock:hover, #custom-colorpicker:hover, #custom-pacman:hover, #custom-notification:hover, #idle_inhibitor:hover, #wlr-taskbar:hover, #bluetooth:hover, #network:hover, #battery:hover, #cpu:hover, #memory:hover, #temperature:hover {
     color: @primary_container; /* #AA8875 */
     background:@secondary;
     opacity: 0.9;
@@ -55,9 +52,9 @@ tooltip {
 #idle_inhibitor, #wlr-taskbar, #bluetooth, #network, #battery, #cpu, #memory, #temperature {
     padding: 0.25rem 0.45rem;
     color: @on_surface;
-    background: @surface_dim;
+    background: none;
     border-radius: 0.8rem;
-    font-size: 1rem; /* Font büyütüldü */
+    font-size: 1rem; 
     transition: background 0.25s ease, color 0.25s ease;
 }
 
@@ -70,7 +67,7 @@ tooltip {
     margin: 0 0.1rem;
     padding: 0.2rem 0.45rem;
     color: @on_surface;
-    background: @surface_container_low;
+    background: none;
     border-radius: 0.8rem;
     min-width: 1.5rem;
     border: 1px solid @outline_variant;
@@ -84,7 +81,7 @@ tooltip {
 }
 
 #workspaces button.active {
-    background: @primary_container;
+    background: none;
     color: @on_primary_container;
     border: 2px solid @primary;
 }
@@ -95,7 +92,7 @@ tooltip {
 }
 
 #workspaces button.empty {
-    background: @surface_container_lowest;
+    background: none;
     color: @on_surface_variant;
     opacity: 0.85;
 }
@@ -127,16 +124,8 @@ tooltip {
 }
 
 #clock {
-    padding: 0.3rem 0.65rem;
-    margin: 0 0.1rem;
-    background: @primary_container;
-    border-radius: 0.8rem;
-    font-family: "CodeNewRoman Nerd Font Propo", sans-serif;
-    font-size: 1.1rem; /* Font büyütüldü */
-    font-weight: 700;
-    letter-spacing: 0.4px;
+    font-size: 1.1rem;
     border: 1px solid @primary;
-    transition: background 0.25s ease, color 0.25s ease;
 }
 
 
