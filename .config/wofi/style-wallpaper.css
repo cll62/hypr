@@ -18,7 +18,7 @@
     outline: none;
     border: none;
     text-shadow: none;
-    background-color: transparent;
+    background-color: @background;
 }
 
 window {
@@ -75,7 +75,6 @@ window {
 /* Selected entry */
 #entry:selected {
     border-radius: 1rem;
-    background: @inverse_primary;
     box-shadow: 0 0 8px rgba(0,0,0,0.45);
 }
 
