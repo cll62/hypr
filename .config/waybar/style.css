@@ -54,7 +54,7 @@ tooltip {
     color: @on_surface;
     background: none;
     border-radius: 0.8rem;
-    font-size: 1rem; 
+    font-size: 1.2rem; 
     transition: background 0.25s ease, color 0.25s ease;
 }
 
@@ -124,7 +124,7 @@ tooltip {
 }
 
 #clock {
-    font-size: 1.1rem;
+    font-size: 1.3rem;
     border: 1px solid @primary;
 }
 
