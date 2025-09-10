@@ -115,23 +115,6 @@
         "signal": 8,
         "tooltip": false
     },
-    "custom/expand": {
-        "format": "",
-        "tooltip": false
-    },
-    "custom/endpoint": {
-        "format": "|",
-        "tooltip": false
-    },
-    "group/expand": {
-    "orientation": "horizontal",
-    "drawer": {
-        "transition-duration": 600,
-        "transition-left": true,
-        "click-to-reveal": true
-    },
-               "modules": ["custom/expand", "custom/colorpicker","cpu","memory","temperature","custom/endpoint"],
-    },
     "custom/colorpicker": {
     "format": "{}",
    "return-type": "json",
