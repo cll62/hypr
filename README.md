@@ -51,7 +51,6 @@ reboot
 | Super + D          | Uygulama başlatıcı (`wofi`)     |
 | Super + B          | Web tarayıcı (`brave`)          |
 | Super + Alt + B    | Web tarayıcı (private)          |
-| Super + O          | Onlyoffice                      |
 | Super + C          | Sublime Text                    |
 | Super + N          | Neovim (`kitty -e nvim`)        |
 | Alt + S            | Swaync                          |
@@ -67,7 +66,7 @@ reboot
 | Alt + W            | WhatsApp                        |
 | Alt + Y            | YouTube Music                   |
 | Alt + M            | Mebbis                          |
-| Alt + O            | Microsoft 365                   |
+| Super + O          | Microsoft 365                   |
 | Alt + G            | GitHub                          |
 | Super + Z          | Math Editor                     |
 
