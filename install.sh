@@ -239,7 +239,6 @@ fix_wofi_style() {
   local line="@import url(\"$HOME/.config/wofi/colors.css\");"
   local files=(
     "$HOME/.config/wofi/style.css"
-    "$HOME/.config/wofi/style-wallpaper.css"
   )
 
   for style in "${files[@]}"; do
