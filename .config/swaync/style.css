@@ -4,22 +4,15 @@
 @define-color mpris-album-art-overlay alpha(@background, 0.55);
 @define-color mpris-button-hover alpha(@background, 0.50);
 @define-color text @on_surface;
-@define-color bg alpha(@background, .5);
-@define-color bg-hover alpha(@background, .8);
-@define-color mycolor @primary;
+@define-color bg alpha(@background, 0.5);
+@define-color bg-hover alpha(@background, 0.8);
+@define-color mycolor @primary_container; /* Waybar ile uyum için */
 @define-color border-color alpha(@mycolor, 0.15);
 @define-color critical @error;
 
 @keyframes fadeIn {
-  0% {
-    padding-left: 1.25rem;
-    margin-left: 3rem;
-    margin-right: 3rem;
-  }
-  100% {
-    padding: 0;
-    margin: 0;
-  }
+  0% { opacity: 0; }
+  100% { opacity: 1; }
 }
 
 * {
@@ -33,27 +26,23 @@
 }
 
 .notification {
-  background: alpha(@mycolor,.4);
-  border-radius: 0.75rem;
+  background: alpha(@mycolor, 0.4);
+  border-radius: 0.6rem; /* Waybar ile uyum */
 }
 
 .control-center .notification-row .notification-background .notification {
   margin-top: 0.15rem;
-  box-shadow: 0 0.125rem 0.3125rem rgba(0, 0, 0, .3);
-  background: alpha(@mycolor,.25);
+  box-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.2); 
+  background: alpha(@mycolor, 0.25);
 }
 
 .floating-notifications .notification {
-  animation: fadeIn .5s ease-in-out;
+  animation: fadeIn 0.3s ease-in-out; 
 }
 
 .notification widget:hover {
-  background: alpha(@mycolor,.15);
-}
-
-.floating-notifications.background .notification-background .notification .notification-content,
-.control-center .notification-background .notification .notification-content {
-  padding-top: 0.75rem;
+  background: @secondary_container;
+  color: @on_secondary_container;
 }
 
 /* Texts */
@@ -64,7 +53,7 @@
 .time {
   font-size: 0.875rem;
   font-weight: 500;
-  margin-right: 1rem;
+  margin-right: 0.6rem; 
 }
 .body {
   font-size: 0.9rem;
@@ -73,118 +62,74 @@
 }
 
 /* Critical */
-.control-center .notification-row .notification-background .notification.critical .notification-content,
-.floating-notifications.background .notification-background .notification.critical .notification-content {
-  border-radius: 0.75rem;
-}
-.control-center .notification-row .notification-background .notification.critical .notification-content label {
-  color: @critical;
+.notification.critical .notification-content label {
+  color: @on_error_container;
+  font-weight: bold; 
 }
 
 /* Close Button */
 .close-button {
   all: unset;
-  min-height: 1.25rem;
-  min-width: 1.25rem;
+  min-height: 1.2rem;
+  min-width: 1.2rem;
   color: @text;
+  border-radius: 0.6rem; 
 }
 .close-button:hover {
-  background-color: @bg;
-  border-radius: 50%;
+  background: @secondary_container;
+  color: @on_secondary_container;
+  border-radius: 0.6rem;
 }
 
 /* Control Center */
 .control-center {
   background: @bg;
   color: @text;
-  border-radius: 0.75rem;
-  box-shadow: 0 0.125rem 0.3125rem rgba(0, 0, 0, .65);
+  border-radius: 0.6rem;
+  box-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.2);
+  padding: 0.4rem;
 }
 
+/* Widget Title */
 .widget-title {
-  padding: 1rem;
+  padding: 0.6rem;
   color: @text;
 }
 .widget-title > button {
   font-size: 0.9rem;
   color: @text;
-  background: alpha(@error, .3);
-  border-radius: 0.75rem;
-  padding: 0.25rem 0.75rem;
-  margin-right: 1rem;
-  transition: all .3s ease;
+  background: alpha(@error, 0.3);
+  border-radius: 0.6rem;
+  padding: 0.25rem 0.6rem;
+  transition: all 0.2s ease-in-out; 
 }
 .widget-title > button:hover {
-  background: @bg-hover;
-  box-shadow: 0 0 0.3125rem rgba(0,0,0,.5);
-}
-
-/* Labels */
-.widget-label > label {
-  font-size: 1.1rem;
+  background: @secondary_container;
+  color: @on_secondary_container;
 }
 
 /* MPRIS */
 .widget-mpris .widget-mpris-player {
-  padding: 1rem;
-  margin: 1rem;
+  padding: 0.35rem 0.6rem; 
+  margin: 0.2rem;
   background-color: @mpris-album-art-overlay;
-  border-radius: 0.75rem;
-  box-shadow: 0 0.125rem 0.3125rem rgba(0,0,0,.65);
-}
-.widget-mpris .widget-mpris-player .widget-mpris-title {
-  font-weight: bold;
-  font-size: 1.2rem;
-}
-.widget-mpris .widget-mpris-player .widget-mpris-subtitle {
-  font-size: 1rem;
+  border-radius: 0.6rem;
+  box-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.2);
 }
 
 /* Buttons Grid */
 .widget-buttons-grid {
-  padding: 0.5rem;
-  margin: 0.5rem;
-  border-radius: 0.75rem;
+  padding: 0.35rem;
+  margin: 0.2rem;
+  border-radius: 0.6rem;
   background: transparent;
-}
-.widget-buttons-grid > flowbox > flowboxchild > button label {
-  font-size: 1rem;
-  color: @color7;
-  transition: all .3s ease;
-}
-.widget-buttons-grid > flowbox > flowboxchild > button:hover label {
-  color: @text;
 }
 .widget-buttons-grid > flowbox > flowboxchild > button {
-  border-radius: 0.75rem;
+  border-radius: 0.6rem;
   background: transparent;
-  transition: all .3s ease;
+  transition: all 0.2s ease-in-out;
 }
 .widget-buttons-grid > flowbox > flowboxchild > button:hover {
-  background: @color4;
-}
-.widget-buttons-grid > flowbox > flowboxchild > button.toggle:checked {
-  background: @mycolor;
-}
-.widget-buttons-grid > flowbox > flowboxchild > button.toggle:checked label {
-  color: @background;
-}
-
-/* Sliders */
-trough {
-  border-radius: 1rem;
-  background: transparent;
-}
-trough highlight {
-  background: @mycolor;
-  border-radius: 1rem;
-  box-shadow: 0 0 0.3125rem rgba(0,0,0,.5);
-}
-
-.widget-volume,
-.widget-backlight {
-  background-color: transparent;
-  padding: 0.5rem;
-  margin: 0.5rem;
-  border-radius: 0.75rem;
+  background: @secondary_container;
+  color: @on_secondary_container;
 }
