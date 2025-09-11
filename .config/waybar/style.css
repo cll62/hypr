@@ -2,10 +2,10 @@
 
 /* Genel bar */
 window#waybar {
-    background: none;
+    background: @blur_background;
     border-radius: 12px;
-    padding: 4px 6px;
-    margin: 2px;
+    padding: 6px 10px;
+    margin: 4px;
     color: @on_surface;
     font-family: "CodeNewRoman Nerd Font Propo", sans-serif;
     font-size: 1rem; 
@@ -15,47 +15,46 @@ window#waybar {
 .modules-left,
 .modules-center,
 .modules-right {
-    padding: 0.25rem 0.5rem;
-    margin: 0.1rem;
-    border-radius: 0.8rem;
-    background: none;
-    transition: background 0.25s ease, color 0.25s ease;
-}
-
-
-#clock:hover, #custom-colorpicker:hover, #custom-pacman:hover, #custom-notification:hover, #idle_inhibitor:hover, #wlr-taskbar:hover, #bluetooth:hover, #network:hover, #battery:hover, #cpu:hover, #memory:hover, #temperature:hover {
-    color: @primary_container; /* #AA8875 */
-    background:@secondary;
-    opacity: 0.9;
-}
-
-.modules-center {
-    min-width: 8rem;
-}
-
-.modules-right {
-    margin-right: 0.2rem;
-}
-
-/* Tooltip */
-tooltip {
-    background: @on_primary_fixed;
-    color: @on_surface;
     padding: 0.2rem 0.4rem;
-    border-radius: 0.8rem;
-    font-size: 0.9rem;
-    transition: opacity 0.25s ease;
+    margin: 0.1rem;
+    border-radius: 0.6rem;
+    background: none; /* minimalist */
 }
 
 /* Ortak modül stilleri */
 #clock, #tray, #custom-colorpicker, #custom-pacman, #custom-notification,
 #idle_inhibitor, #wlr-taskbar, #bluetooth, #network, #battery, #cpu, #memory, #temperature {
-    padding: 0.25rem 0.45rem;
+    padding: 0.35rem 0.6rem;
     color: @on_surface;
     background: none;
-    border-radius: 0.8rem;
-    font-size: 1.2rem; 
-    transition: background 0.25s ease, color 0.25s ease;
+    border-radius: 0.6rem;
+    font-size: 1rem; 
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+/* Hover efektleri */
+#clock:hover, #custom-colorpicker:hover, #custom-pacman:hover,
+#custom-notification:hover, #idle_inhibitor:hover, #wlr-taskbar:hover,
+#bluetooth:hover, #network:hover, #battery:hover, #cpu:hover,
+#memory:hover, #temperature:hover {
+    color: @on_secondary_container;
+    background: @secondary_container;
+}
+
+/* Saat */
+#clock {
+    font-size: 1.1rem;
+    border-radius: 0.6rem;
+    border: none;
+}
+
+/* Tooltip */
+tooltip {
+    background: @surface_container_highest;
+    color: @on_surface;
+    padding: 0.3rem 0.5rem;
+    border-radius: 0.6rem;
+    font-size: 0.9rem;
 }
 
 /* Çalışma alanları */
@@ -64,68 +63,48 @@ tooltip {
 }
 
 #workspaces button {
-    margin: 0 0.1rem;
-    padding: 0.2rem 0.45rem;
-    color: @on_surface;
+    margin: 0 0.15rem;
+    padding: 0.25rem 0.55rem;
+    color: @on_surface_variant;
     background: none;
-    border-radius: 0.8rem;
+    border-radius: 0.6rem;
     min-width: 1.5rem;
-    border: 1px solid @outline_variant;
-    transition: background 0.25s ease, color 0.25s ease, border 0.25s ease;
+    border: none;
+    transition: background 0.2s ease, color 0.2s ease;
 }
 
 #workspaces button:hover {
     background: @secondary_container;
-    border: 2px solid @secondary;
     color: @on_secondary_container;
 }
 
 #workspaces button.active {
-    background: none;
+    background: @primary_container;
     color: @on_primary_container;
-    border: 1px solid @primary;
-}
-
-#workspaces button.active:hover {
-    background: @primary;
-    color: @on_primary;
+    font-weight: bold;
 }
 
 #workspaces button.empty {
-    background: none;
     color: @on_surface_variant;
-    opacity: 0.85;
-}
-
-#workspaces button.empty:hover {
-    background: @surface_container_low;
-    color: @secondary_fixed;
-    opacity: 1;
+    opacity: 0.6;
 }
 
 /* Pil durumları */
 #battery.charging {
-    color: @tertiary_fixed;
+    color: @on_tertiary_container;
     background: @tertiary_container;
-    border: 1px solid @tertiary;
+    border-radius: 0.6rem;
 }
 
 #battery.warning:not(.charging) {
-    color: @tertiary;
+    color: @on_tertiary_container;
     background: @tertiary_container;
-    border: 1px solid @tertiary;
+    border-radius: 0.6rem;
 }
 
 #battery.critical:not(.charging) {
-    color: @error;
+    color: @on_error_container;
     background: @error_container;
-    border: 1px solid @error;
-    opacity: 0.85;
+    border-radius: 0.6rem;
+    font-weight: bold;
 }
-
-#clock {
-    font-size: 1.3rem;
-    border: 1px solid @primary;
-}
-
-

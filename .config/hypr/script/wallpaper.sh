@@ -13,7 +13,7 @@ dmenu() {
 }
 
 main() {
-  choice=$(dmenu | wofi -c ~/.config/wofi/wallpaper -s ~/.config/wofi/style-wallpaper.css --show dmenu --prompt "Wallpaper Seç:" -n)
+  choice=$(dmenu | wofi -c ~/.config/wofi/wallpaper -s ~/.config/wofi/style.css --show dmenu --prompt "Wallpaper Seç:" -n)
   if [ -z "$choice" ]; then
     echo "Hata: Duvar kâğıdı seçilmedi!"
     exit 1
