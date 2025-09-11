@@ -1,4 +1,3 @@
-# File system
 alias ls='eza -lh --group-directories-first --icons=auto'
 alias lsa='ls -a'
 alias lt='eza --tree --level=2 --long --icons --git'
@@ -17,7 +16,6 @@ open() {
   xdg-open "$@" >/dev/null 2>&1 &
 }
 
-# Directories
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
@@ -47,10 +45,10 @@ alias pusho='git push origin' # and add your branch name
 alias pull='git pull'
 alias info='git_info'
 alias status='git status'
-# Sistem ile ilgili komutlar
+
 alias bye='sudo shutdown -h now'
 alias loop='sudo reboot'
 alias cleanup='sudo pacman -Rns $(pacman -Qdtq)'
 
-# Dosya yönetimi
 alias f='file=$(fd --type f --hidden --exclude '*.mp3'| fzf --preview="bat --color=always {}") && nvim "$file"'
+alias mirror="sudo reflector -p https --sort rate --latest 10 --save /etc/pacman.d/mirrorlist --verbose"
