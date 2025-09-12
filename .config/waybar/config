@@ -1,12 +1,11 @@
 {
     "layer": "top",
     "position": "top",
-    "margin-bottom": 1,
     "margin-left": 10,
     "margin-right": 10,
-    "margin-top": 1,
+    "margin-top": 2,
     "reload_style_on_change": true,
-    "modules-left": [ "clock", "custom/pacman","tray", "wlr/taskbar"],
+    "modules-left": [ "clock", "custom/pacman","tray","wlr/taskbar"],
     "modules-center": ["hyprland/workspaces"],
     "modules-right": ["custom/colorpicker","cpu","memory", "network", "idle_inhibitor", "battery","custom/notification"],
     
@@ -37,15 +36,14 @@
     "wlr/taskbar": {
         "all-outputs": true,
         "active-first": false,
-        "markup": true,
-        "format": "{icon}",
-        "rotate": 0,
+        "icon-size": 14,
         "spacing": 20,
+        "format": "{icon}",
         "tooltip-format": "{title} | {app_id}",
         "on-click": "activate",
         "on-click-right": "fullscreen",
         "on-click-middle": "close",
-        "class": "no-margin-padding"
+        "ignore-list": ["wofi"],
       },
 
 
