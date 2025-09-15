@@ -37,10 +37,10 @@ install_yay() {
 #---------------------------#
 install_packages() {
   local pkgs=(
-    7zip bash-completion bat brightnessctl brave-bin btop chafa cliphist cantarell-fonts eza expac fastfetch fd file-roller fzf gnome-disk-utility
+    7zip adw-gtk-theme bash-completion bat brightnessctl brave-bin btop chafa cliphist cantarell-fonts eza expac fastfetch fd file-roller fzf gnome-disk-utility
     gnome-keyring gst-plugin-pipewire gst-plugins-bad gvfs hypridle hyprland hyprlock hyprpicker hyprshot hyprsunset impala kitty 
     libappindicator-gtk3 libreoffice-fresh libreoffice-fresh-tr
-    materia-gtk-theme mpv mpv-mpris nano ncdu neovim nwg-displays
+    mpv mpv-mpris nano ncdu neovim nwg-displays
     nwg-look otf-codenewroman-nerd pacman-contrib pavucontrol
     pipewire pipewire-alsa pipewire-jack pipewire-pulse playerctl polkit-gnome
     pulsemixer qt5ct qt6ct reflector ripgrep rsync 
@@ -117,7 +117,7 @@ set_default_themes() {
   mkdir -p "$HOME/.config/gtk-3.0"
   cat > "$HOME/.config/gtk-3.0/settings.ini" <<EOF
 [Settings]
-gtk-theme-name=Materia-dark-compact
+gtk-theme-name=adw-gtk3-dark
 gtk-icon-theme-name=$icon
 gtk-cursor-theme-name=$cursor
 gtk-font-name=Cantarell 10
@@ -129,7 +129,7 @@ EOF
   mkdir -p "$HOME/.config/gtk-4.0"
   cat > "$HOME/.config/gtk-4.0/settings.ini" <<EOF
 [Settings]
-gtk-theme-name=Materia-dark-compact
+gtk-theme-name=adw-gtk3-dark
 gtk-icon-theme-name=$icon
 gtk-cursor-theme-name=$cursor
 gtk-font-name=Cantarell 10
