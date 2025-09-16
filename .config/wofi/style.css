@@ -1,84 +1,69 @@
+@import 'colors.css';
 
-/* Wofi özel renk adlandırmaları */
-@define-color red @error;
-@define-color accent @primary;
-@define-color text @on_surface;
-
-/* Global reset */
-* {
-    all: unset;
-    font-family: "Cantarell", sans-serif;
-    font-size: 1rem;
-    outline: none;
-    border: none;
-    text-shadow: none;
-    background-color: transparent;
+#wofi-window {
+    padding: 7px;
+    border-radius: 10px;
+    background: alpha(@background, 0.8);
+    color: @on_surface;
+    font-family: "CodeNewRoman Nerd Font Propo", sans-serif;
+    font-size: 15px;
+    box-shadow: 0 0 2px rgba(0,0,0,0.6);
 }
 
-/* Ana pencere */
-window {
-    padding: 0.6rem;
-    border-radius: 0.6rem; 
-    background-color: @blur_background8;
-    color: @text;
-    box-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.2); 
-}
-
-/* Input (arama kutusu) */
-#input {
-    margin: 0.4rem;
-    padding: 0.35rem 0.6rem; 
-    color: @text;
-    border-radius: 0.6rem; 
-    background-color: @surface_container_high;
+#wofi-input {
+    margin: 5px;
+    padding: 5px 10px;
+    border-radius: 10px;
+    background: @surface_container_high;
+    color: @on_surface;
     border: 1px solid @outline_variant;
-    transition: all 0.2s ease-in-out;
+    transition: all 0.3s ease;
 }
 
-#input image {
-    color: @red;
-    margin-right: 0.4rem;
-    min-width: 1rem;
-    min-height: 1rem;
+#wofi-input:focus {
+    background: @surface_container_highest;
+    border: 1px solid @primary;
 }
 
-#input:focus {
-    background-color: @surface_container_highest;
-    border: 1px solid @accent;
+#wofi-input image {
+    color: @error;
+    margin-right: 5px;
+    width: 16px;
+    height: 16px;
 }
 
-/* Entries */
-#entry {
-    margin: 0.1rem 0;
-    padding: 0.35rem 0.6rem; 
-    border-radius: 0.6rem;
-    color: @text;
-    transition: all 0.2s ease-in-out;
+#wofi-entry {
+    margin: 2px 0;
+    padding: 5px 10px;
+    border-radius: 10px;
+    color: alpha(@on_surface, 0.95);
+    transition: all 0.3s ease;
+    text-shadow: 0 0 2px rgba(0,0,0,0.7);
 }
 
-#entry:hover {
-    background-color: @secondary_container;
+#wofi-entry:hover {
+    background: @secondary_container;
     color: @on_secondary_container;
+    text-shadow: 0 0 2px rgba(0,0,0,0.7);
 }
 
-#entry arrow {
-    color: @accent;
+#wofi-entry arrow {
+    color: @primary;
 }
 
-/* Selected entry */
-#entry:selected {
-    background-color: @primary_container;
+#wofi-entry:selected {
+    background: @primary_container;
     color: @on_primary_container;
-    border-radius: 0.6rem;
-    font-weight: bold; 
+    font-weight: bold;
+    border-radius: 10px;
+    text-shadow: 0 0 2px rgba(0,0,0,0.8);
 }
 
-#entry:selected #text {
+#wofi-entry:selected #text {
     color: @on_primary_container;
 }
 
-/* Text */
-#text {
-    margin: 0.2rem;
+#wofi-text {
+    margin: 2px;
     color: inherit;
 }

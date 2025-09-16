@@ -1,157 +1,131 @@
 {
-    "layer": "top",
-    "position": "top",
-    "margin-left": 10,
-    "margin-right": 10,
-    "margin-top": 2,
-    "reload_style_on_change": true,
-    "modules-left": [ "clock", "custom/pacman","tray","wlr/taskbar"],
-    "modules-center": ["hyprland/workspaces"],
-    "modules-right": ["custom/colorpicker","cpu","memory", "network", "idle_inhibitor", "battery","custom/notification"],
-    
-    "hyprland/workspaces": {
-        "format": "{icon}",
-        "format-icons": {
-           "active": "●",
-            "default": "●",
-             "empty": "○"
-        },
-        "persistent-workspaces": {
-            "*": [1, 2, 3, 4, 5]
-        },
-        "tooltip-format": "Workspace {id}"
-    },
+        "layer": "top",
+        "position": "top",
+        "reload_style_on_change": true,
+        "modules-left": ["clock","custom/pacman","tray"],
+        "modules-center": ["hyprland/workspaces"],
+        "modules-right": ["group/expand","network","battery","custom/notification"],
 
-    "idle_inhibitor": {
-        "format": "{icon}",
-        "start-activated": false,
+
+        "hyprland/workspaces": {
+            "format": "{icon}",
             "format-icons": {
-                "activated": "",
-                "deactivated": "󰛊"
+                "active": "",
+                "default": "",
+                "empty": ""
             },
-        "tooltip-format-activated":"Caffeine Mode: Active ",
-        "tooltip-format-deactivated":"Caffeine Mode: Inactive"
-    },
-
-    "wlr/taskbar": {
-        "all-outputs": true,
-        "active-first": false,
-        "icon-size": 14,
-        "spacing": 20,
-        "format": "{icon}",
-        "tooltip-format": "{title} | {app_id}",
-        "on-click": "activate",
-        "on-click-right": "fullscreen",
-        "on-click-middle": "close",
-        "ignore-list": ["wofi"],
-      },
-
-
-    "custom/notification": {
-        "tooltip": false,
-        "format": "",
-        "on-click": "swaync-client -t -sw",
-        "escape": true
-    },
-    "clock": {
-        "format": "{:%H:%M:%S }",
-        "interval": 1,
-        "tooltip-format": "<tt>{calendar}</tt>",
-        "calendar": {
-            "format": {
-                "today": "<span color='#fAfBfC'><b>{}</b></span>"
+            "persistent-workspaces": {
+                "*": [ 1,2,3,4,5 ]
             }
         },
-        "actions": {
-            "on-click-right": "shift_down",
-            "on-click": "shift_up"
-        }
-    },
-    "network": {
-        "format-wifi": "",
-        "format-ethernet": "",
-        "format-disconnected": "",
-        "tooltip-format-disconnected": "Error",
-        "tooltip-format-wifi": "{essid} ({signalStrength}%) ",
-        "tooltip-format-ethernet": "{ifname} 🖧",
-        "on-click": "kitty -e impala"
-    },
-    "bluetooth": {
-        "format-on": "󰂯",
-        "format-off": "BT-off",
-        "format-disabled": "󰂲",
-        "format-connected-battery": "{device_battery_percentage}% 󰂯",
-        "format-alt": "{device_alias} 󰂯",
-        "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
-        "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
-        "tooltip-format-enumerate-connected": "{device_alias}\n{device_address}",
-        "tooltip-format-enumerate-connected-battery": "{device_alias}\n{device_address}\n{device_battery_percentage}%",
-        "on-click-right": "blueman-manager"
-    },
-    "battery": {
-        "interval": 30,
-        "states": {
-            "good": 95,
-            "warning": 30,
-            "critical": 20
+        "custom/notification": {
+            "tooltip": false,
+            "format": "",
+            "on-click": "swaync-client -t -sw",
+            "escape": true
         },
-        "format": "{capacity}% {icon}",
-        "format-charging": "{capacity}% 󰂄",
-        "format-plugged": "{capacity}% 󰂄 ",
-        "format-alt": "{time} {icon}",
-        "format-icons": [
-            "󰁻",
+        "clock": {
+            "format": "{:%H:%M:%S } ",
+            "interval": 1,   
+            "tooltip-format": "<tt>{calendar}</tt>",
+            "calendar": {
+                "format": {
+                    "today": "<span color='#fAfBfC'><b>{}</b></span>"
+                }
+            },
+            "actions": {
+                "on-click-right": "shift_down",
+                "on-click": "shift_up"
+            }
+        },
+        "network": {
+            "format-wifi": "",
+            "format-ethernet":"",
+            "format-disconnected": "",
+            "tooltip-format-disconnected": "Error",
+            "tooltip-format-wifi": "{essid} ({signalStrength}%) ",
+            "tooltip-format-ethernet": "{ifname} 🖧 ",
+            "on-click": "kitty impala"
+        },
+        "bluetooth": {
+            "format-on": "󰂯",
+            "format-off": "BT-off",
+            "format-disabled": "󰂲",
+            "format-connected-battery": "{device_battery_percentage}% 󰂯",
+            "format-alt": "{device_alias} 󰂯",
+            "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
+            "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
+            "tooltip-format-enumerate-connected": "{device_alias}\n{device_address}",
+            "tooltip-format-enumerate-connected-battery": "{device_alias}\n{device_address}\n{device_battery_percentage}%",
+            "on-click-right": "blueman-manager",
+        }, 
+        "battery": {
+            "interval":30,
+            "states": {
+                "good": 95,
+                "warning": 30,
+                "critical": 20
+            },
+            "format": "{capacity}% {icon}",
+            "format-charging": "{capacity}% 󰂄",
+            "format-plugged": "{capacity}% 󰂄 ",
+            "format-alt": "{time} {icon}",
+            "format-icons": [
+                "󰁻",
             "󰁼",
             "󰁾",
             "󰂀",
             "󰂂",
             "󰁹"
-        ]
-    },
-    "custom/pacman": {
-        "format": "󰅢 {}",
-        "interval": 30,
-        "exec": "checkupdates | wc -l",
-        "exec-if": "exit 0",
-        "on-click": "kitty sh -c 'yay -Syu; echo Done - Press enter to exit; read'; pkill -SIGRTMIN+8 waybar",
-        "signal": 8,
-        "tooltip": false
-    },
-    "custom/colorpicker": {
-    "format": "{}",
-   "return-type": "json",
-   "interval": "once",
-    "exec": "~/.config/waybar/scripts/colorpicker.sh -j",
-    "on-click": "~/.config/waybar/scripts/colorpicker.sh",
-    "signal": 1
-   },
-    "cpu": {
-    "interval": 10,
-    "format": "󰍛 {usage}%",
-    "rotate": 0,
-    "format-alt": "{icon0}{icon1}{icon2}{icon3}",
-    "format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"]
-    },
-    "memory": {
-    "states": {
-      "c": 90,
-      "h": 60,
-      "m": 30
-    },
-    "interval": 30,
-    "format": "\udb83\udf86 {used}GB",
-    "rotate": 0,
-    "format-m": "\udb83\udf85 {used}GB",
-    "format-h": "\udb81\udcc5 {used}GB",
-    "format-c": "\uf421 {used}GB",
-    "format-alt": "\udb83\udf86 {percentage}%",
-    "max-length": 10,
-    "tooltip": true,
-    //"tooltip-format": "\udb83\udf86 {percentage}%\n\ue266 {used:0.1f}GB/{total:0.1f}GB",
-    "tooltip-format": "\udb83\udf86 Memory usage: {percentage}%\n\ue266 Used: {used:0.2f}GB / {total:0.2f}GB\n\uf85a Available: {avail:0.2f}GB\n\uf233 Swap used: {swapUsed:0.2f}GB / {swapTotal:0.2f}GB ({swapPercentage}%)"
-     },
-    "tray": {
-        "icon-size": 14,
-        "spacing": 10
-     }
-}
+            ],
+        },
+        "custom/pacman": {
+            "format": "󰅢 {}",
+            "interval": 30,   
+            "exec": "checkupdates | wc -l",
+            "exec-if": "exit 0",
+            "on-click": "kitty sh -c 'yay -Syu; echo Done - Press enter to exit; read'; pkill -SIGRTMIN+8 waybar",
+            "signal": 8,
+            "tooltip": false,
+        },
+        "custom/expand": {
+            "format": "",
+            "tooltip": false
+        },
+        "custom/endpoint":{
+            "format": "|",
+            "tooltip": false
+        },
+        "group/expand": {
+            "orientation": "horizontal",
+            "drawer": {
+                "transition-duration": 600,
+                "transition-to-left": true,
+                "click-to-reveal": true
+            },
+            "modules": ["custom/expand", "custom/colorpicker","cpu","memory","temperature","custom/endpoint"],
+        },
+        "custom/colorpicker": {
+            "format": "{}",
+            "return-type": "json",
+            "interval": "once",
+            "exec": "~/.config/waybar/scripts/colorpicker.sh -j",
+            "on-click": "~/.config/waybar/scripts/colorpicker.sh",
+            "signal": 1
+        },
+        "cpu": {
+            "format": "󰻠",
+            "tooltip": true
+        },
+        "memory": {
+            "format": ""
+        },
+        "temperature": {
+            "critical-threshold": 80,
+            "format": "",
+        },
+        "tray": {
+            "icon-size": 14,
+            "spacing": 10
+        },
+} 
