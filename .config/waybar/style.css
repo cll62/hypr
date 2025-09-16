@@ -1,110 +1,231 @@
 @import 'colors.css';
 
-/* Genel bar */
 window#waybar {
     background: @blur_background;
-    border-radius: 12px;
+    border-radius: 10px;
     padding: 6px 10px;
     margin: 4px;
-    color: @on_surface;
-    font-family: "CodeNewRoman Nerd Font Propo", sans-serif;
+    color: @on_surface; 
+    font-family: "CodeNewRoman Nerd Font Propo", "JetBrains Mono", sans-serif;
     font-size: 1rem; 
 }
 
-/* Modül konteynerleri */
 .modules-left,
 .modules-center,
 .modules-right {
-    padding: 0.2rem 0.4rem;
+    padding: 0.2rem 0.5rem;
     margin: 0.1rem;
     border-radius: 0.6rem;
-    background: none; /* minimalist */
+    background: none;
 }
 
-/* Ortak modül stilleri */
 #clock, #tray, #custom-colorpicker, #custom-pacman, #custom-notification,
-#idle_inhibitor, #wlr-taskbar, #bluetooth, #network, #battery, #cpu, #memory, #temperature {
-    padding: 0.35rem 0.6rem;
+#idle_inhibitor, #wlr-taskbar, #bluetooth, #network, #battery, #cpu, #memory {
+    padding: 0.3rem 0.6rem;
     color: @on_surface;
     background: none;
     border-radius: 0.6rem;
-    font-size: 1rem; 
-    transition: background 0.2s ease, color 0.2s ease;
+    font-size: 1rem;
+    transition: all 0.3s ease;
 }
 
-/* Hover efektleri */
-#clock:hover, #custom-colorpicker:hover, #custom-pacman:hover,
+#clock:hover, #tray:hover, #custom-colorpicker:hover, #custom-pacman:hover,
 #custom-notification:hover, #idle_inhibitor:hover, #wlr-taskbar:hover,
-#bluetooth:hover, #network:hover, #battery:hover, #cpu:hover,
-#memory:hover, #temperature:hover {
-    color: @on_secondary_container;
-    background: @secondary_container;
+#bluetooth:hover, #network:hover, #battery:hover, #cpu:hover, #memory:hover {
+    color: @on_primary_container; 
+    background: @primary_container; 
 }
 
-/* Saat */
-#clock {
-    font-size: 1.1rem;
-    border-radius: 0.6rem;
-    border: none;
-}
-
-/* Tooltip */
 tooltip {
-    background: @surface_container_highest;
+    background: @surface_container_low; 
     color: @on_surface;
-    padding: 0.3rem 0.5rem;
+    padding: 0.5rem 0.8rem;
     border-radius: 0.6rem;
-    font-size: 0.9rem;
+    font-size: 1rem;
+    border: 1px solid @outline; 
+    box-shadow: 0 2px 4px @shadow;
 }
 
-/* Çalışma alanları */
 #workspaces {
     padding: 0 0.2rem;
 }
 
 #workspaces button {
-    margin: 0 0.15rem;
-    padding: 0.25rem 0.55rem;
+    margin: 0 0.1rem;
+    padding: 0.2rem 0.4rem;
     color: @on_surface_variant;
     background: none;
     border-radius: 0.6rem;
-    min-width: 1.5rem;
     border: none;
-    transition: background 0.2s ease, color 0.2s ease;
+    transition: all 0.3s ease;
 }
 
 #workspaces button:hover {
-    background: @secondary_container;
-    color: @on_secondary_container;
+    background: @primary_container; 
+    color: @on_primary_container; 
 }
 
 #workspaces button.active {
-    background: @primary_container;
-    color: @on_primary_container;
+    background: @primary_container; 
+    color: @on_primary_container; 
+    border-bottom: 2px solid @primary; 
     font-weight: bold;
 }
 
 #workspaces button.empty {
     color: @on_surface_variant;
-    opacity: 0.6;
+    opacity: 0.5;
 }
 
-/* Pil durumları */
-#battery.charging {
-    color: @on_tertiary_container;
-    background: @tertiary_container;
+#network {
+    padding: 0.3rem 0.6rem;
+    color: @on_surface;
+    background: none;
     border-radius: 0.6rem;
+    transition: all 0.3s ease;
+}
+
+#network:hover {
+    color: @on_primary_container;
+    background: @primary_container;
+}
+
+#network.disconnected {
+    color: @on_error_container; 
+    background: @error_container; 
+}
+
+#bluetooth {
+    padding: 0.3rem 0.6rem;
+    color: @on_surface;
+    background: none;
+    border-radius: 0.6rem;
+    transition: all 0.3s ease;
+}
+
+#bluetooth:hover {
+    color: @on_primary_container;
+    background: @primary_container;
+}
+
+#bluetooth.on {
+    color: @on_surface;
+}
+
+#bluetooth.off {
+    color: @on_surface_variant; 
+    opacity: 0.5;
+}
+
+#cpu {
+    padding: 0.3rem 0.6rem;
+    color: @on_surface;
+    background: none;
+    border-radius: 0.6rem;
+    transition: all 0.3s ease;
+}
+
+#cpu:hover {
+    color: @on_primary_container;
+    background: @primary_container;
+}
+
+#cpu.medium {
+    color: @on_surface;
+}
+
+#cpu.high {
+    color: @on_error_container; 
+    background: @error_container; 
+}
+
+#memory {
+    padding: 0.3rem 0.6rem;
+    color: @on_surface;
+    background: none;
+    border-radius: 0.6rem;
+    transition: all 0.3s ease;
+}
+
+#memory:hover {
+    color: @on_primary_container;
+    background: @primary_container;
+}
+
+#memory.medium {
+    color: @on_surface;
+}
+
+#memory.high {
+    color: @on_error_container; 
+    background: @error_container; 
+}
+
+#battery {
+    padding: 0.3rem 0.6rem;
+    color: @on_surface;
+    background: none;
+    border-radius: 0.6rem;
+    transition: all 0.3s ease;
+}
+
+#battery:hover {
+    color: @on_primary_container;
+    background: @primary_container;
+}
+
+#battery.charging {
+    color: @on_surface;
 }
 
 #battery.warning:not(.charging) {
-    color: @on_tertiary_container;
-    background: @tertiary_container;
-    border-radius: 0.6rem;
+    color: @on_surface;
 }
 
 #battery.critical:not(.charging) {
-    color: @on_error_container;
-    background: @error_container;
-    border-radius: 0.6rem;
+    color: @on_error_container; 
+    background: @error_container; 
     font-weight: bold;
+}
+
+#tray {
+    padding: 0.3rem 0.6rem;
+    color: @on_surface;
+    background: none;
+    border-radius: 0.6rem;
+    transition: all 0.3s ease;
+}
+
+#tray:hover {
+    color: @on_primary_container;
+    background: @primary_container;
+}
+
+#wlr-taskbar {
+    padding: 0.3rem 0.6rem;
+    color: @on_surface;
+    background: none;
+    border-radius: 0.6rem;
+    transition: all 0.3s ease;
+}
+
+#wlr-taskbar:hover {
+    color: @on_primary_container;
+    background: @primary_container;
+}
+
+#idle_inhibitor {
+    padding: 0.3rem 0.6rem;
+    color: @on_surface;
+    background: none;
+    border-radius: 0.6rem;
+    transition: all 0.3s ease;
+}
+
+#idle_inhibitor:hover {
+    color: @on_primary_container;
+    background: @primary_container;
+}
+#clock {
+    font-size: 1.2rem;
 }
