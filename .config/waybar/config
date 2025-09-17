@@ -1,8 +1,9 @@
 {
         "layer": "top",
         "position": "top",
-        "margin-left": 5,
-        "margin-right": 5,
+        "margin-top": 5,
+        "margin-left": 10,
+        "margin-right": 10,
         "reload_style_on_change": true,
         "modules-left": ["clock","custom/pacman","tray","custom/media","custom/brave","custom/terminal","custom/files","custom/wall","custom/hint"],
         "modules-center": ["hyprland/workspaces"],
