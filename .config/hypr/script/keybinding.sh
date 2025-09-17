@@ -65,4 +65,4 @@ parse_bindings() {
 dynamic_bindings |
   sort -u |
   parse_bindings |
-  wofi -c ~/.config/wofi/wallpaper -s ~/.config/wofi/style.css --dmenu kısayollar -p 'Kısayollar' -n
+  wofi -c ~/.config/wofi/config -s ~/.config/wofi/style.css --dmenu kısayollar -p 'Kısayollar' -n
