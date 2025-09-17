@@ -7,7 +7,7 @@
 
 window#waybar {
     all: unset;
-    background: alpha(@surface_container_low, .9);
+    background: alpha(@surface_container_low, .1);
     border-radius: 20px;
 }
 
