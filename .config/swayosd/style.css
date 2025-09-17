@@ -1,16 +1,15 @@
 @import url("colors.css");
 
-/* swayosd renk eşleştirmeleri */
-@define-color background-color @blur_background8; /* Wofi ile uyum */
-@define-color border-color alpha(@primary_container, 0.3); /* Daha koyu ton */
+@define-color background-color @surface_container_lowest;
+@define-color border-color alpha(@primary_container, 0.3);
 @define-color image @primary;
-@define-color progress @primary_container; 
+@define-color progress @primary_container;
 
 window {
-  border-radius: 0.6rem; 
+  border-radius: 0.6rem;
   background-color: @background-color;
   border: 1px solid @border-color;
-  box-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.2); 
+  box-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.2);
   animation: fadeIn 0.3s ease-in-out;
   transition: all 0.2s ease-in-out;
 }
@@ -21,18 +20,18 @@ window {
 }
 
 label {
-  font-family: 'CodeNewRoman Nerd Font Propo', sans-serif;
+  font-family: "CodeNewRoman Nerd Font Propo", sans-serif;
   font-size: 1rem;
   color: @on_surface;
 }
 
 label.critical {
-  color: @on_error_container;
-  font-weight: bold; 
+  color: @error;
+  font-weight: bold;
 }
 
 image {
-  color: @image;
+  color: @primary_fixed;
   margin-right: 0.4rem;
   min-width: 1rem;
   min-height: 1rem;
@@ -40,7 +39,7 @@ image {
 
 progressbar {
   border-radius: 0.6rem;
-  background-color: alpha(@surface_container_low, 0.3); 
+  background-color: alpha(@surface_container_low, 0.3);
   transition: all 0.2s ease-in-out;
 }
 
@@ -51,5 +50,5 @@ progress {
 }
 
 progress.critical {
-  background-color: @error_container;
+  background-color: @error;
 }

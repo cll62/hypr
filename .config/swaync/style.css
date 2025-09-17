@@ -1,12 +1,11 @@
 @import url("colors.css");
 
-/* swaync özel renkler */
-@define-color mpris-album-art-overlay alpha(@background, 0.55);
-@define-color mpris-button-hover alpha(@background, 0.50);
+@define-color mpris-album-art-overlay alpha(@surface_container_low, 0.55);
+@define-color mpris-button-hover alpha(@surface_container_low, 0.50);
 @define-color text @on_surface;
-@define-color bg alpha(@background, 0.5);
-@define-color bg-hover alpha(@background, 0.8);
-@define-color mycolor @primary_container; /* Waybar ile uyum için */
+@define-color bg alpha(@surface_container_low, 0.5);
+@define-color bg-hover alpha(@surface_container_low, 0.8);
+@define-color mycolor @surface_container_lowest;
 @define-color border-color alpha(@mycolor, 0.15);
 @define-color critical @error;
 
@@ -20,116 +19,115 @@
   font-family: "CodeNewRoman Nerd Font Propo", sans-serif;
 }
 
-/* Bildirimler */
 .control-center .notification-row {
   background-color: unset;
 }
 
 .notification {
-  background: alpha(@mycolor, 0.4);
-  border-radius: 0.6rem; /* Waybar ile uyum */
+  background: alpha(@surface_container_lowest, 0.4);
+  border-radius: 0.6rem;
 }
 
 .control-center .notification-row .notification-background .notification {
   margin-top: 0.15rem;
-  box-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.2); 
-  background: alpha(@mycolor, 0.25);
+  box-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.2);
+  background: alpha(@surface_container_lowest, 0.25);
 }
 
 .floating-notifications .notification {
-  animation: fadeIn 0.3s ease-in-out; 
+  animation: fadeIn 0.3s ease-in-out;
 }
 
 .notification widget:hover {
   background: @secondary_container;
-  color: @on_secondary_container;
+  color: @on_surface;
 }
 
-/* Texts */
 .summary {
   font-size: 1rem;
   font-weight: 500;
 }
+
 .time {
   font-size: 0.875rem;
   font-weight: 500;
-  margin-right: 0.6rem; 
+  margin-right: 0.6rem;
 }
+
 .body {
   font-size: 0.9rem;
   font-weight: 400;
   margin-top: 0.3rem;
 }
 
-/* Critical */
 .notification.critical .notification-content label {
-  color: @on_error_container;
-  font-weight: bold; 
+  color: @error;
+  font-weight: bold;
 }
 
-/* Close Button */
 .close-button {
   all: unset;
   min-height: 1.2rem;
   min-width: 1.2rem;
-  color: @text;
-  border-radius: 0.6rem; 
-}
-.close-button:hover {
-  background: @secondary_container;
-  color: @on_secondary_container;
+  color: @on_surface;
   border-radius: 0.6rem;
 }
 
-/* Control Center */
+.close-button:hover {
+  background: @secondary_container;
+  color: @on_surface;
+  border-radius: 0.6rem;
+}
+
 .control-center {
   background: @bg;
-  color: @text;
+  color: @on_surface;
   border-radius: 0.6rem;
   box-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.2);
   padding: 0.4rem;
 }
 
-/* Widget Title */
 .widget-title {
   padding: 0.6rem;
-  color: @text;
-}
-.widget-title > button {
-  font-size: 0.9rem;
-  color: @text;
-  background: alpha(@error, 0.3);
-  border-radius: 0.6rem;
-  padding: 0.25rem 0.6rem;
-  transition: all 0.2s ease-in-out; 
-}
-.widget-title > button:hover {
-  background: @secondary_container;
-  color: @on_secondary_container;
+  color: @on_surface;
 }
 
-/* MPRIS */
+.widget-title > button {
+  font-size: 0.9rem;
+  color: @on_surface;
+  background: alpha(@primary, 0.3);
+  border-radius: 0.6rem;
+  padding: 0.25rem 0.6rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.widget-title > button:hover {
+  background: @secondary_container;
+  color: @on_surface;
+}
+
 .widget-mpris .widget-mpris-player {
-  padding: 0.35rem 0.6rem; 
+  padding: 0.35rem 0.6rem;
   margin: 0.2rem;
   background-color: @mpris-album-art-overlay;
   border-radius: 0.6rem;
   box-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.2);
 }
 
-/* Buttons Grid */
 .widget-buttons-grid {
   padding: 0.35rem;
   margin: 0.2rem;
   border-radius: 0.6rem;
   background: transparent;
 }
+
 .widget-buttons-grid > flowbox > flowboxchild > button {
   border-radius: 0.6rem;
   background: transparent;
   transition: all 0.2s ease-in-out;
 }
+
 .widget-buttons-grid > flowbox > flowboxchild > button:hover {
   background: @secondary_container;
-  color: @on_secondary_container;
+  color: @on_surface;
 }

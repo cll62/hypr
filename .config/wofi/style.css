@@ -1,13 +1,11 @@
-@import 'colors.css';
 
 #wofi-window {
     padding: 7px;
     border-radius: 10px;
-    background: alpha(@background, 0.8);
+    background: alpha(@surface_container_low, .9);
     color: @on_surface;
     font-family: "CodeNewRoman Nerd Font Propo", sans-serif;
     font-size: 15px;
-    box-shadow: 0 0 2px rgba(0,0,0,0.6);
 }
 
 #wofi-input {
@@ -16,17 +14,17 @@
     border-radius: 10px;
     background: @surface_container_high;
     color: @on_surface;
-    border: 1px solid @outline_variant;
+    border: 1px solid @outline;
     transition: all 0.3s ease;
 }
 
 #wofi-input:focus {
     background: @surface_container_highest;
-    border: 1px solid @primary;
+    border: 1px solid @primary_fixed;
 }
 
 #wofi-input image {
-    color: @error;
+    color: @primary;
     margin-right: 5px;
     width: 16px;
     height: 16px;
@@ -36,31 +34,31 @@
     margin: 2px 0;
     padding: 5px 10px;
     border-radius: 10px;
-    color: alpha(@on_surface, 0.95);
+    color: @on_surface_variant;
     transition: all 0.3s ease;
     text-shadow: 0 0 2px rgba(0,0,0,0.7);
 }
 
 #wofi-entry:hover {
     background: @secondary_container;
-    color: @on_secondary_container;
+    color: @on_surface;
     text-shadow: 0 0 2px rgba(0,0,0,0.7);
 }
 
 #wofi-entry arrow {
-    color: @primary;
+    color: @primary_fixed;
 }
 
 #wofi-entry:selected {
     background: @primary_container;
-    color: @on_primary_container;
+    color: @primary_fixed;
     font-weight: bold;
     border-radius: 10px;
     text-shadow: 0 0 2px rgba(0,0,0,0.8);
 }
 
 #wofi-entry:selected #text {
-    color: @on_primary_container;
+    color: @primary_fixed;
 }
 
 #wofi-text {

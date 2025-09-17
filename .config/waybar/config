@@ -1,10 +1,12 @@
 {
         "layer": "top",
         "position": "top",
+        "margin-left": 5,
+        "margin-right": 5,
         "reload_style_on_change": true,
-        "modules-left": ["clock","custom/pacman","tray"],
+        "modules-left": ["clock","custom/pacman","tray","custom/media","custom/brave","custom/terminal","custom/files","custom/wall","custom/hint"],
         "modules-center": ["hyprland/workspaces"],
-        "modules-right": ["group/expand","network","battery","custom/notification"],
+        "modules-right": ["customcolorpicker","cpu","memory","network","idle_inhibitor","battery","custom/notification"],
 
 
         "hyprland/workspaces": {
@@ -18,6 +20,70 @@
                 "*": [ 1,2,3,4,5 ]
             }
         },
+         "hyprland/window": {
+            "format": "{class}",
+            "separate-outputs": true,
+            "icon": true,
+            "icon-size": 15
+        },
+         "idle_inhibitor": {
+            "format": "{icon}",
+            "rotate": 0,
+            "format-icons": {
+            "activated": "\udb80\udd76",
+            "deactivated": "\udb81\udeca"
+            },
+            "justify": "center",
+            "tooltip": "true",
+        },
+         "custom/media": {
+            "exec": "playerctl metadata --format '{{ artist }} - {{ title }}' --player=mpv",
+            "format": "",
+            "tooltip": true,
+            "tooltip-format": "{}",
+            "interval": 5,
+            "on-click": "playerctl play-pause --player=mpv",
+            "on-scroll-up": "playerctl next",
+            "on-scroll-down": "playerctl previous",
+            "return-type": "string"
+        },
+         "custom/brave": {
+            "format": "\uf268", 
+            "tooltip": true,
+            "tooltip-format": "Tarayıcı Aç",
+            "on-click": "brave --incognito",
+            "on-click-right":"brave",
+            "interval": 3600,
+        },
+        "custom/terminal": {
+            "format": "\ue795", 
+            "tooltip": true,
+            "tooltip-format": "Terminal Aç",
+            "on-click": "kitty",
+            "interval": 3600,
+        },
+        "custom/files": {
+            "interval": 3600,
+            "format": "\uf07c",
+            "tooltip": true,
+            "tooltip-format": "Dosya Yöneticisini Aç",
+            "on-click": "thunar",
+            "on-click-right":"kitty yazi",
+        },
+        "custom/wall": {
+            "format": " ",
+            "on-click": "$HOME/.config/hypr/script/wallpaper.sh",
+            "on-click-right": "$HOME/.config/hypr/script/bg_random.sh",
+            "tooltip": true,
+            "tooltip-format": "Wallpaper Seç\n Random Wallpaper"
+        },
+        "custom/hint": {
+            "format": "󰺁!",
+            "on-click": "$HOME/.config/hypr/script/keybinding.sh",
+            "tooltip": true,
+            "tooltip-format": "Kısayollar",
+        },
+
         "custom/notification": {
             "tooltip": false,
             "format": "",
@@ -47,18 +113,6 @@
             "tooltip-format-ethernet": "{ifname} 🖧 ",
             "on-click": "kitty impala"
         },
-        "bluetooth": {
-            "format-on": "󰂯",
-            "format-off": "BT-off",
-            "format-disabled": "󰂲",
-            "format-connected-battery": "{device_battery_percentage}% 󰂯",
-            "format-alt": "{device_alias} 󰂯",
-            "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
-            "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
-            "tooltip-format-enumerate-connected": "{device_alias}\n{device_address}",
-            "tooltip-format-enumerate-connected-battery": "{device_alias}\n{device_address}\n{device_battery_percentage}%",
-            "on-click-right": "blueman-manager",
-        }, 
         "battery": {
             "interval":30,
             "states": {
@@ -88,23 +142,6 @@
             "signal": 8,
             "tooltip": false,
         },
-        "custom/expand": {
-            "format": "",
-            "tooltip": false
-        },
-        "custom/endpoint":{
-            "format": "|",
-            "tooltip": false
-        },
-        "group/expand": {
-            "orientation": "horizontal",
-            "drawer": {
-                "transition-duration": 600,
-                "transition-to-left": true,
-                "click-to-reveal": true
-            },
-            "modules": ["custom/expand", "custom/colorpicker","cpu","memory","temperature","custom/endpoint"],
-        },
         "custom/colorpicker": {
             "format": "{}",
             "return-type": "json",
@@ -113,12 +150,30 @@
             "on-click": "~/.config/waybar/scripts/colorpicker.sh",
             "signal": 1
         },
-        "cpu": {
-            "format": "󰻠",
-            "tooltip": true
+         "cpu": {
+            "interval": 10,
+            "format": "󰍛 {usage}%",
+            "rotate": 0,
+            "format-alt": "{icon0}{icon1}{icon2}{icon3}",
+            "format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"],
         },
-        "memory": {
-            "format": ""
+       "memory": {
+            "states": {
+            "c": 90,
+            "h": 60,
+            "m": 30
+        },
+            "interval": 30,
+            "format": "\udb83\udf86 {used}GB",
+            "rotate": 0,
+            "format-m": "\udb83\udf85 {used}GB",
+            "format-h": "\udb81\udcc5 {used}GB",
+            "format-c": "\uf421 {used}GB",
+            "format-alt": "\udb83\udf86 {percentage}%",
+            "max-length": 10,
+            "tooltip": true,
+            //"tooltip-format": "\udb83\udf86 {percentage}%\n\ue266 {used:0.1f}GB/{total:0.1f}GB",
+            "tooltip-format": "\udb83\udf86 Memory usage: {percentage}%\n\ue266 Used: {used:0.2f}GB / {total:0.2f}GB\n\uf85a Available: {avail:0.2f}GB\n\uf233 Swap used: {swapUsed:0.2f}GB / {swapTotal:0.2f}GB ({swapPercentage}%)"
         },
         "temperature": {
             "critical-threshold": 80,
