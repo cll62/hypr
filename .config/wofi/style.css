@@ -1,8 +1,9 @@
+@import url("/home/celal/.config/wofi/colors.css");
 
 #wofi-window {
     padding: 7px;
     border-radius: 10px;
-    background: alpha(@surface_container_low, .9);
+    background: alpha(@surface_container_low, .1);
     color: @on_surface;
     font-family: "CodeNewRoman Nerd Font Propo", sans-serif;
     font-size: 15px;
