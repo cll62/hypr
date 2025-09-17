@@ -73,9 +73,8 @@
         "custom/wall": {
             "format": " ",
             "on-click": "$HOME/.config/hypr/script/wallpaper.sh",
-            "on-click-right": "$HOME/.config/hypr/script/bg_random.sh",
             "tooltip": true,
-            "tooltip-format": "Wallpaper Seç\n Random Wallpaper"
+            "tooltip-format": "Wallpaper Seç"
         },
         "custom/hint": {
             "format": "󰺁!",

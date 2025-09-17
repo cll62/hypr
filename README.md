@@ -104,7 +104,6 @@ reboot
 | Super + K          | Keybindings script             |
 | Alt + N            | Night mode                     |
 | Super + W          | Wallpaper değiştir             |
-| Super+ALT + W      | Random Wallpaper               |
 | Super + R          | Waybar refresh                 |
 | Alt + R            | SwayNC refresh                 |
 | Super + M          | Müzik aç/kapat (mpv)           |
