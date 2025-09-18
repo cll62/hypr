@@ -1,10 +1,11 @@
+@import url("/home/celal/.config/wofi/colors.css");
 
 #wofi-window {
     padding: 7px;
     border-radius: 10px;
     background: alpha(@surface_container_low, .1);
     color: @on_surface;
-    font-family: "CodeNewRoman Nerd Font Propo", sans-serif;
+    font-family: "CodeNewRoman Nerd Font Propo";
     font-size: 15px;
 }
 
@@ -35,6 +36,7 @@
     padding: 5px 10px;
     border-radius: 10px;
     color: @on_surface_variant;
+    background: alpha(@surface_container_low, .1);
     transition: all 0.3s ease;
     text-shadow: 0 0 2px rgba(0,0,0,0.7);
 }
@@ -50,7 +52,7 @@
 }
 
 #wofi-entry:selected {
-    background: @primary_container;
+    background: alpha(@surface_container_low, .1);
     color: @primary_fixed;
     font-weight: bold;
     border-radius: 10px;
