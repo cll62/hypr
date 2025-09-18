@@ -6,8 +6,8 @@
         "margin-right": 10,
         "reload_style_on_change": true,
         "modules-left": ["hyprland/workspaces","hyprland/window"],
-        "modules-center": ["clock","idle_inhibitor","custom/wall","custom/hint"],
-        "modules-right": ["tray","custom/media","custom/pacman","custom/colorpicker","cpu","memory","network","battery","custom/notification"],
+        "modules-center": ["clock"],
+        "modules-right": ["tray","custom/media","custom/pacman","custom/colorpicker","cpu","memory","network","pulseaudio","idle_inhibitor","battery","custom/notification"],
 
 
         "hyprland/workspaces": {
@@ -21,6 +21,16 @@
                 "*": [ 1,2,3,4,5 ]
             }
         },
+        "pulseaudio": {
+         "format": "{icon}",
+         "on-click": "pavucontrol",
+         "tooltip-format": "Playing at {volume}%",
+        "scroll-step": 5,
+        "format-muted": "",
+        "format-icons": {
+         "default": ["", "", ""]
+        }
+        },
          "wlr/taskbar": {
                 "icon-size": "This is a placeholder -> actual size = font * multiplier", 
                 "icon-size-multiplier": 1
@@ -29,7 +39,7 @@
             "format": "{class}",
             "separate-outputs": true,
             "icon": true,
-            "max-length": 20,
+            "max-length": 30,
             "icon-size": 15
         },
          "idle_inhibitor": {
