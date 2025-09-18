@@ -38,6 +38,18 @@
          "hyprland/window": {
             "format": "{class}",
             "separate-outputs": true,
+            "rewrite": {
+                "(.*?)-\\s*YouTube(.*)": "Youtube 󰗃",
+                "(.*?)-\\s*chatgpt(.*)": "ChatGPT",
+                "(.*?)-\\s*grok(.*)": "Grok",
+                "(.*?)-\\s*x(.*)": "x.com",
+                "brave-web.whatsapp.com__-Default": "Whatsapp",
+                "(.*?)-\\s*music(.*)": "YT Müzik",
+                "(.*?)-\\s*mebbis(.*)": "Mebbis",
+                "(.*?)-\\s*m365(.*)": "Office 365",
+                "(.*?)-\\s*github(.*)": "Github",
+                "brave-www.mathcha.io__editor-Default": "Math Editor"
+            },
             "icon": true,
             "max-length": 30,
             "icon-size": 15
@@ -61,8 +73,7 @@
             "on-click": "playerctl play-pause --player=mpv",
             "on-scroll-up": "playerctl next",
             "on-scroll-down": "playerctl previous",
-            "return-type": "string",
-            "icon-size": 15
+            "return-type": "string"
         },
          "custom/brave": {
             "format": "\uf268", 
