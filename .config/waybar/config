@@ -5,9 +5,9 @@
         "margin-left": 10,
         "margin-right": 10,
         "reload_style_on_change": true,
-        "modules-left": ["clock","custom/pacman","tray","custom/media","custom/brave","custom/terminal","custom/files","custom/wall","custom/hint"],
-        "modules-center": ["hyprland/workspaces"],
-        "modules-right": ["customcolorpicker","cpu","memory","network","idle_inhibitor","battery","custom/notification"],
+        "modules-left": ["hyprland/workspaces","hyprland/window"],
+        "modules-center": ["clock","idle_inhibitor","custom/wall","custom/hint"],
+        "modules-right": ["tray","custom/media","custom/pacman","custom/colorpicker","cpu","memory","network","battery","custom/notification"],
 
 
         "hyprland/workspaces": {
@@ -21,10 +21,15 @@
                 "*": [ 1,2,3,4,5 ]
             }
         },
+         "wlr/taskbar": {
+                "icon-size": "This is a placeholder -> actual size = font * multiplier", 
+                "icon-size-multiplier": 1
+         },
          "hyprland/window": {
             "format": "{class}",
             "separate-outputs": true,
             "icon": true,
+            "max-length": 20,
             "icon-size": 15
         },
          "idle_inhibitor": {
@@ -42,11 +47,12 @@
             "format": "",
             "tooltip": true,
             "tooltip-format": "{}",
-            "interval": 5,
+            "interval": 1,
             "on-click": "playerctl play-pause --player=mpv",
             "on-scroll-up": "playerctl next",
             "on-scroll-down": "playerctl previous",
-            "return-type": "string"
+            "return-type": "string",
+            "icon-size": 15
         },
          "custom/brave": {
             "format": "\uf268", 
@@ -80,8 +86,7 @@
         "custom/hint": {
             "format": "󰺁!",
             "on-click": "$HOME/.config/hypr/script/keybinding.sh",
-            "tooltip": true,
-            "tooltip-format": "Kısayollar",
+            "tooltip": false,
         },
 
         "custom/notification": {
@@ -91,7 +96,7 @@
             "escape": true
         },
         "clock": {
-            "format": "{:%H:%M:%S } ",
+            "format": "{:%H:%M } ",
             "interval": 1,   
             "tooltip-format": "<tt>{calendar}</tt>",
             "calendar": {
