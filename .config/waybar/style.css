@@ -40,7 +40,7 @@ tooltip {
 #idle_inhibitor:hover,
 #temperature:hover {
     transition: all .3s ease;
-    color: @on_surface;
+    color: @secondary_container;
 }
 
 #clock,
@@ -70,7 +70,7 @@ tooltip {
 #workspaces button {
     all: unset;
     padding: 0px 5px;
-    color: @primary;
+    color: @on_secondary;
     transition: color .4s ease, text-shadow .4s ease;
     text-shadow: 0 0 1px rgba(0,0,0,0.5);
 }
@@ -88,7 +88,7 @@ tooltip {
 }
 
 #workspaces button.empty {
-    color: @outline;
+    color: @secondary_container;
     text-shadow: 0 0 1px rgba(0,0,0,0.2);
     border: none;
 }
@@ -100,7 +100,7 @@ tooltip {
 }
 
 #workspaces button.empty.active {
-    color: @primary_fixed;
+    color: @on_primary;
     text-shadow: 0 0 1.5px rgba(0,0,0,0.6);
     border: none;
 }
