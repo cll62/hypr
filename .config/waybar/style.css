@@ -14,7 +14,7 @@ window#waybar {
 .modules-left,
 .modules-center,
 .modules-right {
-    padding: 7px;
+    padding: 2px;
 }
 
 tooltip {
@@ -38,6 +38,7 @@ tooltip {
 #custom-wall:hover,
 #custom-hint:hover,
 #idle_inhibitor:hover,
+#wlr-taskbar:hover,
 #temperature:hover {
     transition: all .3s ease;
     color: @secondary_container;
@@ -59,6 +60,7 @@ tooltip {
 #custom-wall,
 #custom-hint,
 #idle_inhibitor,
+#wlr-taskbar,
 #temperature,
 #tray {
     padding: 0px 7px;
@@ -69,7 +71,7 @@ tooltip {
 
 #workspaces button {
     all: unset;
-    padding: 0px 5px;
+    padding: 0px 4px;
     color: @on_secondary;
     transition: color .4s ease, text-shadow .4s ease;
     text-shadow: 0 0 1px rgba(0,0,0,0.5);
@@ -123,14 +125,6 @@ tooltip {
     animation-timing-function: linear;
     animation-iteration-count: 5;
     animation-direction: alternate;
-}
-
-#custom-colorpicker,
-#tray menu *,
-#tray menu separator {
-    padding: 0px 5px;
-    transition: color .3s ease, text-shadow .3s ease;
-    color: @on_surface;
 }
 
 #clock tooltip {
