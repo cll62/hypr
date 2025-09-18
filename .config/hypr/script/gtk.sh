@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
-# Check that settings file exists
+swww img "$HOME/wallpapers/wall"
+matugen image -c "$HOME/.config/matugen/config.toml" "$HOME/wallpapers/wall"
 config="$HOME/.config/gtk-3.0/settings.ini"
 if [ ! -f "$config" ]; then exit 1; fi
 
-# Read settings file
 gnome_schema="org.gnome.desktop.interface"
 gtk_theme="$(grep 'gtk-theme-name' "$config" | sed 's/.*\s*=\s*//')"
 icon_theme="$(grep 'gtk-icon-theme-name' "$config" | sed 's/.*\s*=\s*//')"
@@ -14,7 +14,6 @@ font_name="$(grep 'gtk-font-name' "$config" | sed 's/.*\s*=\s*//')"
 prefer_dark_theme="$(grep 'gtk-application-prefer-dark-theme' "$config" | sed 's/.*\s*=\s*//')"
 terminal=kitty
 
-# Echo value for debugging
 echo "GTK-Theme:" $gtk_theme
 echo "Icon Theme:" $icon_theme
 echo "Cursor Theme:" $cursor_theme
@@ -28,7 +27,6 @@ echo "Color Theme:" $prefer_dark_theme_value
 echo "Font Name:" $font_name
 echo "Terminal:" $terminal
 
-# Update gsettings
 gsettings set "$gnome_schema" gtk-theme "$gtk_theme"
 gsettings set "$gnome_schema" icon-theme "$icon_theme"
 gsettings set "$gnome_schema" cursor-theme "$cursor_theme"
