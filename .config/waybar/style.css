@@ -38,6 +38,7 @@ tooltip {
 #custom-wall:hover,
 #custom-hint:hover,
 #idle_inhibitor:hover,
+#pulseaudio:hover,
 #wlr-taskbar:hover,
 #temperature:hover {
     transition: all .3s ease;
@@ -61,6 +62,7 @@ tooltip {
 #custom-hint,
 #idle_inhibitor,
 #wlr-taskbar,
+#pulseaudio,
 #temperature,
 #tray {
     padding: 0px 7px;
@@ -134,4 +136,8 @@ tooltip {
 
 #clock tooltip .calendar today {
     color: @primary_fixed;
+}
+@keyframes blink {
+    0% { opacity: 1; }
+    100% { opacity: 0.5; }
 }
