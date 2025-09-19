@@ -24,7 +24,7 @@ install_yay() {
     TMPDIR=$(mktemp -d)
     git clone https://aur.archlinux.org/yay-bin.git "$TMPDIR/yay-bin"
     pushd "$TMPDIR/yay-bin" >/dev/null
-    makepkg -si --noconfirm --needed
+    makepkg -si --noconfirm 
     popd >/dev/null
     success "Yay başarıyla kuruldu."
   else
@@ -145,8 +145,18 @@ Inherits=$cursor
 EOF
 
   # Çevresel değişkenler (oturumda cursor için)
-  echo "export XCURSOR_THEME=$cursor" >> "$HOME/.profile"
-  echo "export XCURSOR_SIZE=12" >> "$HOME/.profile"
+  local profile="$HOME/.profile"
+  local block="
+export XCURSOR_THEME=$cursor
+export XCURSOR_SIZE=12
+"
+
+  if ! grep -q "XCURSOR_THEME=" "$profile" 2>/dev/null; then
+    echo "$block" >> "$profile"
+    success ".profile dosyasına cursor değişkenleri eklendi."
+  else
+    success ".profile dosyasında cursor değişkenleri zaten mevcut."
+  fi
 
   success "Varsayılan temalar: Icon=$icon, Cursor=$cursor"
 }
@@ -198,10 +208,9 @@ copy_configs() {
 #     GNOME TERMINAL FIX    #
 #---------------------------#
 symlink_terminal() {
-  if [[ ! -e /usr/bin/gnome-terminal ]]; then
-    sudo ln -sf /usr/bin/kitty /usr/bin/gnome-terminal
-    success "Kitty terminal, gnome-terminal olarak linklendi."
-  fi
+ if ! command -v gnome-terminal &>/dev/null; then
+  sudo ln -sf /usr/bin/kitty /usr/bin/gnome-terminal
+fi
 }
 
 #---------------------------#
@@ -225,8 +234,17 @@ EOF
 #    PACMAN GÖRSEL AYARI    #
 #---------------------------#
 customize_pacman() {
-  if ! grep -q "ILoveCandy" /etc/pacman.conf; then
-    sudo sed -i '/^\[options\]/a Color\nILoveCandy\nVerbosePkgLists' /etc/pacman.conf
+  local opts=("Color" "ILoveCandy" "VerbosePkgLists")
+  local updated=0
+
+  for opt in "${opts[@]}"; do
+    if ! grep -q "^$opt" /etc/pacman.conf; then
+      sudo sed -i "/^\[options\]/a $opt" /etc/pacman.conf
+      updated=1
+    fi
+  done
+
+  if [[ $updated -eq 1 ]]; then
     success "Pacman görsel ayarları eklendi."
   else
     success "Pacman görsel ayarları zaten mevcut."
