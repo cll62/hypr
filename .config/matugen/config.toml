@@ -1,3 +1,11 @@
+[config.custom_colors]
+red = { color = "#ff0000", blend = true }
+green = { color = "#00ff00", blend = true }
+blue = { color = "#0000ff", blend = true }
+yellow = { color = "#ffff00", blend = true }
+orange = { color = "#ff8000", blend = true }
+purple = { color = "#8000ff", blend = true }
+
 [config]
 version_check = false
 
@@ -18,20 +26,13 @@ output_path = "~/.config/wofi/colors.css"
 [templates.swaync]
 input_path = "~/.config/matugen/templates/colors.css"
 output_path = "~/.config/swaync/colors.css"
-post_hook = """
-pkill swaync 
-swaync &
-"""
+post_hook = 'pkill swaync;swaync & disown'
+
 
 [templates.swayosd]
 input_path = "~/.config/matugen/templates/colors.css"
 output_path = "~/.config/swayosd/colors.css"
-post_hook = """
-pkill swayosd-server
-swayosd-server &
-sleep 0.5
-swayosd-client &
-"""
+post_hook = 'pkill swayosd-server;swayosd-server & disown'
 
 [templates.hyprlock]
 input_path = "~/.config/matugen/templates/hyprland-colors.conf"
