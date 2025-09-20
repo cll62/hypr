@@ -50,7 +50,7 @@
                 "(.*?)-\\s*github(.*)": "Github 󰊤",
                 "brave-www.mathcha.io__editor-Default": "Math Editor "
              },
-             "icon": true,
+             "icon": false,
             "max-length": 30,
             "icon-size": 15
         },
