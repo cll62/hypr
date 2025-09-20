@@ -35,25 +35,26 @@
                 "icon-size": "This is a placeholder -> actual size = font * multiplier", 
                 "icon-size-multiplier": 1
          },
-         "hyprland/window": {
+        "hyprland/window": {
             "format": "{class}",
             "separate-outputs": true,
-            "rewrite": {
+             "rewrite": {
                 "(.*?)-\\s*YouTube(.*)": "Youtube 󰗃",
-                "(.*?)-\\s*chatgpt(.*)": "ChatGPT",
-                "(.*?)-\\s*grok(.*)": "Grok",
-                "(.*?)-\\s*x(.*)": "x.com",
-                "brave-web.whatsapp.com__-Default": "Whatsapp",
-                "(.*?)-\\s*music(.*)": "YT Müzik",
-                "(.*?)-\\s*mebbis(.*)": "Mebbis",
-                "(.*?)-\\s*m365(.*)": "Office 365",
-                "(.*?)-\\s*github(.*)": "Github",
-                "brave-www.mathcha.io__editor-Default": "Math Editor"
-            },
-            "icon": true,
+                "(.*?)-\\s*chatgpt(.*)": "ChatGPT 󰥺",
+                "(.*?)-\\s*grok(.*)": "Grok 󰞯",
+                "(.*?)-\\s*x(.*)": "x.com ",
+                "brave-web.whatsapp.com__-Default": "Whatsapp ",
+                "(.*?)-\\s*music(.*)": "YT Müzik 󰎈",
+                "(.*?)-\\s*mebbis(.*)": "Mebbis ",
+                "(.*?)-\\s*m365(.*)": "Office 365 ",
+                "(.*?)-\\s*github(.*)": "Github 󰊤",
+                "brave-www.mathcha.io__editor-Default": "Math Editor "
+             },
+             "icon": true,
             "max-length": 30,
             "icon-size": 15
         },
+
          "idle_inhibitor": {
             "format": "{icon}",
             "rotate": 0,
@@ -76,7 +77,7 @@
             "return-type": "string"
         },
          "custom/brave": {
-            "format": "\uf268", 
+            "format": "", 
             "tooltip": true,
             "tooltip-format": "Tarayıcı Aç",
             "on-click": "brave --incognito",
@@ -117,7 +118,7 @@
             "escape": true
         },
         "clock": {
-            "format": "{:%H:%M } ",
+            "format": "{:L%a, %d %b %Y %H:%M } ",
             "interval": 1,   
             "tooltip-format": "<tt>{calendar}</tt>",
             "calendar": {
