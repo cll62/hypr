@@ -1,0 +1,63 @@
+@import url("colors.css");
+@define-color base alpha(@surface, 0.5);
+@define-color surface_custom alpha(@surface_container_high, 0.8);
+@define-color hovercolor alpha(@surface_container_high, 0.8);
+@define-color activecolor @primary_container;
+@define-color buttoncolor alpha(@inverse_primary, 0.3);
+@define-color hoverbutton @inverse_primary;
+@define-color activebutton @inverse_primary;
+@define-color bordercolor @primary;
+@define-color fontcolor @on_surface;
+@define-color text @on_surface;
+@define-color background-color @surface_container_lowest;
+@define-color border-color alpha(@primary_container, 0.3);
+@define-color image @primary;
+@define-color progress @primary_container;
+
+window {
+  border-radius: 0.5rem; 
+  background-color: @background-color;
+  border: 1px solid @border-color;
+  box-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.3s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+label {
+  font-family: "JetBrainsMono Nerd Font", "Font Awesome 6 Free", "Font Awesome 6 Brands", sans-serif;
+  font-size: 0.9rem;
+  color: @on_surface;
+}
+
+label.critical {
+  color: @error;
+  font-weight: bold;
+}
+
+image {
+  color: @primary; 
+  margin-right: 0.3rem; 
+  min-width: 0.9rem; 
+  min-height: 0.9rem; 
+}
+
+progressbar {
+  border-radius: 0.5rem; 
+  background-color: alpha(@surface_container_low, 0.3);
+  transition: all 0.2s ease-in-out;
+}
+
+progress {
+  background-color: @progress;
+  border-radius: 0.5rem; 
+  transition: all 0.2s ease-in-out;
+}
+
+progress.critical {
+  background-color: @error;
+}

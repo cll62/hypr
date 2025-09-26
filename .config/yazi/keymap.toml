@@ -1,0 +1,353 @@
+"$schema" = "https://yazi-rs.github.io/schemas/keymap.json"
+
+[mgr]
+
+keymap = [
+	{ on = "<Esc>", run = "escape",             desc = "Görsel moddan çık, seçimi temizle veya aramayı iptal et" },
+	{ on = "<C-[>", run = "escape",             desc = "Görsel moddan çık, seçimi temizle veya aramayı iptal et" },
+	{ on = "q",     run = "quit",               desc = "Programdan çık" },
+	{ on = "Q",     run = "quit --no-cwd-file", desc = "Çalışma dizinini yazmadan çık" },
+	{ on = "<C-c>", run = "close",              desc = "Geçerli sekmeyi kapat, son sekmeyse çık" },
+	{ on = "<C-z>", run = "suspend",            desc = "Programı askıya al (arka plana gönder)" },
+
+	# Hareket
+	{ on = "k", run = "arrow -1", desc = "İmleci yukarı taşı" },
+	{ on = "j", run = "arrow 1",  desc = "İmleci aşağı taşı" },
+
+	{ on = "<Up>",    run = "arrow -1", desc = "İmleci yukarı taşı" },
+	{ on = "<Down>",  run = "arrow 1",  desc = "İmleci aşağı taşı" },
+
+	{ on = "<C-u>", run = "arrow -50%",  desc = "İmleci yarım sayfa yukarı taşı" },
+	{ on = "<C-d>", run = "arrow 50%",   desc = "İmleci yarım sayfa aşağı taşı" },
+	{ on = "<C-b>", run = "arrow -100%", desc = "İmleci bir sayfa yukarı taşı" },
+	{ on = "<C-f>", run = "arrow 100%",  desc = "İmleci bir sayfa aşağı taşı" },
+
+	{ on = "<S-PageUp>",   run = "arrow -50%",  desc = "İmleci yarım sayfa yukarı taşı" },
+	{ on = "<S-PageDown>", run = "arrow 50%",   desc = "İmleci yarım sayfa aşağı taşı" },
+	{ on = "<PageUp>",     run = "arrow -100%", desc = "İmleci bir sayfa yukarı taşı" },
+	{ on = "<PageDown>",   run = "arrow 100%",  desc = "İmleci bir sayfa aşağı taşı" },
+
+	{ on = [ "g", "g" ], run = "arrow top",    desc = "İmleci listenin başına götür" },
+	{ on = "G",          run = "arrow bottom", desc = "İmleci listenin sonuna götür" },
+
+	# Dizin gezintisi
+	{ on = "h", run = "leave", desc = "Üst dizine çık" },
+	{ on = "l", run = "enter", desc = "Alt dizine gir" },
+
+	{ on = "<Left>",  run = "leave", desc = "Üst dizine çık" },
+	{ on = "<Right>", run = "enter", desc = "Alt dizine gir" },
+
+	{ on = "H", run = "back",    desc = "Önceki dizine git" },
+	{ on = "L", run = "forward", desc = "Sonraki dizine git" },
+
+	# Seçim
+	{ on = "<Space>", run = [ "toggle", "arrow 1" ], desc = "Seçili durumu değiştir ve aşağı in" },
+	{ on = "<C-a>",   run = "toggle_all --state=on", desc = "Tüm dosyaları seç" },
+	{ on = "<C-r>",   run = "toggle_all",            desc = "Tüm seçimleri tersine çevir" },
+
+	# Görsel mod
+	{ on = "v", run = "visual_mode",         desc = "Görsel moda gir (seçim modu)" },
+	{ on = "V", run = "visual_mode --unset", desc = "Görsel moda gir (seçim kaldırma modu)" },
+
+	# Önizleme
+	{ on = "K", run = "seek -5", desc = "Önizlemeyi 5 satır yukarı kaydır" },
+	{ on = "J", run = "seek 5",  desc = "Önizlemeyi 5 satır aşağı kaydır" },
+
+	# Spotlama
+	{ on = "<Tab>", run = "spot", desc = "Üzerindeki dosyayı spotla" },
+
+	# Dosya işlemleri
+	{ on = "o",         run = "open",                        desc = "Seçili dosyaları aç" },
+	{ on = "O",         run = "open --interactive",          desc = "Seçili dosyaları etkileşimli aç" },
+	{ on = "<Enter>",   run = "open",                        desc = "Seçili dosyaları aç" },
+	{ on = "<S-Enter>", run = "open --interactive",          desc = "Seçili dosyaları etkileşimli aç" },
+	{ on = "y",         run = "yank",                        desc = "Seçili dosyaları kopyala" },
+	{ on = "x",         run = "yank --cut",                  desc = "Seçili dosyaları kes" },
+	{ on = "p",         run = "paste",                       desc = "Kopyalanan/kesilen dosyaları yapıştır" },
+	{ on = "P",         run = "paste --force",               desc = "Dosyaları yapıştır (varsa üzerine yaz)" },
+	{ on = "-",         run = "link",                        desc = "Kopyalanan dosyalara mutlak symlink oluştur" },
+	{ on = "_",         run = "link --relative",             desc = "Kopyalanan dosyalara göreceli symlink oluştur" },
+	{ on = "<C-->",     run = "hardlink",                    desc = "Kopyalanan dosyalara hardlink oluştur" },
+	{ on = "Y",         run = "unyank",                      desc = "Kopyalama/kesme işlemini iptal et" },
+	{ on = "X",         run = "unyank",                      desc = "Kopyalama/kesme işlemini iptal et" },
+	{ on = "d",         run = "remove",                      desc = "Seçili dosyaları çöpe taşı" },
+	{ on = "D",         run = "remove --permanently",        desc = "Seçili dosyaları kalıcı sil" },
+	{ on = "a",         run = "create",                      desc = "Yeni dosya oluştur (sonu / ile bitiyorsa klasör)" },
+	{ on = "r",         run = "rename --cursor=before_ext",  desc = "Seçili dosyaları yeniden adlandır" },
+	{ on = ";",         run = "shell --interactive",         desc = "Etkileşimli kabuk komutu çalıştır" },
+	{ on = ":",         run = "shell --block --interactive", desc = "Komut çalıştır ve bitene kadar bekle" },
+	{ on = ".",         run = "hidden toggle",               desc = "Gizli dosyaları göster/gizle" },
+	{ on = "s",         run = "search --via=fd",             desc = "Dosya adına göre ara (fd)" },
+	{ on = "S",         run = "search --via=rg",             desc = "Dosya içeriğine göre ara (ripgrep)" },
+	{ on = "<C-s>",     run = "escape --search",             desc = "Aramayı iptal et" },
+	{ on = "z",         run = "plugin zoxide",               desc = "Zoxide ile dizine atla" },
+	{ on = "Z",         run = "plugin fzf",                  desc = "fzf ile dosya/dizine atla" },
+
+	# Linemode
+	{ on = [ "m", "s" ], run = "linemode size",        desc = "Linemode: boyut" },
+	{ on = [ "m", "p" ], run = "linemode permissions", desc = "Linemode: izinler" },
+	{ on = [ "m", "b" ], run = "linemode btime",       desc = "Linemode: oluşturulma zamanı" },
+	{ on = [ "m", "m" ], run = "linemode mtime",       desc = "Linemode: değiştirilme zamanı" },
+	{ on = [ "m", "o" ], run = "linemode owner",       desc = "Linemode: sahip" },
+	{ on = [ "m", "n" ], run = "linemode none",        desc = "Linemode: hiçbiri" },
+
+	# Copy
+	{ on = [ "c", "c" ], run = "copy path",             desc = "Dosya yolunu kopyala" },
+	{ on = [ "c", "d" ], run = "copy dirname",          desc = "Dizin yolunu kopyala" },
+	{ on = [ "c", "f" ], run = "copy filename",         desc = "Dosya adını kopyala" },
+	{ on = [ "c", "n" ], run = "copy name_without_ext", desc = "Dosya adını uzantısız kopyala" },
+
+	# Filter
+	{ on = "f", run = "filter --smart", desc = "Dosyaları filtrele" },
+
+	# Find
+	{ on = "/", run = "find --smart",            desc = "Sonraki dosyayı bul" },
+	{ on = "?", run = "find --previous --smart", desc = "Önceki dosyayı bul" },
+	{ on = "n", run = "find_arrow",              desc = "Sonraki bulunan dosyaya git" },
+	{ on = "N", run = "find_arrow --previous",   desc = "Önceki bulunan dosyaya git" },
+
+	# Sorting
+	{ on = [ ",", "m" ], run = [ "sort mtime --reverse=no", "linemode mtime" ], desc = "Değiştirilme zamanına göre sırala" },
+	{ on = [ ",", "M" ], run = [ "sort mtime --reverse", "linemode mtime" ],    desc = "Değiştirilme zamanına göre ters sırala" },
+	{ on = [ ",", "b" ], run = [ "sort btime --reverse=no", "linemode btime" ], desc = "Oluşturulma zamanına göre sırala" },
+	{ on = [ ",", "B" ], run = [ "sort btime --reverse", "linemode btime" ],    desc = "Oluşturulma zamanına göre ters sırala" },
+	{ on = [ ",", "e" ], run = "sort extension --reverse=no",                   desc = "Uzantıya göre sırala" },
+	{ on = [ ",", "E" ], run = "sort extension --reverse",                      desc = "Uzantıya göre ters sırala" },
+	{ on = [ ",", "a" ], run = "sort alphabetical --reverse=no",                desc = "Alfabetik olarak sırala" },
+	{ on = [ ",", "A" ], run = "sort alphabetical --reverse",                   desc = "Alfabetik olarak ters sırala" },
+	{ on = [ ",", "n" ], run = "sort natural --reverse=no",                     desc = "Doğal sıralama yap" },
+	{ on = [ ",", "N" ], run = "sort natural --reverse",                        desc = "Doğal sıralamayı tersine çevir" },
+	{ on = [ ",", "s" ], run = [ "sort size --reverse=no", "linemode size" ],   desc = "Boyuta göre sırala" },
+	{ on = [ ",", "S" ], run = [ "sort size --reverse", "linemode size" ],      desc = "Boyuta göre ters sırala" },
+	{ on = [ ",", "r" ], run = "sort random --reverse=no",                      desc = "Rastgele sırala" },
+
+	# Goto
+	{ on = [ "g", "h" ],       run = "cd ~",             desc = "Ana dizine git" },
+	{ on = [ "g", "c" ],       run = "cd ~/.config",     desc = "~/.config dizinine git" },
+	{ on = [ "g", "d" ],       run = "cd ~/Downloads",   desc = "~/Downloads dizinine git" },
+	{ on = [ "g", "<Space>" ], run = "cd --interactive", desc = "Etkileşimli olarak dizine atla" },
+
+	# Tabs
+	{ on = "t", run = "tab_create --current", desc = "Geçerli dizinle yeni sekme oluştur" },
+
+	{ on = "1", run = "tab_switch 0", desc = "Birinci sekmeye geç" },
+	{ on = "2", run = "tab_switch 1", desc = "İkinci sekmeye geç" },
+	{ on = "3", run = "tab_switch 2", desc = "Üçüncü sekmeye geç" },
+	{ on = "4", run = "tab_switch 3", desc = "Dördüncü sekmeye geç" },
+	{ on = "5", run = "tab_switch 4", desc = "Beşinci sekmeye geç" },
+	{ on = "6", run = "tab_switch 5", desc = "Altıncı sekmeye geç" },
+	{ on = "7", run = "tab_switch 6", desc = "Yedinci sekmeye geç" },
+	{ on = "8", run = "tab_switch 7", desc = "Sekizinci sekmeye geç" },
+	{ on = "9", run = "tab_switch 8", desc = "Dokuzuncu sekmeye geç" },
+
+	{ on = "[", run = "tab_switch -1 --relative", desc = "Önceki sekmeye geç" },
+	{ on = "]", run = "tab_switch 1 --relative",  desc = "Sonraki sekmeye geç" },
+
+	{ on = "{", run = "tab_swap -1", desc = "Geçerli sekme ile önceki sekmeyi değiştir" },
+	{ on = "}", run = "tab_swap 1",  desc = "Geçerli sekme ile sonraki sekmeyi değiştir" },
+
+	# Tasks
+	{ on = "w", run = "tasks_show", desc = "Görev yöneticisini göster" },
+
+	# Help
+	{ on = "~",    run = "help", desc = "Yardımı aç" },
+	{ on = "<F1>", run = "help", desc = "Yardımı aç" },
+]
+
+[tasks]
+
+keymap = [
+	{ on = "<Esc>", run = "close", desc = "Görev yöneticisini kapat" },
+	{ on = "<C-[>", run = "close", desc = "Görev yöneticisini kapat" },
+	{ on = "<C-c>", run = "close", desc = "Görev yöneticisini kapat" },
+	{ on = "w",     run = "close", desc = "Görev yöneticisini kapat" },
+
+	{ on = "k", run = "arrow -1", desc = "İmleci yukarı taşı" },
+	{ on = "j", run = "arrow 1",  desc = "İmleci aşağı taşı" },
+
+	{ on = "<Up>",   run = "arrow -1", desc = "İmleci yukarı taşı" },
+	{ on = "<Down>", run = "arrow 1",  desc = "İmleci aşağı taşı" },
+
+	{ on = "<Enter>", run = "inspect", desc = "Görevi incele" },
+	{ on = "x",       run = "cancel",  desc = "Görevi iptal et" },
+
+	# Help
+	{ on = "~",    run = "help", desc = "Yardımı aç" },
+	{ on = "<F1>", run = "help", desc = "Yardımı aç" },
+]
+
+[spot]
+
+keymap = [
+	{ on = "<Esc>", run = "close", desc = "Spotu kapat" },
+	{ on = "<C-[>", run = "close", desc = "Spotu kapat" },
+	{ on = "<C-c>", run = "close", desc = "Spotu kapat" },
+	{ on = "<Tab>", run = "close", desc = "Spotu kapat" },
+
+	{ on = "k", run = "arrow -1", desc = "İmleci yukarı taşı" },
+	{ on = "j", run = "arrow 1",  desc = "İmleci aşağı taşı" },
+	{ on = "h", run = "swipe -1", desc = "Sonraki dosyaya kaydır" },
+	{ on = "l", run = "swipe 1",  desc = "Önceki dosyaya kaydır" },
+
+	{ on = "<Up>",    run = "arrow -1", desc = "İmleci yukarı taşı" },
+	{ on = "<Down>",  run = "arrow 1",  desc = "İmleci aşağı taşı" },
+	{ on = "<Left>",  run = "swipe -1", desc = "Sonraki dosyaya kaydır" },
+	{ on = "<Right>", run = "swipe 1",  desc = "Önceki dosyaya kaydır" },
+
+	# Copy
+	{ on = [ "c", "c" ], run = "copy cell", desc = "Seçili hücreyi kopyala" },
+
+	# Help
+	{ on = "~",    run = "help", desc = "Yardımı aç" },
+	{ on = "<F1>", run = "help", desc = "Yardımı aç" },
+]
+
+[pick]
+
+keymap = [
+	{ on = "<Esc>",   run = "close",          desc = "Seçimi iptal et" },
+	{ on = "<C-[>",   run = "close",          desc = "Seçimi iptal et" },
+	{ on = "<C-c>",   run = "close",          desc = "Seçimi iptal et" },
+	{ on = "<Enter>", run = "close --submit", desc = "Seçimi onayla" },
+
+	{ on = "k", run = "arrow -1", desc = "İmleci yukarı taşı" },
+	{ on = "j", run = "arrow 1",  desc = "İmleci aşağı taşı" },
+
+	{ on = "<Up>",   run = "arrow -1", desc = "İmleci yukarı taşı" },
+	{ on = "<Down>", run = "arrow 1",  desc = "İmleci aşağı taşı" },
+
+	# Help
+	{ on = "~",    run = "help", desc = "Yardımı aç" },
+	{ on = "<F1>", run = "help", desc = "Yardımı aç" },
+]
+
+[input]
+
+keymap = [
+	{ on = "<C-c>",   run = "close",          desc = "Girişi iptal et" },
+	{ on = "<Enter>", run = "close --submit", desc = "Girişi onayla" },
+	{ on = "<Esc>",   run = "escape",         desc = "Normal moda dön veya girişi iptal et" },
+	{ on = "<C-[>",   run = "escape",         desc = "Normal moda dön veya girişi iptal et" },
+
+	# Mode
+	{ on = "i", run = "insert",                              desc = "Ekleme moduna gir" },
+	{ on = "a", run = "insert --append",                     desc = "Ekleme moduna gir (sona ekle)" },
+	{ on = "I", run = [ "move -999", "insert" ],             desc = "Satır başına git ve ekleme moduna gir" },
+	{ on = "A", run = [ "move 999", "insert --append" ],     desc = "Satır sonuna git ve ekleme moduna gir" },
+	{ on = "v", run = "visual",                              desc = "Görsel moda gir" },
+	{ on = "V", run = [ "move -999", "visual", "move 999" ], desc = "Görsel moda gir ve tümünü seç" },
+
+	# Character-wise movement
+	{ on = "h",       run = "move -1", desc = "Bir karakter geri git" },
+	{ on = "l",       run = "move 1",  desc = "Bir karakter ileri git" },
+	{ on = "<Left>",  run = "move -1", desc = "Bir karakter geri git" },
+	{ on = "<Right>", run = "move 1",  desc = "Bir karakter ileri git" },
+	{ on = "<C-b>",   run = "move -1", desc = "Bir karakter geri git" },
+	{ on = "<C-f>",   run = "move 1",  desc = "Bir karakter ileri git" },
+
+	# Word-wise movement
+	{ on = "b",     run = "backward",              desc = "Geçerli veya önceki kelimenin başına git" },
+	{ on = "w",     run = "forward",               desc = "Sonraki kelimenin başına git" },
+	{ on = "e",     run = "forward --end-of-word", desc = "Geçerli veya sonraki kelimenin sonuna git" },
+	{ on = "<A-b>", run = "backward",              desc = "Geçerli veya önceki kelimenin başına git" },
+	{ on = "<A-f>", run = "forward --end-of-word", desc = "Geçerli veya sonraki kelimenin sonuna git" },
+
+	# Line-wise movement
+	{ on = "0",      run = "move -999", desc = "Satır başına git" },
+	{ on = "$",      run = "move 999",  desc = "Satır sonuna git" },
+	{ on = "<C-a>",  run = "move -999", desc = "Satır başına git" },
+	{ on = "<C-e>",  run = "move 999",  desc = "Satır sonuna git" },
+	{ on = "<Home>", run = "move -999", desc = "Satır başına git" },
+	{ on = "<End>",  run = "move 999",  desc = "Satır sonuna git" },
+
+	# Delete
+	{ on = "<Backspace>", run = "backspace",         desc = "İmlecin önündeki karakteri sil" },
+	{ on = "<Delete>",    run = "backspace --under", desc = "İmlecin altındaki karakteri sil" },
+	{ on = "<C-h>",       run = "backspace",         desc = "İmlecin önündeki karakteri sil" },
+	{ on = "<C-d>",       run = "backspace --under", desc = "İmlecin altındaki karakteri sil" },
+
+	# Kill
+	{ on = "<C-u>", run = "kill bol",      desc = "Satır başına kadar geri sil" },
+	{ on = "<C-k>", run = "kill eol",      desc = "Satır sonuna kadar ileri sil" },
+	{ on = "<C-w>", run = "kill backward", desc = "Geçerli kelimenin başına kadar geri sil" },
+	{ on = "<A-d>", run = "kill forward",  desc = "Geçerli kelimenin sonuna kadar ileri sil" },
+
+	# Cut/Yank/Paste
+	{ on = "d", run = "delete --cut",                              desc = "Seçili karakterleri kes" },
+	{ on = "D", run = [ "delete --cut", "move 999" ],              desc = "Satır sonuna kadar kes" },
+	{ on = "c", run = "delete --cut --insert",                     desc = "Seçili karakterleri kes ve ekleme moduna gir" },
+	{ on = "C", run = [ "delete --cut --insert", "move 999" ],     desc = "Satır sonuna kadar kes ve ekleme moduna gir" },
+	{ on = "x", run = [ "delete --cut", "move 1 --in-operating" ], desc = "Geçerli karakteri kes" },
+	{ on = "y", run = "yank",                                      desc = "Seçili karakterleri kopyala" },
+	{ on = "p", run = "paste",                                     desc = "Kopyalanan karakterleri imlecin sonrasına yapıştır" },
+	{ on = "P", run = "paste --before",                            desc = "Kopyalanan karakterleri imlecin öncesine yapıştır" },
+
+	# Undo/Redo
+	{ on = "u",     run = "undo", desc = "Son işlemi geri al" },
+	{ on = "<C-r>", run = "redo", desc = "Son işlemi tekrar yap" },
+
+	# Help
+	{ on = "~",    run = "help", desc = "Yardımı aç" },
+	{ on = "<F1>", run = "help", desc = "Yardımı aç" },
+]
+
+[confirm]
+
+keymap = [
+	{ on = "<Esc>",   run = "close",          desc = "Onayı iptal et" },
+	{ on = "<C-[>",   run = "close",          desc = "Onayı iptal et" },
+	{ on = "<C-c>",   run = "close",          desc = "Onayı iptal et" },
+	{ on = "<Enter>", run = "close --submit", desc = "Onayı gönder" },
+
+	{ on = "n", run = "close",          desc = "Onayı iptal et" },
+	{ on = "y", run = "close --submit", desc = "Onayı gönder" },
+
+	{ on = "k", run = "arrow -1", desc = "İmleci yukarı taşı" },
+	{ on = "j", run = "arrow 1",  desc = "İmleci aşağı taşı" },
+
+	{ on = "<Up>",   run = "arrow -1", desc = "İmleci yukarı taşı" },
+	{ on = "<Down>", run = "arrow 1",  desc = "İmleci aşağı taşı" },
+
+	# Help
+	{ on = "~",    run = "help", desc = "Yardımı aç" },
+	{ on = "<F1>", run = "help", desc = "Yardımı aç" },
+]
+
+[completion]
+
+keymap = [
+	{ on = "<C-c>",   run = "close",                                      desc = "Tamamlamayı iptal et" },
+	{ on = "<Tab>",   run = "close --submit",                             desc = "Tamamlamayı onayla" },
+	{ on = "<Enter>", run = [ "close --submit", "close_input --submit" ], desc = "Tamamlamayı ve girişi onayla" },
+
+	{ on = "<A-k>", run = "arrow -1", desc = "İmleci yukarı taşı" },
+	{ on = "<A-j>", run = "arrow 1",  desc = "İmleci aşağı taşı" },
+
+	{ on = "<Up>",   run = "arrow -1", desc = "İmleci yukarı taşı" },
+	{ on = "<Down>", run = "arrow 1",  desc = "İmleci aşağı taşı" },
+
+	{ on = "<C-p>", run = "arrow -1", desc = "İmleci yukarı taşı" },
+	{ on = "<C-n>", run = "arrow 1",  desc = "İmleci aşağı taşı" },
+
+	# Help
+	{ on = "~",    run = "help", desc = "Yardımı aç" },
+	{ on = "<F1>", run = "help", desc = "Yardımı aç" },
+]
+
+[help]
+
+keymap = [
+	{ on = "<Esc>", run = "escape", desc = "Filtreyi temizle veya yardımı gizle" },
+	{ on = "<C-[>", run = "escape", desc = "Filtreyi temizle veya yardımı gizle" },
+	{ on = "<C-c>", run = "close",  desc = "Yardımı gizle" },
+
+	# Navigation
+	{ on = "k", run = "arrow -1", desc = "İmleci yukarı taşı" },
+	{ on = "j", run = "arrow 1",  desc = "İmleci aşağı taşı" },
+
+	{ on = "<Up>",   run = "arrow -1", desc = "İmleci yukarı taşı" },
+	{ on = "<Down>", run = "arrow 1",  desc = "İmleci aşağı taşı" },
+
+	# Filtering
+	{ on = "f", run = "filter", desc = "Yardım öğeleri için filtre uygula" },
+]

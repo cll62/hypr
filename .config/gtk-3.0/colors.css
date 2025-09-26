@@ -1,0 +1,74 @@
+
+@define-color accent_color #aed18d;
+@define-color accent_bg_color #324e18;
+@define-color accent_fg_color #caeea6;
+
+@define-color window_bg_color #11140e;
+@define-color window_fg_color #e2e3d9;
+
+@define-color headerbar_bg_color #1e211a;
+@define-color headerbar_fg_color #e2e3d9;
+@define-color headerbar_border_color #8e9286;
+@define-color headerbar_shade_color #282b24;
+
+@define-color popover_bg_color #1e211a;
+@define-color popover_fg_color #e2e3d9;
+
+@define-color view_bg_color #11140e;
+@define-color view_fg_color #e2e3d9;
+
+@define-color card_bg_color #1a1d16;
+@define-color card_fg_color #e2e3d9;
+@define-color card_shade_color #000000;
+
+@define-color sidebar_bg_color @window_bg_color;
+@define-color sidebar_fg_color @window_fg_color;
+@define-color sidebar_border_color @window_bg_color;
+@define-color sidebar_backdrop_color @window_bg_color;
+
+@define-color bg_color #11140e;
+@define-color fg_color #e2e3d9;
+@define-color text_color #e2e3d9;
+@define-color text_color_disabled #e2e3d9;
+
+@define-color button_bg_color #1e211a;
+@define-color button_fg_color #e2e3d9;
+@define-color button_hover_color #aed18d;
+@define-color button_active_color #aed18d;
+@define-color button_checked_bg_color #324e18;
+@define-color button_checked_fg_color #caeea6;
+
+@define-color borders #8e9286;
+@define-color outline_color #8e9286;
+@define-color outline_variant_color #44483e;
+
+@define-color link_color #a0cfcd;
+@define-color link_visited_color #1e4e4c;
+
+@define-color warning_color #ffb4ab;
+@define-color warning_bg_color #93000a;
+@define-color warning_fg_color #ffdad6;
+@define-color error_color #ffb4ab;
+@define-color error_bg_color #93000a;
+@define-color error_fg_color #ffdad6;
+@define-color success_color #a0cfcd;
+@define-color success_bg_color #1e4e4c;
+@define-color success_fg_color #bbece9;
+
+@define-color selected_bg_color #324e18;
+@define-color selected_fg_color #caeea6;
+@define-color selected_text_color #caeea6;
+
+@define-color hover_color #aed18d;
+@define-color focus_color #aed18d;
+
+@define-color dark_fill_color #33362e;
+@define-color light_fill_color #373a33;
+
+@define-color info_color #becbae;
+@define-color info_bg_color #3f4a34;
+@define-color info_fg_color #dae7c9;
+
+@define-color shade_color #000000;
+@define-color backdrop_color #44483e;
+@define-color overlay_color #000000;

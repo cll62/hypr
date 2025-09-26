@@ -1,0 +1,127 @@
+@import 'colors.css';
+@define-color base alpha(@surface, 0.5);
+@define-color surface_custom alpha(@surface_container_high, 0.8);
+@define-color hovercolor alpha(@surface_container_high, 0.8);
+@define-color activecolor @primary_container;
+@define-color buttoncolor alpha(@inverse_primary, 0.3);
+@define-color hoverbutton @inverse_primary;
+@define-color activebutton @inverse_primary;
+@define-color bordercolor @primary;
+@define-color fontcolor @on_surface;
+@define-color text @on_surface;
+* {
+  font-size: 13px;
+  font-family: "JetBrainsMono Nerd Font", sans-serif;
+}
+window#waybar {
+  all: unset;
+  background: alpha(@surface_container_low, .1);
+  border-radius: 8px;
+}
+.modules-left,
+.modules-center,
+.modules-right {
+  padding: 1px;
+}
+tooltip {
+  background: @surface_container_high;
+  color: @on_surface;
+  border-radius: 5px;
+}
+#clock:hover,
+#custom-pacman:hover,
+#custom-notification:hover,
+#network:hover,
+#battery:hover,
+#cpu:hover,
+#memory:hover,
+#window:hover,
+#custom-media:hover,
+#idle_inhibitor:hover,
+#pulseaudio:hover,
+#wlr-taskbar:hover,
+#temperature:hover {
+  transition: all .3s ease;
+  color: @on_surface;
+  background-color: alpha(@surface_container_high, 0.5);
+  border-radius: 5px;
+}
+#clock,
+#custom-pacman,
+#custom-notification,
+#network,
+#battery,
+#cpu,
+#memory,
+#window,
+#custom-hint,
+#idle_inhibitor,
+#wlr-taskbar,
+#pulseaudio,
+#temperature,
+#tray {
+  padding: 0px 6px;
+  transition: all .3s ease;
+  color: @on_surface_variant;
+  text-shadow: none;
+}
+#workspaces button {
+  all: unset;
+  padding: 0px 6px;
+  color: @on_secondary_variant;
+  transition: all 0.3s ease-in-out;
+}
+#workspaces button:hover {
+  color: @on_primary;
+  background-color: @buttoncolor;
+  border-radius: 5px;
+}
+#workspaces button.active {
+  color: @on_primary;
+  background-color: @activebutton;
+  border-radius: 8px;
+  padding: 0px 10px;
+}
+#workspaces button.empty {
+  color: @secondary_container;
+  text-shadow: none;
+  border: none;
+}
+#workspaces button.empty:hover {
+  color: @on_surface_variant;
+  text-shadow: none;
+  border: none;
+}
+#workspaces button.empty.active {
+  color: @on_primary;
+  text-shadow: none;
+  border: none;
+}
+#battery.charging {
+  color: @secondary_fixed;
+  text-shadow: none;
+}
+#battery.warning:not(.charging) {
+  color: @tertiary;
+  text-shadow: none;
+}
+#battery.critical:not(.charging) {
+  color: @error;
+  text-shadow: none;
+  animation-name: blink;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-iteration-count: 5;
+  animation-direction: alternate;
+}
+#clock tooltip {
+  background: @surface_container_high;
+  color: @on_surface;
+}
+#clock tooltip .calendar today {
+  color: @primary_fixed;
+}
+@keyframes blink {
+  0% { opacity: 1; }
+  100% { opacity: 0.5; }
+}
