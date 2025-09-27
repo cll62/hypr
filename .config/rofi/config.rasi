@@ -1,10 +1,3 @@
-/**
- *
- * Author : Aditya Shakya (adi1090x)
- * Github : @adi1090x
- * 
- * Configuration For Rofi Version: 1.7.3
- **/
 
 configuration {
 	/*---------- General setting ----------*/
@@ -15,7 +8,7 @@ configuration {
 	scroll-method: 0;
 	normalize-match: true;
 	show-icons: true;
-	icon-theme: "Papirus";
+	icon-theme: "Tela-dracula";
 /*	cache-dir: ;*/
 	steal-focus: false;
 /*	dpi: -1;*/
@@ -83,7 +76,7 @@ configuration {
 
 	/*---------- Misc setting ----------*/
 	terminal: "rofi-sensible-terminal";
-	font: "Mono 12";
+	font: "Mono 10";
 	sort: false;
 	threads: 0;
 	click-to-exit: true;

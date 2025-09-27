@@ -1,11 +1,4 @@
-/**
- *
- * Author : Aditya Shakya (adi1090x)
- * Github : @adi1090x
- * 
- * Rofi Theme File
- * Rofi Version: 1.7.3
- **/
+
 
 /*****----- Configuration -----*****/
 configuration {
@@ -20,8 +13,8 @@ configuration {
 }
 
 /*****----- Global Properties -----*****/
-@import "~/.config/rofi/shared/fonts.rasi"
-@import "~/.config/rofi/shared/colors.rasi"
+@import "~/.config/rofi/colors/fonts.rasi"
+@import "~/.config/rofi/colors/colors.rasi"
 
 * {
     border-colour:               var(selected);
@@ -116,7 +109,7 @@ textbox-prompt-colon {
     enabled:                     true;
     padding:                     5px 0px;
     expand:                      false;
-    str:                         "";
+    str:                         "  ";
     background-color:            inherit;
     text-color:                  inherit;
 }
@@ -126,7 +119,7 @@ entry {
     background-color:            inherit;
     text-color:                  inherit;
     cursor:                      text;
-    placeholder:                 "Search...";
+    placeholder:                 "Ara...";
     placeholder-color:           inherit;
 }
 num-filtered-rows {

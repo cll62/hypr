@@ -41,6 +41,6 @@ inputbar {
 entry {
     background-color: inherit;
     text-color: @foreground;
-    placeholder: "Search...";
+    placeholder: "Ara...";
     placeholder-color: #A89984FF;
 }

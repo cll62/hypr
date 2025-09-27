@@ -1,11 +1,4 @@
-/**
- *
- * Author : Aditya Shakya (adi1090x)
- * Github : @adi1090x
- * 
- * Rofi Theme File
- * Rofi Version: 1.7.3
- **/
+
 
 /*****----- Configuration -----*****/
 configuration {
@@ -13,8 +6,8 @@ configuration {
 }
 
 /*****----- Global Properties -----*****/
-@import "~/.config/rofi/shared/fonts.rasi"
-@import "~/.config/rofi/shared/colors.rasi"
+@import "~/.config/rofi/colors/fonts.rasi"
+@import "~/.config/rofi/colors/colors.rasi"
 
 /*****----- Main Window -----*****/
 window {
@@ -68,7 +61,7 @@ inputbar {
 textbox-prompt-colon {
     enabled:                     true;
     expand:                      false;
-    str:                         "";
+    str:                         "  ";
     padding:                     12px 16px;
     border-radius:               100%;
     background-color:            @urgent;

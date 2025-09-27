@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-dir="$HOME/.config/rofi/powermenu/type-1"
-theme='style-1'
-
 calisma_suresi="`uptime -p | sed -e 's/up //g'`"
 ana_bilgisayar=`hostname`
 
@@ -15,7 +12,7 @@ rofi_calistir() {
 	rofi -dmenu \
 		-p "$ana_bilgisayar" \
 		-mesg "Çalışma Süresi: $calisma_suresi" \
-		-theme ${dir}/${theme}.rasi
+		-theme "$HOME/.config/rofi/powermenu/style.rasi"
 }
 
 komut_uygula() {

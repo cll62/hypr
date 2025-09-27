@@ -1,23 +1,15 @@
-/**
- *
- * Author : Aditya Shakya (adi1090x)
- * Github : @adi1090x
- * 
- * Rofi Theme File
- * Rofi Version: 1.7.3
- **/
 
 /*****----- Configuration -----*****/
 configuration {
 	modi:                       "drun";
     show-icons:                 true;
-    display-drun:               "Applications";
+    display-drun:               "Uygulamalar";
 	drun-display-format:        "{name}";
 }
 
 /*****----- Global Properties -----*****/
-@import "~/.config/rofi/shared/fonts.rasi"
-@import "~/.config/rofi/shared/colors.rasi"
+@import "~/.config/rofi/colors/fonts.rasi"
+@import "~/.config/rofi/colors/colors.rasi"
 
 /*****----- Main Window -----*****/
 window {
@@ -86,7 +78,7 @@ entry {
     background-color:            inherit;
     text-color:                  inherit;
     cursor:                      text;
-    placeholder:                 "Search...";
+    placeholder:                 "Ara...";
     placeholder-color:           inherit;
 }
 

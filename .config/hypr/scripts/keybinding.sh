@@ -74,5 +74,5 @@ parse_bindings() {
 dynamic_bindings |
   sort -u |
   parse_bindings |
-  rofi -dmenu -i -theme $HOME/.config/rofi/walkey.rasi
+  rofi -dmenu -i -theme "$HOME/.config/rofi/launchers/type-1/style-6"
   

@@ -1,1 +1,0 @@
-/home/celal/.config/rofi/websearch/websearch.sh

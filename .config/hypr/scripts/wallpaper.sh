@@ -2,7 +2,7 @@
 
 DUVAR_KAGIDI_DIZINI="$HOME/wallpapers"
 MATUGEN_CONFIG="$HOME/.config/matugen/config.toml"
-ROFI_TEMA="$HOME/.config/rofi/walkey.rasi"
+ROFI_TEMA="$HOME/.config/rofi/launchers/type-1/style-9"
 
 rofi_menusu() {
     if [ ! -d "$DUVAR_KAGIDI_DIZINI" ]; then
