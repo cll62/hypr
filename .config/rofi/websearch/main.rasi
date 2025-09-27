@@ -4,8 +4,8 @@ configuration {
 }
 
 /*****----- Global Properties -----*****/
-@import "~/.config/rofi/shared/fonts.rasi"
-@import "~/.config/rofi/shared/colors.rasi"
+@import "~/.config/rofi/colors/fonts.rasi"
+@import "~/.config/rofi/colors/colors.rasi"
 
 /*****----- Window -----*****/
 window {
