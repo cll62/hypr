@@ -10,12 +10,12 @@
 @define-color fontcolor @on_surface;
 @define-color text @on_surface;
 * {
-  font-size: 13px;
+  font-size: 12px;
   font-family: "JetBrainsMono Nerd Font", sans-serif;
 }
 window#waybar {
   all: unset;
-  background: alpha(@surface_container_low, .1);
+  background-color: @background;
   border-radius: 8px;
 }
 .modules-left,

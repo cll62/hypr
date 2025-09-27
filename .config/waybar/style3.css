@@ -1,0 +1,174 @@
+@import "colors.css";
+
+* {
+  all: unset;
+  font-family: "JetBrainsMono Nerd Font";
+  font-weight: bold;
+  transition: background 0.2s ease;
+}
+
+window#waybar {
+  background: alpha(@surface, 0.7);
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  color: @on_surface;
+  font-size: 1.1rem;
+  padding: 0 4px;
+}
+
+.modules-center,
+.modules-right {
+  color: @on_surface;
+  font-size: 1.1rem;
+}
+
+tooltip {
+  background: alpha(@surface, 0.85);
+  border: 1px solid alpha(@primary, 0.7);
+  border-radius: 8px;
+  color: @on_surface;
+}
+
+tooltip label {
+  font-size: 1.0rem;
+  padding: 6px 8px;
+}
+
+#battery:hover,
+#network:hover,
+#bluetooth:hover,
+#wireplumber:hover,
+#power-profiles-daemon:hover,
+#custom-nightlight:hover,
+#idle_inhibitor:hover,
+#custom-screenshot:hover,
+#custom-colorpicker:hover,
+#custom-expand:hover,
+#clock:hover,
+#custom-notification:hover,
+#cpu:hover,
+#memory:hover,
+#temperature:hover {
+  color: @secondary;
+}
+
+#clock:hover,
+#systeminfo:hover,
+#workspaces:hover,
+#quicksettings:hover {
+  background: alpha(@secondary_container, 0.6);
+}
+
+#idle_inhibitor.activated:hover { color: shade(@orange, 1.1); }
+#battery.charging:hover { color: shade(@green, 1.1); }
+#battery.warning:not(.charging):hover { color: shade(@yellow, 1.1); }
+#battery.critical:not(.charging):hover { color: shade(@error_container, 1.1); }
+
+#quicksettings,
+#clock,
+#systeminfo {
+  padding: 0 6px;
+  margin: 2px 4px;
+  border-radius: 10px;
+  background: alpha(@surface, 0.5);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.4);
+  font-size: 1.05rem;
+}
+
+#battery,
+#network,
+#bluetooth,
+#wireplumber,
+#power-profiles-daemon,
+#custom-nightlight,
+#tray,
+#idle_inhibitor,
+#custom-screenshot,
+#custom-colorpicker,
+#custom-expand,
+#custom-notification,
+#cpu,
+#memory,
+#temperature {
+  margin: 0 4px;
+  min-width: 14px;
+  font-size: 1.05rem;
+}
+
+#wireplumber { font-size: 1.2rem; }
+
+#battery.charging { color: @green; }
+#battery.warning:not(.charging) { color: @yellow; }
+#battery.critical:not(.charging) {
+  color: @error_container;
+  animation: blink 0.5s linear infinite alternate;
+}
+
+#power-profiles-daemon.performance { color: @red; }
+#power-profiles-daemon.power-saver { color: @green; }
+
+#idle_inhibitor.activated { color: @orange; }
+
+#tray menu {
+  font-size: 0.95rem;
+  background: @surface;
+  padding: 6px;
+  border-radius: 10px;
+  box-shadow: 0 0 2px alpha(@shadow, 0.6);
+}
+
+#tray menu * {
+  margin: 1px;
+  padding: 2px 4px;
+  border-radius: 6px;
+}
+
+#tray menu *:hover {
+  background: @surface_container;
+}
+
+#clock {
+  padding: 0 8px;
+  margin: 2px 4px;
+}
+
+#workspaces {
+  font-size: 0.1rem;
+  padding: 6px;
+  margin: 2px 4px;
+  border-radius: 10px;
+  background: alpha(@surface, 0.5);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.4);
+}
+
+#workspaces button {
+  padding: 2px 6px;
+  margin: 0 2px;
+  border-radius: 8px;
+  background: @on_surface_variant;
+  min-width: 18px;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+#workspaces button.active {
+  background-color: @primary;
+  box-shadow: 0 0 0 1.5px @primary;
+  min-width: 28px;
+}
+
+#workspaces button:hover {
+  background-color: @tertiary;
+  box-shadow: 0 0 0 1.5px @tertiary;
+  min-width: 28px;
+}
+
+#workspaces button.urgent {
+  background-color: @error;
+  min-width: 28px;
+}
+
+@keyframes blink {
+  from { opacity: 1; }
+  to { opacity: 0.4; }
+}

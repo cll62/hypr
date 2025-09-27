@@ -118,6 +118,7 @@ install_packages() {
         xdg-desktop-portal-gtk
         xdg-desktop-portal-hyprland
         xdg-user-dirs
+        xournalpp
         yazi
         zathura
         zathura-pdf-poppler
