@@ -146,7 +146,7 @@ install_local_packages() {
     
     if [[ ! -d "$src" ]]; then
         info "Yerel paket dizini bulunamadı: $src"
-        return 0  
+        return 0 
     fi
     
     info "Yerel paket dizini bulundu: $src"
@@ -251,7 +251,7 @@ style=$qt_style
 
 [Fonts]
 fixed="Cantarell,11,-1,5,400,0,0,0,0,0,0,0,0,0,0,1,Regular"
-general="Cantarell,11,-1,5,400,0,0,0,0,0,0,0,0,0,0,1,Regular"
+general="Cantarell,11,-1,5,400,0,0,0,0,0,0,0,0,0,0,0,1,Regular"
 EOF
 
     mkdir -p "$HOME/.config/qt5ct"
@@ -265,7 +265,7 @@ style=$qt_style
 
 [Fonts]
 fixed="Cantarell,11,-1,5,400,0,0,0,0,0,0,0,0,0,0,1,Regular"
-general="Cantarell,11,-1,5,400,0,0,0,0,0,0,0,0,0,0,1,Regular"
+general="Cantarell,11,-1,5,400,0,0,0,0,0,0,0,0,0,0,0,1,Regular"
 EOF
     success "Qt temaları ayarlandı."
 
@@ -304,34 +304,41 @@ enable_services() {
 
 copy_configs() {
     local src="$HOME/hypr"
+    local mode="${1:-full}"
+    local exclude_brave=""
     
     if [[ ! -d "$src" ]]; then
         error "Yapılandırma dizini bulunamadı: $src"
         exit 1
     fi
+
+    if [[ "$mode" == "reconfigure" ]]; then
+        info "Yapılandırma dosyaları kopyalanıyor (Yeniden Yapılandırma - Brave hariç)..."
+        exclude_brave="--exclude=.config/BraveSoftware"
+    else
+        info "Yapılandırma dosyaları kopyalanıyor (Tam Kurulum)..."
+    fi
     
-    info "Yapılandırma dosyaları kopyalanıyor..."
-    rsync -a --info=progress2 \
+    rsync -a \
         --exclude=.git \
         --exclude=install.sh \
         --exclude=source \
+        "$exclude_brave" \
         "$src/" "$HOME/"
 
     info "Betiklere çalıştırma izni veriliyor..."
-    for script in "$HOME/.config/hypr/scripts/"*.sh; do
-        [[ -f "$script" ]] && chmod +x "$script"
-    done
-
+    chmod +x "$HOME/.config/hypr/scripts/"*.sh 2>/dev/null
+    
     success "Yapılandırma dosyaları başarıyla kopyalandı."
 }
 
 fix_terminal() {
- if [[ ! -L /usr/bin/gnome-terminal ]]; then
-    sudo ln -sf /usr/bin/kitty /usr/bin/gnome-terminal
-    success "kitty, gnome-terminal olarak linklendi."
-else
-    success "gnome-terminal için sembolik link zaten mevcut."
-fi
+    if [[ ! -L /usr/bin/gnome-terminal ]]; then
+        sudo ln -sf /usr/bin/kitty /usr/bin/gnome-terminal
+        success "kitty, gnome-terminal olarak linklendi."
+    else
+        success "gnome-terminal için sembolik link zaten mevcut."
+    fi
 }
 
 configure_sddm() {
@@ -398,16 +405,42 @@ final_message() {
 }
 
 main() {
-    install_yay
-    install_packages
-    install_local_packages
-    enable_services
-    copy_configs
-    install_icons_and_cursors
-    set_default_themes
-    fix_terminal
-    configure_sddm
-    customize_pacman
-    final_message
+    local reconfigure_only=0
+
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            -r|--reconfigure)
+                reconfigure_only=1
+                shift
+                ;;
+            *)
+                error "Bilinmeyen parametre: $1"
+                echo "Kullanım: $0 [-r|--reconfigure]"
+                exit 1
+                ;;
+        esac
+    done
+
+    if [[ "$reconfigure_only" -eq 1 ]]; then
+        info "Yeniden yapılandırma modu (-r) etkin. Sadece yapılandırma dosyaları güncelleniyor."
+        
+        copy_configs "reconfigure"
+        
+        success "Tüm yapılandırma güncellemeleri tamamlandı. Değişikliklerin etkili olması için Hyprland oturumunuzu yeniden başlatın."
+    else
+        info "Tam kurulum modu etkin."
+        
+        install_yay
+        install_packages
+        install_local_packages
+        enable_services
+        copy_configs "full"
+        install_icons_and_cursors
+        set_default_themes
+        fix_terminal
+        configure_sddm
+        customize_pacman
+        final_message
+    fi
 }
-main
+main "$@"
