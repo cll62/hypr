@@ -1,0 +1,28 @@
+{
+    "include": "$HOME/.config/waybar/modules.json",
+    "layer": "top",
+    "position": "top",
+    "margin-top": 5,
+    "margin-left": 10,
+    "margin-right": 10,
+    "reload_style_on_change": true,
+    "modules-left": [
+        "clock",
+        "idle_inhibitor",
+        "hyprland/window"
+    ],
+    "modules-center": [
+        "hyprland/workspaces"
+    ],
+    "modules-right": [
+        "tray",
+        "custom/pacman",
+        "custom/media",
+        "network",
+        "pulseaudio",
+        "battery",
+        "custom/waybarthemes",
+        "custom/notification",
+        "custom/exit"
+    ]
+}

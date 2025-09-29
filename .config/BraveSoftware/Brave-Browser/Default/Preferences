@@ -1,0 +1,20 @@
+{
+    "brave": {
+        "new_tab_page": {
+            "background": {
+                "random": false,
+                "selected_value": "current_wallpaper.png",
+                "type": "custom_image"
+            },
+            "custom_background_image_list": [
+                "current_wallpaper.png"
+            ],
+            "show_background_image": true,
+            "show_branded_background_image": false,
+            "show_clock": true,
+            "show_rewards": false,
+            "show_stats": false,
+            "show_together": false
+        }
+    }
+}
