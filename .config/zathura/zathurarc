@@ -1,0 +1,59 @@
+set default-bg              "#141218"
+set default-fg              "#e6e0e9"
+
+set statusbar-bg            "#49454e"
+set statusbar-fg            "#cac4cf"
+
+set inputbar-bg             "#49454e"
+set inputbar-fg             "#cac4cf"
+
+set notification-bg         "#49454e"
+set notification-fg         "#cac4cf"
+set notification-error-bg   "#93000a"
+set notification-error-fg   "#690005"
+set notification-warning-bg "#4a4458"
+set notification-warning-fg "#e8def8"
+
+set highlight-color         "#ccc2db"
+set highlight-active-color  "#4a4458"
+
+set completion-bg           "#49454e"
+set completion-fg           "#cac4cf"
+set completion-highlight-fg "#cac4cf"
+set completion-highlight-bg "#4d3d75"
+
+set recolor                 "true"
+set recolor-lightcolor      "#141218"
+set recolor-darkcolor       "#e6e0e9"
+set recolor-reverse-video   "true"
+set recolor-keephue         "true"
+
+set selection-clipboard clipboard
+set incremental-search true
+set search-hadjust true
+set adjust-open width
+set font "Cantarell 10"
+set guioptions none
+
+map [normal]     z zoom in
+map [normal]     Z zoom out
+map [fullscreen] z zoom in
+map [fullscreen] Z zoom out
+map [normal]     D toggle_page_mode
+map [fullscreen] D toggle_page_mode
+map [normal]     u scroll half-up
+map [normal]     d scroll half-down
+map [fullscreen] u scroll half-up
+map [fullscreen] d scroll half-down
+map [normal]     f toggle_fullscreen
+map [fullscreen] f toggle_fullscreen
+map [normal]     <C-r> reload
+map [fullscreen] <C-r> reload
+map [normal]     b toggle_statusbar
+map [fullscreen] b toggle_statusbar
+map [normal]     H adjust_window best-fit
+map [normal]     W adjust_window width
+map [fullscreen] H adjust_window best-fit
+map [fullscreen] W adjust_window width
+map [normal]     i set recolor
+map [fullscreen] i set recolor

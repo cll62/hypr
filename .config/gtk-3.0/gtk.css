@@ -1,0 +1,55 @@
+@import "colors.css";
+
+.navigation-sidebar {
+  background-color: @sidebar_bg_color;
+  color: @window_fg_color;
+}
+
+headerbar.default-decoration {
+  margin-bottom: 50px;
+  margin-top: -100px;
+}
+
+window.csd decoration { /* gtk3 */
+  box-shadow: none;
+}
+
+.thunar #location-toolbar {
+  border-bottom: 1px solid @sidebar_border_color;
+}
+
+.thunar statusbar {
+  margin: 0 -10px;
+  padding: 0 4px;
+  border-top: 1px solid @sidebar_bg_color;
+}
+
+.background {
+  background-color: @sidebar_bg_color;
+}
+
+.thunar toolbar{
+  margin-top: 0px;
+  padding-bottom: 6px;
+  padding-left: 8px;
+  padding-right: 8px;
+  background-color: @headerbar_bg_color; }
+
+scrolledwindow.sidebar treeview.view {
+  border: none;
+  background: @sidebar_backdrop_color;
+  color: @accent_fg_color;
+}
+
+window.thunar toolbar#location-toolbar > toolitem > widget > widget.linked.path-bar > button.toggle.path-bar-button:checked {
+color: @accent_fg_color;
+background: @selected_bg_color;
+
+text-shadow: 1px 1px 2px @shade_color;
+}
+
+window.thunar paned > scrolledwindow treeview.view:selected {
+text-shadow: 1px 1px 2px @shade_color;
+background: @selected_bg_color;
+-gtk-secondary-caret-color: @accent_bg_color;
+}
