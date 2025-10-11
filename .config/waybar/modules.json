@@ -156,7 +156,8 @@
         "tooltip-format-disconnected": "Error",
         "tooltip-format-wifi": "{essid} ({signalStrength}%) ",
         "tooltip-format-ethernet": "{ifname} 🖧 ",
-        "on-click": "kitty impala"
+        "on-click": "kitty nm-connection-editor",
+        "on-click-right": "kitty nmtui"
     },
     "battery": {
         "interval": 30,

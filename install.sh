@@ -40,7 +40,6 @@ backup_existing_configs() {
         ".config/zathura"
         ".config/starship.toml"
         ".config/mimeapps.list"
-        ".config/BraveSoftware/Brave-Browser/Default/Preferences"
         ".bashrc"
         ".config/waybar"
         ".config/kitty"
@@ -149,6 +148,8 @@ install_packages() {
         nano
         ncdu
         neovim
+        network-manager-applet
+        networkmanager
         nwg-displays
         nwg-look
         pacman-contrib
@@ -310,13 +311,13 @@ install_icons_and_cursors() {
     local font_file="$src/fonts.tar.xz" 
     
     if [[ -f "$font_file" ]]; then
-       
+        
         info "Font arşivi çıkarılıyor: $font_file"
       
         tar -xf "$font_file" -C "$fonts_dest" --overwrite || { 
              error "Font arşivi ($font_file) çıkarılamadı!"
              return 1
-         }
+           }
         
         info "Font önbelleği güncelleniyor..."
         fc-cache -f "$fonts_dest" 2>/dev/null || true
@@ -438,53 +439,41 @@ EOF
 }
 
 enable_services() {
-    local system_svcs=(sddm avahi-daemon)
+    local system_svcs=(sddm avahi-daemon NetworkManager)
     local user_svcs=(pipewire.service pipewire-pulse.service)
 
-    info "Sistem servisleri etkinleştiriliyor..."
+    info "Sistem servisleri kontrol ediliyor ve etkinleştiriliyor..."
     local failed_system=()
     for svc in "${system_svcs[@]}"; do
-        info "Servis etkinleştiriliyor: $svc"
-        if sudo systemctl enable "$svc" --now 2>/dev/null; then
-            success "$svc etkinleştirildi"
+        if systemctl is-enabled "$svc" &>/dev/null; then
+            success "$svc zaten etkinleştirilmiş."
         else
-            error "$svc etkinleştirilemedi"
-            failed_system+=("$svc")
-        fi
-    done
-    
-    echo
-    info "Sistem servis durumları kontrol ediliyor..."
-    for svc in "${system_svcs[@]}"; do
-        if systemctl is-active --quiet "$svc"; then
-            success "✓ $svc çalışıyor"
-        else
-            warning "✗ $svc çalışmıyor"
+            info "Servis etkinleştiriliyor: $svc"
+            if sudo systemctl enable "$svc" 2>/dev/null; then
+                success "$svc etkinleştirildi"
+            else
+                error "$svc etkinleştirilemedi"
+                failed_system+=("$svc")
+            fi
         fi
     done
 
     echo
-    info "Kullanıcı servisleri etkinleştiriliyor..."
+    info "Kullanıcı servisleri kontrol ediliyor ve etkinleştiriliyor..."
     systemctl --user daemon-reexec 2>/dev/null || true
     
     local failed_user=()
     for usvc in "${user_svcs[@]}"; do
-        info "Kullanıcı servisi etkinleştiriliyor: $usvc"
-        if systemctl --user enable "$usvc" --now 2>/dev/null; then
-            success "$usvc etkinleştirildi"
+        if systemctl --user is-enabled "$usvc" &>/dev/null; then
+             success "$usvc zaten etkinleştirilmiş."
         else
-            warning "$usvc etkinleştirilemedi (normal olabilir)"
-            failed_user+=("$usvc")
-        fi
-    done
-    
-    echo
-    info "Kullanıcı servis durumları kontrol ediliyor..."
-    for usvc in "${user_svcs[@]}"; do
-        if systemctl --user is-active --quiet "$usvc" 2>/dev/null; then
-            success "✓ $usvc çalışıyor"
-        else
-            warning "✗ $usvc çalışmıyor (oturum açtıktan sonra başlayacak)"
+            info "Kullanıcı servisi etkinleştiriliyor: $usvc"
+            if systemctl --user enable "$usvc" 2>/dev/null; then
+                success "$usvc etkinleştirildi"
+            else
+                warning "$usvc etkinleştirilemedi (normal olabilir)"
+                failed_user+=("$usvc")
+            fi
         fi
     done
     
@@ -506,12 +495,11 @@ copy_configs() {
     fi
 
     if [[ "$mode" == "reconfigure" ]]; then
-        info "Yapılandırma dosyaları kopyalanıyor (Yeniden Yapılandırma - Brave hariç)..."
+        info "Yapılandırma dosyaları kopyalanıyor (Yeniden Yapılandırma)..."
         rsync -a \
             --exclude=.git \
             --exclude=install.sh \
             --exclude=source \
-            --exclude=.config/BraveSoftware \
             "$src/" "$HOME/"
     else
         info "Yapılandırma dosyaları kopyalanıyor (Tam Kurulum)..."
