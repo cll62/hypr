@@ -1,0 +1,105 @@
+configuration {
+    modi:                        "drun,filebrowser,window,run";
+    show-icons:                  true;
+    display-drun:                "";
+    display-run:                 "";
+    display-filebrowser:         "";
+    display-window:              "";
+    drun-display-format:         "{name}";
+    window-format:               "{w}{t}";
+    kb-row-up:"Up,Alt+k";
+    kb-row-down:"Down,Alt+j";
+}
+
+@import "~/.config/rofi/colors.rasi"
+* {
+    font: "JetBrains Mono Nerd Font 9";
+}
+
+window {
+    width:                       35em;
+    height:                      35em;
+    border:                      2px;
+    border-color:                @surface-container;
+    padding:                     1.2em;
+    background-color:            @surface-container-low;
+}
+mode-switcher{
+    enabled:                         true;
+    expand:                          false;
+    orientation:                     horizontal;
+    border-color:                    @outline;
+    background-color:                @surface-container-low;
+    text-color:                      @on-secondary;
+}
+button {
+    padding:                         0px 20px 0px 20px;
+    border:                          0px 0px 0px 0px;
+    border-radius:                   8px;
+    border-color:                    @outline;
+    background-color:                @primary;
+    text-color:                      inherit;
+    vertical-align:                  0.5;
+    horizontal-align:                0.0;
+    cursor:                          pointer;
+}
+button selected {
+    border-color: @outline;
+    background-color: @on-primary; 
+    text-color: @primary-fixed;   
+}
+mainbox {
+    orientation:                 vertical;
+    spacing:                     1em;
+    background-color:        @surface-container-low;
+    children:                   [ "inputbar","listview","mode-switcher"];
+
+}
+
+inputbar {
+    children:                    [ "entry" ];
+    background-color:            @surface-container-low;
+    padding:                     0.5em 0.8em;
+    border:                      1px;
+    border-radius:               0em;
+    border-color:                @surface-container;
+}
+
+entry {
+    text-color:                  @on-surface;
+    placeholder:                 "Ara…";
+    background-color:        @surface-container-low;
+}
+
+listview {
+    columns:                     1;
+    lines:                       10;
+    spacing:                     0.4em;
+    scrollbar:                   false;
+    cycle:                       true;
+    dynamic:                     true;
+    background-color:            @surface-container-low;
+}
+
+element {
+    padding:                     0.5em 0.8em;
+    background-color:            transparent;
+    text-color:                  @on-surface;
+    border-radius:               0em;
+}
+
+element selected.normal {
+    background-color: @background;
+    text-color: @primary; 
+}
+
+element-icon {
+    size:                        1.8em;
+    text-color:                  inherit;
+    background-color:            transparent;
+}
+
+element-text {
+    text-color:                  inherit;
+    background-color:            transparent;
+}

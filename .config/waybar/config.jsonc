@@ -1,0 +1,27 @@
+{
+    "include": "$HOME/.config/waybar/modules.json",
+    "layer": "top",
+    "position": "top",
+    "margin": "1 8 0 8",
+    "reload_style_on_change": true,
+    "modules-left": [
+        "custom/menu",
+        "clock",
+        "hyprland/window"
+    ],
+    "modules-center": [
+        "hyprland/workspaces"
+    ],
+    "modules-right": [
+        "tray",
+        "custom/pacman",
+        "cpu",
+        "memory",
+        /*"network",*/
+        "pulseaudio",
+        "battery",
+        "idle_inhibitor",
+        "custom/notification",
+        "custom/exit"
+    ]
+}

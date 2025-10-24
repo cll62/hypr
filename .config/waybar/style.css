@@ -1,0 +1,132 @@
+@import 'colors.css';
+@define-color base @surface_container_low;
+@define-color hovercolor @primary_container;
+@define-color activecolor @primary;
+@define-color bordercolor @outline;
+@define-color fontcolor @on_surface;
+@define-color secondary_font @on_surface;
+@define-color active_text @on_primary;
+@define-color hover_text @on_primary_container;
+* {
+    font-family: "JetBrainsMono Nerd Font", monospace;
+    font-size: 0.75rem;
+    transition: all 0.3s ease;
+}
+window#waybar {
+    background: alpha(@surface_container_low, 0.4);
+    border: 0.0625rem solid alpha(@bordercolor, 0.2);
+    border-radius: 0.625rem;
+    padding: 0.25rem 0.625rem;
+    margin: 0rem 0.625rem;
+}
+.modules-left,
+.modules-center,
+.modules-right {
+    padding: 0.125rem 0.5rem;
+}
+tooltip {
+    background: alpha(@surface_container_high, 0.95);
+    color: @fontcolor;
+    border-radius: 0.375rem;
+    border: 0.0625rem solid alpha(@bordercolor, 0.2);
+    padding: 0.25rem 0.5rem;
+    font-size: 0.85rem;
+}
+#clock,
+#custom-pacman,
+#custom-notification,
+#network,
+#battery,
+#cpu,
+#memory,
+#window,
+#idle_inhibitor,
+#wlr-taskbar,
+#pulseaudio,
+#temperature,
+#tray,
+#custom-menu,
+#custom-exit {
+    padding: 0 0.375rem;
+    color: @secondary_font;
+}
+#clock:hover,
+#custom-pacman:hover,
+#custom-notification:hover,
+#network:hover,
+#battery:hover,
+#cpu:hover,
+#tray:hover,
+#memory:hover,
+#window:hover,
+#idle_inhibitor:hover,
+#pulseaudio:hover,
+#wlr-taskbar:hover,
+#temperature:hover,
+#custom-menu:hover,
+#custom-exit:hover {
+    color: @hover_text;
+    background-color: alpha(@hovercolor, 0.4);
+}
+#custom-exit {
+    color: @error;
+}
+#custom-exit:hover {
+    color: @on_error_container;
+    background-color: alpha(@error_container, 0.5);
+}
+#clock {
+    padding: 0 0.375rem; 
+    color: @secondary_font; 
+    background-color: alpha(@surface_container_high, 0.6); 
+    border-radius: 0.5rem; 
+    margin: 0 0.375rem; 
+    font-weight: bold; 
+}
+#clock:hover {
+    color: @hover_text;
+    background-color: alpha(@hovercolor, 0.6);
+}
+#workspaces {
+    padding: 0rem 0.25rem;
+}
+#workspaces button {
+    all: unset;
+    padding: 0rem 0.25rem;
+    margin: 0 0.0625rem;
+    color: @secondary_font;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+#workspaces button.active {
+    color: @primary;
+}
+#workspaces button.empty {
+    color: alpha(@secondary_font, 0.5);
+}
+#workspaces button:hover {
+    color: @primary;
+    background-color: alpha(@primary, 0.25); 
+}
+#workspaces button.active:hover {
+    color: @primary;
+    background-color: alpha(@primary, 0.25);
+}
+#workspaces button.empty:hover {
+    color: @primary;
+    background-color: alpha(@primary, 0.15);
+}
+#battery.charging {
+    color: @primary_fixed;
+}
+#battery.warning:not(.charging) {
+    color: @tertiary;
+}
+#battery.critical:not(.charging) {
+    color: @error;
+    animation: blink 1s infinite alternate;
+}
+@keyframes blink {
+    0% { opacity: 1; }
+    100% { opacity: 0.4; }
+}
