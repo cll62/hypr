@@ -45,6 +45,7 @@ localsend
 matugen-git
 mcmojave-circle-icon-theme-git
 mcmojave-cursors-git
+meld
 mpv
 mpv-mpris
 nano
@@ -52,6 +53,7 @@ ncdu
 neovim
 networkmanager
 network-manager-applet
+npm
 nwg-displays
 nwg-look
 pacman-contrib
@@ -90,6 +92,8 @@ ttf-jetbrains-mono-nerd
 tumbler
 udiskie
 ufw
+unrar
+unzip
 #visual-studio-code-bin
 waybar
 wget
