@@ -1,87 +1,73 @@
 #!/bin/bash
-# =========================================================
-# Hyprland Kurulum ve Yapılandırma Betiği
-# =========================================================
-
 set -Eeuo pipefail
 IFS=$'\n\t'
 
-# ------------------- RENKLİ MESAJ FONKSİYONLARI -------------------
-info()    { echo -e "\e[1;34m[ Bilgi ]\e[0m $*"; }
-success() { echo -e "\e[1;32m[ Başarılı ]\e[0m $*"; }
-warning() { echo -e "\e[1;33m[ Uyarı ]\e[0m $*" >&2; }
-error()   { echo -e "\e[1;31m[ Hata ]\e[0m $*" >&2; exit 1; }
+# ------------------- MESAJ FONKSİYONLARI -------------------
+info()    { echo "[ℹ] $*"; }
+success() { echo "[✔] $*"; }
+warning() { echo "[⚠] $*" >&2; }
+error()   { echo "[✖] $*" >&2; exit 1; }
 
-# ------------------- YARDIMCI FONKSİYONLAR -------------------
+# ------------------- GİRİŞ FONKSİYONLARI -------------------
 is_yes() {
-    local choice_upper
-    choice_upper=$(echo "$1" | tr '[:lower:]' '[:upper:]')
-    case "$choice_upper" in
-        E|Y|EVET|YES)
-            return 0
-            ;;
-        *)
-            return 1
-            ;;
-    esac
+    [[ "${1,,}" =~ ^(e|evet|y|yes)$ ]]
 }
-
-# ------------------- GEÇİCİ VE LOG DİZİNLERİ -------------------
-TMPDIR=$(mktemp -d)
-LOGFILE="$TMPDIR/install.log"
-exec > >(tee -a "$LOGFILE") 2>&1
-
-cleanup() {
-    [[ -d "$TMPDIR" ]] && rm -rf "$TMPDIR" || true
-}
-trap cleanup EXIT
-
-# ------------------- KULLANICI VE YETKİLER  -------------------
+# ------------------- DEĞİŞKENLER -------------------
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-REAL_USER=$(whoami) # Betiği başlatan kullanıcı
-REAL_HOME=$HOME      # Betiği başlatan kullanıcının ev dizini
-reconfigure_only=0   # 0: Full Kurulum, 1: Yalnızca Yapılandırma
-AUTO_YES=0           # 0: Soru sor, 1: Otomatik "Evet" veya varsayılanı seç
+REAL_USER=$(whoami)
+REAL_HOME=$HOME
+AUTO_YES=0
+mod=0  # 0: Full Kurulum, 1: Dotfiles
 
-# ===============================================================
-# 0️⃣ Kurulum Modu Seçimi
-# ===============================================================
-get_mode_choice() {
-    echo ""
-    info "Lütfen kurulum modunu seçin:"
-    echo " 1) Full Kurulum "
-    echo " 2) Dotfiles Kurulumu"
-    echo ""
+# ------------------- LOG DİZİNLERİ -------------------
+LOGDIR="$HOME/.cache/hyprland-logs"
+mkdir -p "$LOGDIR"
+LOGFILE="$LOGDIR/install-$(date +%Y%m%d_%H%M%S).log"
+TMPDIR="${TMPDIR:-/tmp}"
 
-    local choice
-    if [[ "$AUTO_YES" -eq 1 ]]; then
-        info "Otomatik mod aktif, Full Kurulum (1) seçiliyor."
-        choice=1
-    else
-        read -rp "Seçiminiz (1 veya 2): " choice
-    fi
-
-    case "$choice" in
-        1)
-            info "Full Kurulum modu seçildi."
-            reconfigure_only=0
-            ;;
-        2)
-            info "Yalnızca Yeniden Yapılandırma modu seçildi."
-            reconfigure_only=1
-            ;;
-        *)
-            error "Geçersiz seçim ($choice). Lütfen 1 veya 2 girin."
-            ;;
-    esac
+exec > >(tee -a "$LOGFILE") 2>&1
+cleanup() {
+    rm -rf "$TMPDIR/yay-bin" 2>/dev/null || true
 }
+trap 'cleanup; echo; echo "[✖] Bir hata oluştu! Log dosyasını inceleyin: $LOGFILE"; echo' ERR
+
+{
+    echo "========================================================="
+    echo " 🌀 Hyprland Otomatik Kurulum Logu"
+    echo " Tarih   : $(date)"
+    echo " Kullanıcı: $REAL_USER"
+    echo " Sistem   : $(lsb_release -d 2>/dev/null | cut -f2 || uname -a)"
+    echo " Kabuk    : $SHELL"
+    echo "========================================================="
+    echo
+} >> "$LOGFILE"
+
 
 # ===============================================================
-# 1️⃣ Chaotic-AUR
+# Kurulum Modu Seçimi
 # ===============================================================
-chaotic_aur() {
-    if [[ "$reconfigure_only" -eq 1 ]]; then
-        info "Yeniden yapılandırma modunda Chaotic-AUR adımı atlanıyor."
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --dotfiles) mod=1 ;;
+        --full) mod=0 ;;
+        --yes) AUTO_YES=1 ;;
+        *) error "Geçersiz parametre: $1 (Kullanım: --full, --dotfiles, --yes)" ;;
+    esac
+    shift
+done
+
+if [[ "$mod" -eq 1 ]]; then
+    info "🎨 Dotfiles modu seçildi."
+else
+    info "🧱 Full kurulum modu seçildi."
+fi
+
+# ===============================================================
+# Chaotic-AUR Kurulumu
+# ===============================================================
+setup_chaotic_aur() {
+    if [[ "$mod" -eq 1 ]]; then
+        info "Dotfiles modunda Chaotic-AUR adımı atlanıyor."
         return
     fi
     info "Chaotic-AUR anahtarları ve mirror listesi kuruluyor..."
@@ -101,322 +87,207 @@ chaotic_aur() {
     done
 
     if [[ $key_ok -eq 0 ]]; then
-        error "Chaotic-AUR anahtarı eklenemedi. Lütfen ağ bağlantınızı kontrol edin ve tekrar deneyin."
+        error "Chaotic-AUR anahtarı eklenemedi. Lütfen ağ bağlantınızı kontrol edin."
     fi
 
     sudo pacman -U --noconfirm \
         "https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst" \
         "https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst" \
         || error "Chaotic-AUR paketleri indirilemedi."
+
+    sudo pacman -Syu --noconfirm --needed || warning "chaotic-mirrorlist güncellenemedi."
+    success "Chaotic-AUR yapılandırması tamamlandı."
 }
 
 # ===============================================================
-# 2️⃣ pacman.conf'u Uygulama
+# pacman.conf Yapılandırması
 # ===============================================================
-apply_pacman_conf() {
-    if [[ "$reconfigure_only" -eq 1 ]]; then
-        info "Yeniden yapılandırma modunda pacman.conf adımı atlanıyor."
+configure_pacman() {
+    if [[ "$mod" -eq 1 ]]; then
+        info "Dotfiles modunda pacman.conf adımı atlanıyor."
         return
     fi
-    info "Chaotic-AUR deposunu içeren yeni /etc/pacman.conf uygulanıyor..."
+    info "Yeni /etc/pacman.conf uygulanıyor..."
     local custom_pacman_conf="$SCRIPT_DIR/.config/pacman/pacman.conf"
-    
+
     if [[ -f "$custom_pacman_conf" ]]; then
-        sudo cp /etc/pacman.conf "/etc/pacman.conf.backup.$(date +%Y%m%d_%H%M%S)" || warning "/etc/pacman.conf yedeklenirken bir sorun oluştu."
-        
-        sudo cp -f "$custom_pacman_conf" /etc/pacman.conf
-        
+        sudo cp /etc/pacman.conf "/etc/pacman.conf.backup.$(date +%Y%m%d_%H%M%S)" || warning "pacman.conf yedeklenemedi."
+        sudo cp -f "$custom_pacman_conf" /etc/pacman.conf || error "pacman.conf kopyalanamadı!"
         sudo pacman -Sy --noconfirm || warning "Paket listesi güncellenemedi."
-        success "Yeni pacman.conf başarıyla uygulandı ve Chaotic-AUR aktif edildi."
+        success "Yeni pacman.conf başarıyla uygulandı."
     else
-        warning "Yapılandırma dizininde pacman.conf bulunamadı. Chaotic-AUR devre dışı kalabilir."
+        warning "pacman.conf bulunamadı. Chaotic-AUR devre dışı kalabilir."
     fi
 }
 
-# ===============
-# 3️⃣ yay Kurulumu 
-# ===============
-install_yay() {
-    if [[ "$reconfigure_only" -eq 1 ]]; then
-        info "Yeniden yapılandırma modunda yay kurulumu adımı atlanıyor."
+# ===============================================================
+# yay Kurulumu
+# ===============================================================
+setup_yay() {
+    if [[ "$mod" -eq 1 ]]; then
+        info "Dotfiles modunda yay kurulumu adımı atlanıyor."
         return
     fi
-    
+
     if command -v yay &>/dev/null; then
         success "yay zaten kurulu."
         return
     fi
+    sudo pacman -Syu --noconfirm || warning "Sistem güncellenemedi."
 
     info "yay kurulumu başlatılıyor..."
-
     if pacman -Si yay &>/dev/null; then
-        info "Chaotic-AUR deposundan yay kuruluyor..."
-        if sudo pacman -S --needed --noconfirm yay; then 
-            success "yay Chaotic-AUR üzerinden başarıyla kuruldu."
-            return
-        fi
-        warning "Chaotic-AUR'dan kurulum başarısız oldu. Manuel AUR kurulumuna geçiliyor."
+        sudo pacman -S --needed --noconfirm yay && success "yay kuruldu." && return
     fi
 
-    info "yay-bin manuel olarak AUR üzerinden derleniyor..."
-    sudo pacman -S --needed --noconfirm base-devel git binutils fakeroot || error "Gerekli AUR araçları yüklenemedi."
-
+    sudo pacman -S --needed --noconfirm base-devel git || error "Gerekli AUR araçları yüklenemedi."
     rm -rf "$TMPDIR/yay-bin"
-    git clone https://aur.archlinux.org/yay-bin.git "$TMPDIR/yay-bin"
-
+    git clone https://aur.archlinux.org/yay-bin.git "$TMPDIR/yay-bin" || error "yay klonlama başarısız."
     pushd "$TMPDIR/yay-bin" >/dev/null
-    if makepkg -si --noconfirm; then 
-        success "yay başarıyla kuruldu."
-    else
-        error "yay kurulumu başarısız oldu."
-    fi
+    makepkg -si --noconfirm || error "yay kurulumu başarısız oldu."
     popd >/dev/null
+    success "yay başarıyla kuruldu."
+    hash -r
 }
 
 # ===============================================================
-# 4️⃣ Paket Kurulumu
+# Paket Kurulumu
 # ===============================================================
-install_packages() {
-    if [[ "$reconfigure_only" -eq 1 ]]; then
-        info "Yeniden yapılandırma modunda paket kurulumu adımı atlanıyor."
+install_required_packages() {
+    if [[ "$mod" -eq 1 ]]; then
+        info "Dotfiles modunda paket kurulumu atlanıyor."
         return
     fi
-    
+
     local PKGLIST_FILE="$SCRIPT_DIR/pkglist.txt"
-
-    if [[ ! -f "$PKGLIST_FILE" ]]; then
-        error "Paket listesi dosyası bulunamadı: $PKGLIST_FILE"
+    [[ ! -f "$PKGLIST_FILE" ]] && error "Paket listesi bulunamadı: $PKGLIST_FILE"
+    if ! grep -q -E '^[^\s#]' "$PKGLIST_FILE"; then
+        warning "Paket listesi boş."
+        return
     fi
-    
-    local pkgs
-    mapfile -t pkgs < <(grep -vE '^\s*#|^\s*$' "$PKGLIST_FILE")
-    
-    if [[ ${#pkgs[@]} -eq 0 ]]; then
-        warning "Paket listesi boş. Paket kurulumu atlanıyor."
-        return 0
-    fi
+    mapfile -t pkgs < <(grep -E '^[^\s#]' "$PKGLIST_FILE")
 
-    if ! command -v yay &>/dev/null; then
-        warning "yay bulunamadı; kurulum için yay kuruluyor."
-        install_yay
-    fi
-
-    local missing=()
-    for pkg in "${pkgs[@]}"; do
-        if ! pacman -Q "$pkg" &>/dev/null; then 
-            missing+=("$pkg")
-        fi
-    done
-
-    if [[ ${#missing[@]} -eq 0 ]]; then
-        success "Tüm paketler zaten kurulu."
-        return 0
-    fi
-
-    info "Eksik paketler tespit edildi (${#missing[@]}). Tüm eksikler yay ile kurulacak: ${missing[*]}"
-
-    info "Tüm paketler normal kullanıcı yetkisiyle yay ile kuruluyor..."
-    
-    local installed_count=0
-    local failed_pkgs=()
-
-    if yay -S --needed --noconfirm "${missing[@]}"; then 
-        success "Tüm eksik paketler başarıyla kuruldu."
-        installed_count=${#missing[@]}
-    else
-        warning "Toplu kurulum başarısız oldu. Paketler tek tek deneniyor..."
-        local total=${#missing[@]}
-        local current=0
-        for pkg in "${missing[@]}"; do
-            ((current++))
-            info "[$current/$total] Kuruluyor: $pkg"
-            if yay -S --needed --noconfirm "$pkg"; then
-                ((installed_count++))
-            else
-                warning "Kurulamadı: $pkg"
-                failed_pkgs+=("$pkg")
-            fi
-        done
-
-        if [[ ${#failed_pkgs[@]} -gt 0 ]]; then
-            warning "Başarısız paketler: ${failed_pkgs[*]}"
-            if [[ "$AUTO_YES" -eq 0 ]]; then
-                local choice
-                read -rp "Devam edilsin mi? (E/h): " choice
-                if ! is_yes "$choice"; then
-                    error "Kullanıcı iptal etti."
-                fi
-            else
-                info "Otomatik mod aktif, başarısız paketler atlanıyor."
-            fi
-        fi
-    fi
-
-    [[ $installed_count -gt 0 ]] && success "$installed_count paket başarıyla kuruldu."
-    success "Paket kurulum adımı tamamlandı."
+    yay -S --needed --noconfirm  "${pkgs[@]}" || warning "Bazı paketler yüklenemedi."
+    success "Paket kurulumu tamamlandı."
 }
 
 # ===============================================================
-# 5️⃣ Servisleri Etkinleştirme
+# Servis Etkinleştirme
 # ===============================================================
-enable_services() {
-    if [[ "$reconfigure_only" -eq 1 ]]; then
-        info "Yeniden yapılandırma modunda servis etkinleştirme adımı atlanıyor."
+enable_system_services() {
+    if [[ "$mod" -eq 1 ]]; then
+        info "Dotfiles modunda servis etkinleştirme adımı atlanıyor."
         return
     fi
 
-    local system_svcs=(sddm avahi-daemon power-profiles-daemon ufw NetworkManager)
-
-    info "Sistem servisleri etkinleştiriliyor..."
-    local failed_system=()
-    for svc in "${system_svcs[@]}"; do
-        if sudo systemctl is-enabled "$svc" &>/dev/null; then
-            success "$svc zaten etkin."
+    local services=(sddm avahi-daemon power-profiles-daemon ufw NetworkManager)
+    for svc in "${services[@]}"; do
+        if ! sudo systemctl is-enabled "$svc" &>/dev/null; then
+            sudo systemctl enable "$svc" && success "$svc etkinleştirildi."
         else
-            info "Etkinleştiriliyor: $svc"
-            if ! sudo systemctl enable "$svc"; then
-                failed_system+=("$svc")
-            fi
+            info "$svc zaten etkin."
         fi
     done
 
-    [[ ${#failed_system[@]} -gt 0 ]] && warning "Başarısız sistem servisleri: ${failed_system[*]}"
-    
-    if command -v ufw &>/dev/null && ! sudo ufw status | grep -q "active"; then
-        info "UFW etkinleştiriliyor ve varsayılanlar ayarlanıyor."
+    if command -v ufw &>/dev/null; then
+        sudo ufw --force reset
         sudo ufw default deny incoming
         sudo ufw default allow outgoing
-        sudo ufw enable
-        success "UFW etkinleştirildi."
+        sudo ufw --force enable
+
+        if compgen -G "/etc/ufw/*.rules" > /dev/null; then
+            sudo chmod 600 /etc/ufw/*.rules 2>/dev/null || true
+        fi
+
+        if sudo ufw status | grep -q "active"; then
+            success "UFW etkin ve güvenli biçimde yapılandırıldı."
+        else
+            warning "UFW etkinleştirilemedi, manuel kontrol önerilir."
+        fi
     fi
-    success "Servis yapılandırması tamamlandı."
+
 }
 
 # ===============================================================
-# 6️⃣ Dotfiles+sddm +kitty
+# Dotfiles ve Kullanıcı Ayarları
 # ===============================================================
-user_config() {
+configure_user_settings() {
     info "Kullanıcı yapılandırmaları uygulanıyor..."
-    
-    if ! rsync -a \
-        --exclude=.git \
-        --exclude=install.sh \
-        --exclude=pkglist.txt \
-        --exclude='.config/pacman/' \
-        "$SCRIPT_DIR/" "$REAL_HOME/"; then
-        error "rsync hatası: yapılandırmalar kopyalanamadı."
-    fi
-    success "Yapılandırma dosyaları başarıyla kopyalandı."
-    
+    rsync -a --exclude=.git --exclude=install.sh --exclude=pkglist.txt --exclude='.config/pacman/' "$SCRIPT_DIR/" "$REAL_HOME/" || error "rsync hatası."
+
     if [[ -d "$REAL_HOME/.config/hypr/scripts" ]]; then
-        info "Hyprland betiklerine yürütme izni veriliyor..."
         find "$REAL_HOME/.config/hypr/scripts" -type f -name "*.sh" -exec chmod +x {} \;
-        success "Betik izinleri ayarlandı."
-    else
-        warning "Hyprland scripts dizini bulunamadı."
+        success "Hyprland script izinleri ayarlandı."
     fi
-    
-    if [[ "$reconfigure_only" -eq 0 ]]; then
-        local choice_sddm
-        if [[ "$AUTO_YES" -eq 1 ]]; then
-            choice_sddm="E"
-            info "Otomatik mod aktif, SDDM otomatik giriş ayarlanıyor."
-        else
-            read -rp "SDDM için otomatik giriş yapılsın mı? (E/h): " choice_sddm
-        fi
 
-        if is_yes "$choice_sddm"; then
-            info "SDDM otomatik giriş yapılandırması /etc/sddm.conf dosyasına uygulanıyor..."
+    info "Kullanıcı dizinleri oluşturuluyor..."
+    xdg-user-dirs-update || warning "xdg-user-dirs-update başarısız."
+    success "Kullanıcı dizinleri güncellendi."
 
-            if [[ -f /etc/sddm.conf ]]; then
-                info "Mevcut /etc/sddm.conf yedekleniyor..."
-                if ! sudo cp /etc/sddm.conf "/etc/sddm.conf.backup.$(date +%Y%m%d_%H%M%S)"; then
-                    warning "SDDM yapılandırma dosyası yedeklenemedi, devam ediliyor."
-                else
-                    success "Mevcut /etc/sddm.conf yedeklendi."
-                fi
-            fi
-
-            info "SDDM otomatik giriş ayarları /etc/sddm.conf dosyasına yazılıyor..."
-            if sudo tee /etc/sddm.conf >/dev/null <<EOF
+    local choice_sddm="E"
+    if [[ "$mod" -eq 0 && "$AUTO_YES" -eq 0 ]]; then
+        read -rp "SDDM için otomatik giriş yapılsın mı? (E/h): " choice_sddm || true
+    fi
+    if is_yes "$choice_sddm"; then
+sudo tee /etc/sddm.conf >/dev/null <<EOF
 [Autologin]
 Relogin=false
 User=$REAL_USER
 Session=hyprland
 EOF
-            then
-                success "SDDM otomatik giriş ayarları /etc/sddm.conf dosyasına başarıyla yazıldı."
-            else
-                error "SDDM otomatik giriş yapılandırması /etc/sddm.conf dosyasına yazılamadı. Lütfen izinleri kontrol edin."
-            fi
-        else
-            info "SDDM otomatik giriş yapılandırması atlandı."
-        fi
-    else
-        info "Yeniden yapılandırma modunda SDDM otomatik giriş adımı atlanıyor."
+        success "SDDM otomatik giriş yapılandırıldı."
     fi
 
     if [[ ! -L /usr/local/bin/gnome-terminal ]] && [[ -f /usr/bin/kitty ]]; then
-        info "kitty için /usr/local/bin/gnome-terminal sembolik bağlantısı oluşturuluyor..."
-        if sudo ln -sf /usr/bin/kitty /usr/local/bin/gnome-terminal; then 
-            success "Sembolik bağlantı oluşturuldu."
-        else
-            error "Sembolik bağlantı oluşturulamadı."
-        fi
-    else
-        success "Terminal ayarı zaten uygun veya kitty kurulu değil."
+        sudo ln -sf /usr/bin/kitty /usr/local/bin/gnome-terminal
+        success "kitty → gnome-terminal sembolik bağlantısı oluşturuldu."
     fi
 }
+
 # ===============================================================
-# 7️⃣ Yeniden Başlatma
+# Yeniden Başlatma
 # ===============================================================
-reboot_prompt() {
-    local choice_reboot
-    
-    if [[ "$AUTO_YES" -eq 1 ]]; then
-        choice_reboot="E"
-        info "Otomatik mod aktif, sistem yeniden başlatılacak."
-    else
-        read -rp "İşlem tamamlandı. Şimdi yeniden başlatılsın mı? (E/h): " choice_reboot
+prompt_reboot() {
+    if [[ "$mod" -eq 1 ]]; then
+        info "Dotfiles modunda değişiklikleri uygulamak için oturumu kapatıp yeniden girin."
+        return
     fi
-    
-    if is_yes "$choice_reboot"; then
-        echo -e "\n\e[1;34mSistem yeniden başlatılıyor...\e[0m"
+
+    if [[ "$AUTO_YES" -eq 1 ]]; then
+    info "Kurulum tamamlandı. Sistem 5 saniye içinde yeniden başlatılacak..."
+    sleep 5
+    sudo systemctl reboot
+    return
+    fi
+
+
+    read -rp "Kurulum tamamlandı. Şimdi yeniden başlatılsın mı? (E/h): " choice
+    if is_yes "$choice"; then
         sudo systemctl reboot
     else
-        info "Yeniden başlatma iptal edildi. Yeni oturumu başlatmak için manuel olarak yeniden başlatmanız veya oturumu değiştirmeniz gerekecek."
+        info "Yeniden başlatma atlandı."
     fi
 }
 
 # ===============================================================
-# 8️⃣ MAIN 
+# Ana Fonksiyon
 # ===============================================================
 main() {
-    for arg in "$@"; do
-        if [[ "$arg" == "--auto" ]]; then
-            AUTO_YES=1
-            break
-        fi
-    done
-    
-    get_mode_choice
-
-    if [[ "$reconfigure_only" -eq 0 ]]; then
-        info "--- Full Kurulum Modu Başlatılıyor ---"
-        chaotic_aur
-        apply_pacman_conf
-        install_yay
-        install_packages
-        enable_services
-    else
-        info "--- Dotfiles Kurulumu Modu Başlatılıyor ---"
+    [[ $EUID -eq 0 ]] && error "Bu betik root olarak çalıştırılamaz."
+    if [[ "$mod" -eq 0 ]]; then
+        setup_chaotic_aur
+        configure_pacman
+        sudo pacman -Syu --noconfirm || warning "Sistem güncellenemedi."
+        setup_yay
+        install_required_packages
+        enable_system_services
     fi
-
-    user_config
-    
-    reboot_prompt
-    
-    success "İşlem tamamlandı!"
+    configure_user_settings
+    prompt_reboot
+    echo
+    success "Kurulum tamamlandı!"
+    info "📜 Log kaydedildi: $LOGFILE"
+    echo
 }
 
 main "$@"
