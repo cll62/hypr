@@ -1,0 +1,30 @@
+#!/bin/bash
+
+kilitle="󱄄   Ekranı Kilitle"
+oturum_kapat="󰍃  Oturumu Kapat"
+yeniden_baslat="󰜉  Yeniden Başlat"
+kapat="󰐥  Bilgisayarı Kapat"
+
+secim="$(printf '%s\n' \
+    "$kilitle" \
+    "$oturum_kapat" \
+    "$yeniden_baslat" \
+    "$kapat" \
+    | uwsm app -- fuzzel -d  -w 50 -l 5  --placeholder='Güç Menüsü')"
+
+[ -z "$secim" ] && exit 0
+
+case "$secim" in
+    "$kilitle")
+       uwsm app -- hyprlock
+        ;;
+    "$oturum_kapat")
+       uwsm stop
+        ;;
+    "$yeniden_baslat")
+        systemctl reboot
+        ;;
+    "$kapat")
+        systemctl poweroff
+        ;;
+esac

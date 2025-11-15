@@ -1,0 +1,102 @@
+# Yazi File Manager Theme
+# Generated with Matugen
+
+[manager]
+cwd = { fg = "#dfe3e7" }
+
+# Tab
+tab_active = { fg = "#00344c", bg = "#93cdf6", bold = true }
+tab_inactive = { fg = "#c1c7ce", bg = "#1c2024" }
+tab_width = 1
+
+# Find
+find_keyword = { fg = "#ffb4ab", bold = true, italic = true, underline = true }
+find_position = { fg = "#ffb4ab", bold = true, italic = true }
+
+# Marker
+marker_copied = { fg = "#cdc0e9", bg = "#cdc0e9" }
+marker_cut = { fg = "#cdc0e9", bg = "#cdc0e9" }
+marker_marked = { fg = "#ffb4ab", bg = "#ffb4ab" }
+marker_selected = { fg = "#b6c9d8", bg = "#b6c9d8" }
+
+# Count
+count_copied = { fg = "#342b4b", bg = "#cdc0e9" }
+count_cut = { fg = "#342b4b", bg = "#cdc0e9" }
+count_selected = { fg = "#00344c", bg = "#93cdf6" }
+
+# Border
+border_symbol = "│"
+border_style  = { fg = "#93cdf6" }
+
+[status]
+separator_open = "❮"
+separator_close = "❯ "
+separator_style = { bg = "#00344c", fg = "#93cdf6" }
+
+[mode]
+normal_main = { bg = "#93cdf6", fg = "#00344c", bold = true }
+normal_alt  = { bg = "#41484d", fg = "#c1c7ce" }
+
+select_main = { bg = "#b6c9d8", fg = "#21323e", bold = true }
+select_alt  = { bg = "#41484d", fg = "#c1c7ce" }
+
+unset_main = { bg = "#cdc0e9", fg = "#342b4b", bold = true }
+unset_alt  = { bg = "#41484d", fg = "#c1c7ce" }
+
+progress_label = { bold = true }
+progress_normal = { fg = "#93cdf6", bg = "#353a3d" }
+progress_error = { fg = "#ffb4ab", bg = "#353a3d" }
+
+permissions_t = { fg = "#b6c9d8" }
+permissions_w = { fg = "#cdc0e9" }
+permissions_x = { fg = "#ffb4ab" }
+permissions_r = { fg = "#cdc0e9" }
+permissions_s = { fg = "#93cdf6" }
+
+[select]
+border = { fg = "#93cdf6" }
+active = { fg = "#cdc0e9", bold = true }
+inactive = {}
+
+[input]
+border = { fg = "#93cdf6" }
+value = { fg = "#dfe3e7" }
+
+[completion]
+border = { fg = "#93cdf6", bg = "#1c2024" }
+
+[tasks]
+border = { fg = "#93cdf6" }
+title = {}
+hovered = { fg = "#cdc0e9", underline = true }
+
+[which]
+cols = 3
+mask = { bg = "#353a3d" }
+cand = { fg = "#93cdf6" }
+rest = { fg = "#00344c" }
+desc = { fg = "#dfe3e7" }
+separator = " ▶ "
+separator_style = { fg = "#dfe3e7" }
+
+[help]
+on = { fg = "#dfe3e7" }
+run = { fg = "#dfe3e7" }
+footer = { fg = "#21323e", bg = "#b6c9d8" }
+
+[notify]
+title_info = { fg = "#cdc0e9" }
+title_warn = { fg = "#93cdf6" }
+title_error = { fg = "#ffb4ab" }
+
+[filetype]
+rules = [
+    { mime = "image/*", fg = "#93cdf6" },
+    { mime = "{audio,video}/*", fg = "#b6c9d8" },
+    { mime = "application/{zip,rar,7z*,tar,gzip,xz,zstd,bzip*,lzma,compress,archive,cpio,arj,xar,ms-cab*}", fg = "#cdc0e9" },
+    { mime = "application/{pdf,doc,rtf}", fg = "#b6c9d8" },
+    { name = "*", is = "orphan", bg = "#93000a" },
+    { name = "*", is = "exec", fg = "#ffdad6" },
+    { name = "*", fg = "#dfe3e7" },
+    { name = "*/", fg = "#93cdf6" },
+]

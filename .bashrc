@@ -1,0 +1,2 @@
+source ~/.config/bash/rc
+

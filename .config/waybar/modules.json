@@ -1,0 +1,164 @@
+{
+    "hyprland/workspaces": {
+        "active-only": false,
+        "all-outputs": true,
+        "format": "{icon}",
+        "on-click": "activate",
+        "on-scroll-up": "hyprctl dispatch workspace e+1",
+        "on-scroll-down": "hyprctl dispatch workspace e-1",
+        "show-special": false,
+        "persistent-workspaces": {
+            "*": 5
+        },
+        "format-icons": {
+            "1": " ",
+            "2": " ",
+            "3": " ",
+            "4": " ",
+            "empty": "<span font='9'>󰊠</span>",
+            "default": "󰊠"
+        }
+    },
+     "pulseaudio": {
+         "format": "{icon}  {volume}%",
+         "format-bluetooth": "{icon} {volume}%  {format_source}",
+         "format-bluetooth-muted": " {icon} {format_source}",
+         "format-icons": {
+           "car": "",
+           "default": ["", "", ""],
+           "hands-free": "",
+           "headphone": "",
+           "headset": "",
+           "phone": "",
+           "portable": ""
+         },
+         "format-muted": " {format_source}",
+         "format-source": " {volume}%",
+         "format-source-muted": "",
+         "on-click": "pavucontrol"
+    },
+    "custom/menu": {
+        "format": "󰣇",
+        "on-click": "uwsm app -- fuzzel",
+        "on-click-right":"keybinding",
+        "tooltip": true,
+        "tooltip-format":" Uygulama Menüsü\n Sağ Tık Kısayollar"
+    },
+    "custom/exit": {
+        "format": "",
+        "on-click": "powermenu",
+        "on-click-right": "hyprlock"
+    },
+    "hyprland/window": {
+        "tooltip": false,
+        "format": "{title}",
+        "separate-outputs": true,
+        "icon": false,
+        "max-length": 30,
+        "icon-size": 15
+    },
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "rotate": 0,
+        "format-icons": {
+            "activated": "\udb80\udd76",
+            "deactivated": "\udb81\udeca"
+        },
+        "justify": "center",
+        "tooltip": "true"
+    },
+    "clock": {
+        "format": "{:L%A %H:%M}",
+        "format-alt": "{:L%a, %d %b %Y %H:%M } ",
+        "interval": 1,
+        "tooltip-format": "<tt>{calendar}</tt>",
+        "calendar": {
+            "format": {
+                "today": "<span color='#fAfBfC'><b>{}</b></span>"
+            }
+        },
+        "actions": {
+            "on-click-right": "shift_down",
+            "on-click": "shift_up"
+        }
+    },
+    "network": {
+        "format-wifi": "",
+        "format-ethernet": "",
+        "format-disconnected": "",
+        "tooltip-format-disconnected": "Error",
+        "tooltip-format-wifi": "{essid} ({signalStrength}%) ",
+        "tooltip-format-ethernet": "{ifname} 🖧 ",
+        "on-click": "nm-connection-editor",
+        "on-click-right": "uwsm app -- kitty nmtui"
+    },
+    "battery": {
+        "interval": 30,
+        "states": {
+            "good": 95,
+            "warning": 30,
+            "critical": 20
+        },
+        "format": "{capacity}% {icon}",
+        "format-charging": "{capacity}% 󰂄",
+        "format-plugged": "{capacity}% 󰂄 ",
+        "format-alt": "{time} {icon}",
+        "format-icons": [
+            "󰁻",
+            "󰁼",
+            "󰁾",
+            "󰂀",
+            "󰂂",
+            "󰁹"
+        ]
+    },
+    "custom/pacman": {
+        "return-type": "json",
+        "interval": 3600,
+        "exec": "system_update_waybar",
+        "format": "{}",
+        "on-click": "setsid kitty bash -c 'yay -Syu --noconfirm; killall -SIGUSR2 waybar; echo; echo \"✅ Güncelleme tamamlandı.\"; read -p \"Kapatmak için Enter’a bas...\"' >/dev/null 2>&1 &",
+        "signal": 8,
+        "tooltip": true
+    },
+     "cpu": {
+        "interval": 10,
+        "format": "󰍛 {usage}%",
+        "rotate": 0,
+        "on-click": "uwsm app -- kitty btop",
+        "format-alt": "{icon0}{icon1}{icon2}{icon3}",
+        "format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"]
+    },
+    "memory": {
+        "states": {
+            "c": 90,
+            "h": 60,
+            "m": 30
+        },
+       "interval": 30,
+        "format": "\udb83\udf86 {used}GB",
+        "rotate": 0,
+        "format-m": "\udb83\udf85 {used}GB",
+        "format-h": "\udb81\udcc5 {used}GB",
+        "format-c": "\uf421 {used}GB",
+        "format-alt": "\udb83\udf86 {percentage}%",
+        "max-length": 10,
+        "tooltip": true,
+        "tooltip-format": "\udb83\udf86 Ram kullanımı: {percentage}%\n\ue266 Kullanılan: {used:0.2f}GB / {total:0.2f}GB"
+    },
+    "power-profiles-daemon": {
+        "format": "{icon} ",
+        "tooltip-format": "Güç profili: {profile}\nSürücü: {driver}",
+        "tooltip": true,
+        "format-icons": {
+          "default": "",
+          "performance": "",
+          "balanced": "",
+          "power-saver": ""
+        }
+    },
+    "tray": {
+        "icon-size": 14,
+        "spacing": 10
+    }
+}

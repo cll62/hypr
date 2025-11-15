@@ -1,0 +1,15 @@
+#!/bin/bash
+
+for proc in  mako swayosd-server waybar; do
+    pkill "$proc"
+done
+
+sleep 0.5
+
+start_services() {
+    systemctl --user restart mako.service
+    setsid uwsm app -- swayosd-server &
+    systemctl --user restart waybar.service
+}
+
+start_services

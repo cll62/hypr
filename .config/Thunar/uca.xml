@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+<action>
+	<icon>utilities-terminal</icon>
+	<name>Burada Terminal Aç</name>
+	<submenu></submenu>
+	<unique-id>1755776369505576-1</unique-id>
+	<command>kitty -d %f</command>
+	<description>Example for a custom action</description>
+	<range></range>
+	<patterns>*</patterns>
+	<startup-notify/>
+	<directories/>
+</action>
+<action>
+    <icon>meld</icon>
+    <name>Meld ile Karşılaştır</name>
+    <submenu></submenu>
+    <unique-id>1494418147309711-1</unique-id>
+    <command>meld %F</command>
+    <description>Seçilen iki öğeyi (dosya/klasör) Meld ile karşılaştırır</description>
+    
+    <lower>2</lower> 
+    <upper>2</upper> 
+
+    <patterns>*</patterns>
+    <directories/>
+    <text-files/> 
+</action>
+
+</actions>

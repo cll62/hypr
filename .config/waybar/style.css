@@ -1,0 +1,143 @@
+@import 'colors.css';
+
+@define-color base @surface_container_low;
+@define-color hovercolor @primary_container;
+@define-color activecolor @primary;
+@define-color bordercolor @outline;
+@define-color fontcolor @on_surface;
+@define-color secondary_font @on_surface_variant;
+@define-color active_text @on_primary;
+@define-color hover_text @on_primary_container;
+
+* {
+    font-family: "JetBrainsMono Nerd Font";
+    font-size: 12px;
+    transition: all 0.3s ease;
+}
+
+window#waybar {
+    background: alpha(@surface, 0.8);
+    border: 1px solid alpha(@bordercolor, 0.2);
+    border-radius: 10px;
+    padding: 4px 10px;
+    margin: 0px 10px;
+}
+
+.modules-left,
+.modules-center,
+.modules-right {
+    padding: 4px 10px;
+}
+
+tooltip {
+    background: @surface_container;
+    border-radius: 10px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: @outline;
+}
+
+tooltip label {
+    font-size: 12px;
+    color: @on_surface;
+}
+
+#clock,
+#custom-pacman,
+#network,
+#battery,
+#power-profiles-daemon,
+#cpu,
+#memory,
+#window,
+#idle_inhibitor,
+#pulseaudio,
+#tray,
+#custom-menu,
+#custom-exit {
+    padding: 0 6px;
+    color: @fontcolor;
+}
+
+#clock:hover,
+#custom-pacman:hover,
+#network:hover,
+#battery:hover,
+#power-profiles-daemon:hover,
+#cpu:hover,
+#tray:hover,
+#memory:hover,
+#window:hover,
+#idle_inhibitor:hover,
+#pulseaudio:hover,
+#custom-menu:hover,
+#custom-exit:hover {
+    color: @hover_text;
+    border-radius: 10px;
+    background-color: alpha(@hovercolor, 0.4);
+}
+
+#custom-exit {
+    color: @error;
+}
+
+#custom-exit:hover {
+    color: @on_error_container;
+    background-color: alpha(@error_container, 0.4);
+}
+
+#workspaces {
+    padding: 0 2px;
+}
+
+#workspaces button {
+    all: unset;
+    padding: 0 2px;
+    margin: 0 4px;
+    color: @secondary_font;
+    transition: all 0.3s ease;
+}
+
+#workspaces button.active {
+    color: @on_primary;
+    background-color: alpha(@primary, 0.3);
+    border-radius: 5px;
+}
+
+#workspaces button.empty {
+    color: alpha(@secondary_font, 0.5);
+}
+
+#workspaces button:hover {
+    color: @hover_text;
+    background-color: alpha(@hovercolor, 0.4);
+    border-radius: 5px;
+}
+
+#workspaces button.active:hover {
+    color: @on_primary;
+    background-color: alpha(@primary, 0.4);
+}
+
+#workspaces button.empty:hover {
+    color: @secondary_font;
+    background-color: alpha(@hovercolor, 0.2);
+}
+
+#battery.charging {
+    color: @primary;
+}
+
+#battery.warning:not(.charging) {
+    color: @warning;
+}
+
+#battery.critical:not(.charging) {
+    color: @error;
+    animation: blink 1s infinite alternate;
+}
+
+@keyframes blink {
+    0% { opacity: 1; }
+    100% { opacity: 0.4; }
+}

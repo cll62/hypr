@@ -1,0 +1,37 @@
+alias ls='eza -lh --group-directories-first --icons=auto'
+alias lsa='ls -a'
+alias lt='eza --tree --level=2 --long --icons --git'
+alias lta='lt -a'
+alias ff="fzf --preview 'bat --style=numbers --color=always {}'"
+zd() {
+  if [ $# -eq 0 ]; then
+    builtin cd ~ && return
+  elif [ -d "$1" ]; then
+    builtin cd "$1"
+  else
+    z "$@" && printf "\U000F17A9 " && pwd || echo "Error: Directory not found"
+  fi
+}
+open() {
+  xdg-open "$@" >/dev/null 2>&1 &
+}
+
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias fonts='fc-list -f "%{family}\n"'
+alias exe='chmod +x'
+alias yta-aac="yt-dlp --extract-audio --audio-format aac "
+alias yta-best="yt-dlp --extract-audio --audio-format best "
+alias yta-flac="yt-dlp --extract-audio --audio-format flac "
+alias yta-mp3="yt-dlp --extract-audio --audio-format mp3 "
+alias ytv-best="yt-dlp -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio' --merge-output-format mp4 "
+alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
+alias list="sudo pacman -Qqe"
+alias listt="sudo pacman -Qqet"
+alias listaur="sudo pacman -Qqem"
+alias add='git add .'
+alias clone='git clone'
+alias cloned='git clone --depth=1'
+alias cleanup='sudo pacman -Rns $(pacman -Qdtq)'
+alias mirror="sudo reflector --verbose -c BE -c BG -c FR -c DE -c GR -c TR --protocol https --sort rate --latest 10 --save /etc/pacman.d/mirrorlist --download-timeout 5"

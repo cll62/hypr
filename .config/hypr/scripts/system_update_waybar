@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+UPDATE_LIST_OFFICIAL=$(checkupdates 2>/dev/null | awk '{print $1}')
+UPDATE_LIST_AUR=$(yay -Qua 2>/dev/null | awk '{print $1}')
+UPDATE_LIST_NAMES=$(printf "%s\n%s" "$UPDATE_LIST_OFFICIAL" "$UPDATE_LIST_AUR" | grep -v '^$')
+
+if [ -z "$UPDATE_LIST_NAMES" ]; then
+    printf '{"text":"󰄬 0", "tooltip":"Tüm paketler güncel"}\n'
+else
+    COUNT=$(echo "$UPDATE_LIST_NAMES" | wc -l)
+    TOOLTIP=$(echo "$UPDATE_LIST_NAMES" | sed 's/"/\\"/g' | sed -z 's/\n/\\n/g' | tr -d '\0')
+    printf '{"text":"󰏔 %s", "tooltip":"%s"}\n' "$COUNT" "$TOOLTIP"
+fi
