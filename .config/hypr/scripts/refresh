@@ -1,0 +1,15 @@
+#!/bin/bash
+set -eu 
+pkill mako || true
+pkill swayosd-server || true
+pkill waybar || true
+
+sleep 0.5
+
+start_services() {
+    systemctl --user start mako.service
+    systemctl --user start waybar.service    
+    setsid uwsm app -- swayosd-server &
+}
+
+start_services

@@ -1,0 +1,161 @@
+@import 'colors.css';
+
+@define-color warning #f9a825; 
+@define-color base @surface_container_low;
+@define-color hovercolor @surface_container_highest;
+@define-color text_primary @on_surface;
+@define-color text_secondary @on_surface_variant;
+
+* {
+    font-family: "JetBrainsMono Nerd Font";
+    font-size: 12px;
+    min-height: 0; 
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1); 
+}
+
+window#waybar {
+    background: alpha(@surface, 0.85); 
+    border: 1px solid alpha(@outline, 0.1); 
+    border-radius: 12px; 
+    padding: 2px 5px;
+    margin: 5px 10px;     
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2); 
+}
+
+#clock,
+#custom-pacman,
+#network,
+#battery,
+#power-profiles-daemon,
+#cpu,
+#memory,
+#window,
+#idle_inhibitor,
+#pulseaudio,
+#tray,
+#custom-menu,
+#custom-exit {
+    padding: 0 10px; 
+    border-radius: 8px;
+    color: @text_primary;
+    margin: 2px 0; 
+}
+
+#clock:hover,
+#custom-pacman:hover,
+#network:hover,
+#battery:hover,
+#power-profiles-daemon:hover,
+#cpu:hover,
+#tray:hover,
+#memory:hover,
+#window:hover,
+#idle_inhibitor:hover,
+#pulseaudio:hover,
+#custom-menu:hover,
+#custom-exit:hover {
+    background-color: @hovercolor;
+    color: @on_surface;
+}
+
+#custom-exit {
+    color: @error;
+}
+
+#custom-exit:hover {
+    color: @on_error_container;
+    background-color: @error_container;
+}
+
+#workspaces {
+    padding: 0;
+    margin: 0 4px;
+}
+
+#workspaces button {
+    padding: 0 5px;
+    margin: 0 2px;
+    color: @text_secondary;
+    border-radius: 8px;
+    background-color: transparent;
+    transition: all 0.3s ease;
+}
+
+#workspaces button.active {
+    color: @on_secondary_container;
+    background-color: @secondary_container;
+    min-width: 30px; 
+}
+
+#workspaces button:hover {
+    background-color: @surface_container_highest;
+    color: @on_surface;
+}
+
+#workspaces button.urgent {
+    color: @on_error;
+    background-color: @error;
+}
+
+#battery.charging, #battery.plugged {
+    color: @primary;
+}
+
+#battery.warning:not(.charging) {
+    color: @warning; 
+}
+
+#battery.critical:not(.charging) {
+    color: @error;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+tooltip {
+    background: @surface_container;
+    border: 1px solid @outline_variant;
+    border-radius: 8px;
+}
+
+tooltip label {
+    color: @on_surface;
+}
+
+@keyframes blink {
+    to {
+        color: @on_error;
+        background-color: @error;
+    }
+}
+
+#group-hardware,
+#group-power {
+    background-color: alpha(@surface, 0.5); 
+    border: 1px solid alpha(@outline, 0.2);
+    border-radius: 10px; 
+    padding: 2px;       
+    margin: 2px 4px;    
+}
+
+#group-hardware #cpu,
+#group-hardware #memory,
+#group-power #battery,
+#group-power #power-profiles-daemon {
+    background-color: transparent; 
+    border: none;
+    padding: 0 8px; 
+    margin: 0;     
+    box-shadow: none;
+}
+
+#group-hardware #cpu:hover,
+#group-hardware #memory:hover,
+#group-power #battery:hover,
+#group-power #power-profiles-daemon:hover {
+    background-color: @hovercolor;
+    color: @on_surface;
+    border-radius: 8px; 
+}

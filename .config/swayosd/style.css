@@ -1,0 +1,63 @@
+@import "colors.css";
+
+window#osd {
+  border-radius: 12px; 
+  border: 1px solid alpha(@outline, 0.1); 
+  
+  background: alpha(@surface, 0.85); 
+
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
+  
+  padding: 12px 20px; 
+}
+
+window#osd #container {
+  margin: 0px;
+  padding: 0px;
+  background: transparent;
+}
+
+window#osd image {
+  -gtk-icon-transform: scale(0.8); 
+}
+
+window#osd image,
+window#osd label {
+  color: @on_surface;
+}
+
+window#osd label {
+  font-size: 14px;
+  font-weight: bold;
+  font-family: "JetBrainsMono Nerd Font";
+  margin-top: 8px; 
+}
+
+window#osd progressbar:disabled,
+window#osd image:disabled {
+  opacity: 0.5;
+}
+
+window#osd progressbar {
+  min-height: 8px; 
+  border-radius: 999px;
+  background: transparent;
+  border: none;
+  margin-top: 8px; 
+}
+
+window#osd trough {
+  min-height: inherit;
+  border-radius: inherit;
+  border: none;
+  background: alpha(@surface_variant, 0.4); 
+}
+
+window#osd progress {
+  min-height: inherit;
+  border-radius: inherit;
+  border: none;
+  background: @primary; 
+  
+  box-shadow: 0 0 10px alpha(@primary, 0.5);
+}

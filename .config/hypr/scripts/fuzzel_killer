@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+set -e
+
+MENU="fuzzel -d --y 4 -w 50 -l 15"
+
+selected="$(ps -a -u $USER |
+  $MENU --prompt "Süreç sonlandır:" |
+  awk '{print $1" "$4}')"
+
+if [[ -n $selected ]]; then
+  answer="$(echo -e "Evet\nHayır" |
+    $MENU --prompt "Sonlandırılsın mı: $selected?")"
+
+  if [[ $answer == "Evet" ]]; then
+    selpid="$(awk '{print $1}' <<<"$selected")"
+    kill -15 "$selpid" 2>/dev/null || kill -9 "$selpid" 2>/dev/null
+  fi
+fi
+
+exit 0

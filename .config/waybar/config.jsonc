@@ -1,0 +1,45 @@
+{
+    "include": "$HOME/.config/waybar/modules.json",
+    "layer": "top",
+    "position": "top",
+    "margin": "0 8 0 8",
+    "reload_style_on_change": true,
+    "modules-left": [
+        "custom/menu",
+        "hyprland/workspaces",
+        "hyprland/window"
+    ],
+    "modules-center": [
+        "clock",
+        "idle_inhibitor",
+        "custom/pacman"
+    ],
+    "modules-right": [
+        "tray",
+        "group/hardware",   
+        "pulseaudio",       
+        "group/power",      
+        "custom/exit"
+    ],
+    
+    "group/hardware": {
+        "orientation": "horizontal",
+        "modules": [
+            "cpu",
+            "memory"
+        ]
+    },
+
+    "group/power": {
+        "orientation": "horizontal",
+        "drawer": {
+            "transition-duration": 500,
+            "children-class": "not-power",
+            "transition-left-to-right": false
+        },
+        "modules": [
+            "battery",
+            "power-profiles-daemon"
+        ]
+    }
+}

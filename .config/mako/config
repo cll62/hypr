@@ -1,0 +1,27 @@
+anchor=top-right
+default-timeout=5000
+border-size=2
+border-radius=10
+font=JetBrainsMono Nerd Font 12px
+
+text-color=#dfe3e7
+border-color=#8b9198
+background-color=#101417cc
+
+[urgency=low]
+text-color=#c1c7ce
+border-color=#41484d
+background-color=#181c20
+default-timeout=2500
+
+[urgency=normal]
+text-color=#dfe3e7
+border-color=#8b9198
+background-color=#101417
+default-timeout=5000
+
+[urgency=critical]
+text-color=#ffdad6
+border-color=#ffb4ab
+background-color=#93000a
+default-timeout=0

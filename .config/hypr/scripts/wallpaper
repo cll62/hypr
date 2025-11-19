@@ -1,0 +1,61 @@
+#!/bin/bash
+
+set -euo pipefail
+
+DUVAR_KAGIDI_DIZINI="$HOME/.config/wallpapers"
+MATUGEN_CONFIG="$HOME/.config/matugen/config.toml"
+SABIT_DUVAR_KAGIDI="$HOME/.config/hypr/.cache/current_wallpaper.png"
+
+[ ! -d "$DUVAR_KAGIDI_DIZINI" ] && { echo "HATA: Duvar kağıdı dizini bulunamadı: $DUVAR_KAGIDI_DIZINI" 1>&2; exit 1; }
+
+mapfile -t DOSYALAR < <(find "$DUVAR_KAGIDI_DIZINI" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.webp" \) | sort)
+[ ${#DOSYALAR[@]} -eq 0 ] && { echo "HATA: Duvar kağıdı dosyası bulunamadı." 1>&2; exit 1; }
+
+BASENAMES=()
+for dosya in "${DOSYALAR[@]}"; do
+    BASENAMES+=("$(basename "$dosya")")
+done
+
+SECILEN_AD=$(printf '%s\n' "${BASENAMES[@]}" | uwsm app -- fuzzel -d -w 50 --placeholder='Duvar Kağıdı Seç') || exit 0
+[ -z "$SECILEN_AD" ] && exit 0
+
+SECILEN_DUVAR_KAGIDI=""
+for dosya in "${DOSYALAR[@]}"; do
+    if [ "$(basename "$dosya")" = "$SECILEN_AD" ]; then
+        SECILEN_DUVAR_KAGIDI="$dosya"
+        break
+    fi
+done
+
+[ -z "$SECILEN_DUVAR_KAGIDI" ] && { echo "HATA: Seçilen dosya yolu bulunamadı." 1>&2; exit 1; }
+
+mkdir -p "$(dirname "$SABIT_DUVAR_KAGIDI")"
+
+if command -v magick &> /dev/null; then
+    magick "$SECILEN_DUVAR_KAGIDI" "$SABIT_DUVAR_KAGIDI" 2>/dev/null || cp "$SECILEN_DUVAR_KAGIDI" "$SABIT_DUVAR_KAGIDI"
+elif command -v convert &> /dev/null; then
+    convert "$SECILEN_DUVAR_KAGIDI" "$SABIT_DUVAR_KAGIDI" 2>/dev/null || cp "$SECILEN_DUVAR_KAGIDI" "$SABIT_DUVAR_KAGIDI"
+else
+    cp "$SECILEN_DUVAR_KAGIDI" "$SABIT_DUVAR_KAGIDI"
+fi
+
+uwsm app -- swww img "$SABIT_DUVAR_KAGIDI" \
+    --transition-fps 120 \
+    --transition-type "any" \
+    --transition-duration 1 \
+    --transition-bezier ".28,.58,.99,.37" &
+
+if [ -f "$MATUGEN_CONFIG" ]; then
+    matugen image -c "$MATUGEN_CONFIG" "$SECILEN_DUVAR_KAGIDI"
+else
+    matugen image "$SECILEN_DUVAR_KAGIDI"
+fi
+
+if command -v refresh &> /dev/null; then
+    refresh
+else
+    sleep 0.5
+    killall -SIGUSR2 waybar || true
+fi
+
+notify-send "Duvar Kağıdı Ayarlandı" "$(basename "$SECILEN_DUVAR_KAGIDI")"

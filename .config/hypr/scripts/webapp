@@ -1,0 +1,76 @@
+#!/bin/bash
+set -euo pipefail
+
+CHROMIUM="uwsm app -- chromium --ozone-platform=wayland --new-window"
+
+declare -A SITES=(
+    ["Github"]="https://github.com/cll62/hypr"
+    ["Spotify"]="https://open.spotify.com/"
+    ["WhatsApp"]="https://web.whatsapp.com/"
+    ["Telegram"]="https://web.telegram.org/k/"
+    ["Instagram"]="https://www.instagram.com/"
+    ["X"]="https://x.com/"
+    ["YouTube"]="https://youtube.com"
+    ["Netflix"]="https://www.netflix.com/"
+    ["Mubi"]="https://mubi.com/"
+    ["YouTube Müzik"]="https://music.youtube.com"
+    ["Drive"]="https://drive.google.com/drive/u/0/home"
+    ["OneDrive"]="https://onedrive.live.com/"
+    ["Lichess"]="https://lichess.org/"
+    ["ProtonMail"]="https://mail.proton.me/"
+    ["Excalidraw"]="https://excalidraw.com/"
+    ["Monkeytype"]="https://monkeytype.com/"
+    ["Crixet"]="https://app.crixet.com/"
+    ["Overleaf"]="https://overleaf.com/"
+    ["Mathpix"]="https://snip.mathpix.com/home"
+    ["Ziteboard"]="https://app.ziteboard.com/"
+    ["ChatGPT"]="https://chatgpt.com/"
+    ["Grok"]="https://grok.com/"
+    ["Gemini"]="https://gemini.google.com/app"
+    ["Qwen"]="https://chat.qwen.ai/"
+    ["Claude"]="https://claude.ai/"
+    ["Poe"]="https://poe.com/"
+    ["Mathcha"]="https://www.mathcha.io/editor"
+    ["Gmail"]="https://mail.google.com/"
+    ["Outlook"]="https://outlook.live.com/mail/0/"
+    ["Word Online"]="https://word.cloud.microsoft/"
+    ["Desmos"]="https://www.desmos.com/calculator"
+    ["Google Photos"]="https://photos.google.com/"
+    ["Math Whiteboard"]="https://www.mathwhiteboard.com/whiteboard/"
+    ["GeoGebra"]="https://www.geogebra.org/calculator"
+    ["Miro"]="https://miro.com/"
+    ["HedgeDoc"]="https://hedgedoc.org/"
+    ["Diagrams.net"]="https://app.diagrams.net/"
+    ["Figma"]="https://www.figma.com/"
+    ["Canva"]="https://www.canva.com/"
+    ["Pixlr"]="https://pixlr.com/editor/"
+    ["Photopea"]="https://www.photopea.com/"
+    ["CodePen"]="https://codepen.io/"
+    ["JSFiddle"]="https://jsfiddle.net/"
+    ["Replit"]="https://replit.com/"
+    ["Khan Academy"]="https://www.khanacademy.org/"
+    ["Coursera"]="https://www.coursera.org/"
+    ["edX"]="https://www.edx.org/"
+    ["Udemy"]="https://www.udemy.com/"
+    ["Google Docs"]="https://docs.google.com/"
+    ["Etherpad"]="https://etherpad.org/"
+    ["Google Maps"]="https://maps.google.com/"
+    ["OSM"]="https://www.openstreetmap.org/"
+    ["Reddit"]="https://reddit.com/"
+    ["Medium"]="https://medium.com/"
+    ["Substack"]="https://substack.com/"
+    ["Google"]="https://www.google.com/"
+    ["TikTok"]="https://www.tiktok.com/"
+)
+
+secim="$(printf '%s\n' "${!SITES[@]}" | sort | uwsm app -- fuzzel -d --placeholder=' Web Uygulamaları')"
+[ -z "$secim" ] && exit 0
+
+url="${SITES[$secim]}"
+
+if [ -n "$url" ]; then
+    $CHROMIUM --app="$url" &
+else
+    echo "Seçilen uygulama bulunamadı!"
+    exit 1
+fi
