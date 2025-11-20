@@ -1,61 +1,82 @@
-#!/bin/bash
-
+#!/usr/bin/env bash
 set -euo pipefail
 
-DUVAR_KAGIDI_DIZINI="$HOME/.config/wallpapers"
-MATUGEN_CONFIG="$HOME/.config/matugen/config.toml"
-SABIT_DUVAR_KAGIDI="$HOME/.config/hypr/.cache/current_wallpaper.png"
+WALLPAPER_DIR="${HOME}/.config/wallpapers"
+MATUGEN_CONFIG="${HOME}/.config/matugen/config.toml"
+CACHE_DIR="${HOME}/.config/hypr/.cache"
+CACHE_WALLPAPER="${CACHE_DIR}/current_wallpaper.png"
 
-[ ! -d "$DUVAR_KAGIDI_DIZINI" ] && { echo "HATA: Duvar kağıdı dizini bulunamadı: $DUVAR_KAGIDI_DIZINI" 1>&2; exit 1; }
+[[ -d "$WALLPAPER_DIR" ]] || { notify-send -u critical "Hata" "Duvar kağıdı dizini yok: $WALLPAPER_DIR"; exit 1; }
+command -v jq >/dev/null || { notify-send -u critical "Hata" "jq yüklü değil! pacman -S jq"; exit 1; }
 
-mapfile -t DOSYALAR < <(find "$DUVAR_KAGIDI_DIZINI" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.webp" \) | sort)
-[ ${#DOSYALAR[@]} -eq 0 ] && { echo "HATA: Duvar kağıdı dosyası bulunamadı." 1>&2; exit 1; }
+mapfile -t WALLPAPERS < <(
+    find "$WALLPAPER_DIR" -type f \
+        \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.webp" \) \
+        -print | sort -f
+)
 
-BASENAMES=()
-for dosya in "${DOSYALAR[@]}"; do
-    BASENAMES+=("$(basename "$dosya")")
-done
+(( ${#WALLPAPERS[@]} == 0 )) && {
+    notify-send -u critical "Hata" "Wallpapers klasöründe resim bulunamadı!";
+    exit 1;
+}
 
-SECILEN_AD=$(printf '%s\n' "${BASENAMES[@]}" | uwsm app -- fuzzel -d -w 50 --placeholder='Duvar Kağıdı Seç') || exit 0
-[ -z "$SECILEN_AD" ] && exit 0
+SELECTED_BASENAME=$(
+    printf '%s\n' "${WALLPAPERS[@]##*/}" |
+        fuzzel -d  \
+            --placeholder="Duvar kağıdı ara..."
+)
 
-SECILEN_DUVAR_KAGIDI=""
-for dosya in "${DOSYALAR[@]}"; do
-    if [ "$(basename "$dosya")" = "$SECILEN_AD" ]; then
-        SECILEN_DUVAR_KAGIDI="$dosya"
+[[ -z "$SELECTED_BASENAME" ]] && exit 0
+
+SELECTED_WALLPAPER=""
+for wp in "${WALLPAPERS[@]}"; do
+    if [[ "$(basename "$wp")" == "$SELECTED_BASENAME" ]]; then
+        SELECTED_WALLPAPER="$wp"
         break
     fi
 done
 
-[ -z "$SECILEN_DUVAR_KAGIDI" ] && { echo "HATA: Seçilen dosya yolu bulunamadı." 1>&2; exit 1; }
+[[ -z "$SELECTED_WALLPAPER" ]] && {
+    notify-send -u low "Hata" "Seçilen dosya bulunamadı.";
+    exit 1;
+}
 
-mkdir -p "$(dirname "$SABIT_DUVAR_KAGIDI")"
+mkdir -p "$CACHE_DIR"
 
-if command -v magick &> /dev/null; then
-    magick "$SECILEN_DUVAR_KAGIDI" "$SABIT_DUVAR_KAGIDI" 2>/dev/null || cp "$SECILEN_DUVAR_KAGIDI" "$SABIT_DUVAR_KAGIDI"
-elif command -v convert &> /dev/null; then
-    convert "$SECILEN_DUVAR_KAGIDI" "$SABIT_DUVAR_KAGIDI" 2>/dev/null || cp "$SECILEN_DUVAR_KAGIDI" "$SABIT_DUVAR_KAGIDI"
+FOCUSED_RES=$(hyprctl monitors -j | jq -r '.[] | select(.focused == true) | "\(.width)x\(.height)"')
+[[ -z "$FOCUSED_RES" ]] && FOCUSED_RES="1920x1080"
+
+if command -v magick >/dev/null 2>&1; then
+    magick "$SELECTED_WALLPAPER" \
+        -strip \
+        -resize "${FOCUSED_RES}" \
+        -background black \
+        -gravity center \
+        -extent "${FOCUSED_RES}" \
+        "$CACHE_WALLPAPER"
 else
-    cp "$SECILEN_DUVAR_KAGIDI" "$SABIT_DUVAR_KAGIDI"
+    cp "$SELECTED_WALLPAPER" "$CACHE_WALLPAPER"
 fi
 
-uwsm app -- swww img "$SABIT_DUVAR_KAGIDI" \
+swww img "$CACHE_WALLPAPER" \
     --transition-fps 120 \
-    --transition-type "any" \
-    --transition-duration 1 \
-    --transition-bezier ".28,.58,.99,.37" &
+    --transition-type any \
+    --transition-duration 1.3 \
+    --transition-bezier .28,.58,.99,.37 \
+    --transition-step 255 &
 
-if [ -f "$MATUGEN_CONFIG" ]; then
-    matugen image -c "$MATUGEN_CONFIG" "$SECILEN_DUVAR_KAGIDI"
+if [[ -f "$MATUGEN_CONFIG" ]]; then
+    matugen image -c "$MATUGEN_CONFIG" "$SELECTED_WALLPAPER"
 else
-    matugen image "$SECILEN_DUVAR_KAGIDI"
+    matugen image "$SELECTED_WALLPAPER"
 fi
 
-if command -v refresh &> /dev/null; then
+if command -v refresh >/dev/null 2>&1; then
     refresh
 else
-    sleep 0.5
-    killall -SIGUSR2 waybar || true
+    sleep 0.7
+    pkill -SIGUSR2 waybar || true
 fi
 
-notify-send "Duvar Kağıdı Ayarlandı" "$(basename "$SECILEN_DUVAR_KAGIDI")"
+notify-send -i "$CACHE_WALLPAPER" "Duvar Kağıdı Değiştirildi" \
+    "<big><b>$(basename "$SELECTED_WALLPAPER")</b></big>\n ${FOCUSED_RES}"
