@@ -5,58 +5,97 @@ WALLPAPER_DIR="${HOME}/.config/wallpapers"
 MATUGEN_CONFIG="${HOME}/.config/matugen/config.toml"
 CACHE_DIR="${HOME}/.config/hypr/.cache"
 CACHE_WALLPAPER="${CACHE_DIR}/current_wallpaper.png"
+API_URL="https://wallhaven.cc/api/v1/search"
+DEBUG_FILE="/tmp/wallhaven_debug.json"
 
-[[ -d "$WALLPAPER_DIR" ]] || { notify-send -u critical "Hata" "Duvar kağıdı dizini yok: $WALLPAPER_DIR"; exit 1; }
-command -v jq >/dev/null || { notify-send -u critical "Hata" "jq yüklü değil! pacman -S jq"; exit 1; }
-
-mapfile -t WALLPAPERS < <(
-    find "$WALLPAPER_DIR" -type f \
-        \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.webp" \) \
-        -print | sort -f
-)
-
-(( ${#WALLPAPERS[@]} == 0 )) && {
-    notify-send -u critical "Hata" "Wallpapers klasöründe resim bulunamadı!";
-    exit 1;
-}
-
-SELECTED_BASENAME=$(
-    printf '%s\n' "${WALLPAPERS[@]##*/}" |
-        fuzzel -d  \
-            --placeholder="Duvar kağıdı ara..."
-)
-
-[[ -z "$SELECTED_BASENAME" ]] && exit 0
-
-SELECTED_WALLPAPER=""
-for wp in "${WALLPAPERS[@]}"; do
-    if [[ "$(basename "$wp")" == "$SELECTED_BASENAME" ]]; then
-        SELECTED_WALLPAPER="$wp"
-        break
-    fi
-done
-
-[[ -z "$SELECTED_WALLPAPER" ]] && {
-    notify-send -u low "Hata" "Seçilen dosya bulunamadı.";
-    exit 1;
-}
-
+[[ -d "$WALLPAPER_DIR" ]] || mkdir -p "$WALLPAPER_DIR"
 mkdir -p "$CACHE_DIR"
+
+for cmd in jq curl fuzzel swww hyprctl magick; do
+    command -v $cmd >/dev/null || { notify-send -u critical "Hata" "$cmd yüklü değil!"; exit 1; }
+done
 
 FOCUSED_RES=$(hyprctl monitors -j | jq -r '.[] | select(.focused == true) | "\(.width)x\(.height)"')
 [[ -z "$FOCUSED_RES" ]] && FOCUSED_RES="1920x1080"
 
-if command -v magick >/dev/null 2>&1; then
-    magick "$SELECTED_WALLPAPER" \
-        -strip \
-        -resize "${FOCUSED_RES}" \
-        -background black \
-        -gravity center \
-        -extent "${FOCUSED_RES}" \
-        "$CACHE_WALLPAPER"
-else
-    cp "$SELECTED_WALLPAPER" "$CACHE_WALLPAPER"
+SECIM=$(printf "1. 📁 Yerel Dosyalar\n2. 🌐 Wallhaven'da Ara" | fuzzel -d --lines=2 --width=30 --prompt="Mod Seçin: ")
+
+[[ -z "$SECIM" ]] && exit 0
+
+SELECTED_WALLPAPER=""
+
+
+if [[ "$SECIM" == "1. 📁 Yerel Dosyalar" ]]; then
+    mapfile -t WALLPAPERS < <(
+        find "$WALLPAPER_DIR" -type f \
+            \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.webp" \) \
+            -printf "%P\n" | sort -V
+    )
+
+    if (( ${#WALLPAPERS[@]} == 0 )); then
+        notify-send -u critical "Hata" "Klasörde resim yok: $WALLPAPER_DIR"
+        exit 1
+    fi
+
+    SELECTED_NAME=$(printf '%s\n' "${WALLPAPERS[@]}" | fuzzel -d --placeholder="Yerel dosya seç...")
+    [[ -z "$SELECTED_NAME" ]] && exit 0
+    
+    SELECTED_WALLPAPER="${WALLPAPER_DIR}/${SELECTED_NAME}"
+
+elif [[ "$SECIM" == "2. 🌐 Wallhaven'da Ara" ]]; then
+    
+    QUERY=$(echo "" | fuzzel -d --lines=0 --width=40 --prompt="Wallhaven Ara (Boş=Popüler): " --placeholder="Örn: cyberpunk...")
+    if [ $? -ne 0 ]; then exit 0; fi
+
+    notify-send -t 2000 "Wallhaven" "$FOCUSED_RES çözünürlüğünde aranıyor..."
+
+    if [[ -z "$QUERY" ]]; then
+        API_PARAMS="resolutions=${FOCUSED_RES}&sorting=toplist&purity=100"
+    else
+        API_PARAMS="q=${QUERY}&resolutions=${FOCUSED_RES}&sorting=relevance&purity=100"
+    fi
+
+    if ! curl -s -f "${API_URL}?${API_PARAMS}" > "$DEBUG_FILE"; then
+        notify-send -u critical "Hata" "Sunucu hatası veya internet yok."
+        exit 1
+    fi
+
+    SELECTED_LINE=$(jq -r '(.data // []) | .[] | "\(.id) | \(.resolution) | \(.path) | [\(.category)] \(.file_type)"' "$DEBUG_FILE" | \
+        fuzzel -d --width=90 --prompt="İndir: ")
+
+    if [[ -z "$SELECTED_LINE" ]]; then
+        exit 0
+    fi
+
+    SELECTED_URL=$(echo "$SELECTED_LINE" | awk -F ' \\| ' '{print $3}')
+    EXTENSION="${SELECTED_URL##*.}"
+
+    i=1
+    while true; do
+        if ! find "$WALLPAPER_DIR" -maxdepth 1 -type f -name "w${i}.*" -print -quit | grep -q .; then
+            NEW_FILENAME="w${i}.${EXTENSION}"
+            break
+        fi
+        ((i++))
+    done
+    
+    LOCAL_FILE="${WALLPAPER_DIR}/${NEW_FILENAME}"
+
+    notify-send "İndiriliyor" "$NEW_FILENAME..."
+    curl -L -s -o "$LOCAL_FILE" "$SELECTED_URL" || { notify-send "Hata" "İndirme başarısız"; exit 1; }
+    
+    SELECTED_WALLPAPER="$LOCAL_FILE"
 fi
+
+
+[[ -z "$SELECTED_WALLPAPER" ]] && exit 1
+
+magick "$SELECTED_WALLPAPER" \
+    -strip \
+    -resize "${FOCUSED_RES}^" \
+    -gravity center \
+    -extent "${FOCUSED_RES}" \
+    "$CACHE_WALLPAPER"
 
 swww img "$CACHE_WALLPAPER" \
     --transition-fps 120 \
@@ -78,5 +117,4 @@ else
     pkill -SIGUSR2 waybar || true
 fi
 
-notify-send -i "$CACHE_WALLPAPER" "Duvar Kağıdı Değiştirildi" \
-    "<big><b>$(basename "$SELECTED_WALLPAPER")</b></big>\n ${FOCUSED_RES}"
+notify-send -i "$CACHE_WALLPAPER" "Tamamlandı" "$(basename "$SELECTED_WALLPAPER")"
